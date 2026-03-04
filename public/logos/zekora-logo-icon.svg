@@ -1,0 +1,15 @@
+<!--
+  PLACEHOLDER: Zekora Icon Logo
+  This file should contain only the Z icon symbol
+  Format: SVG
+  Usage: App icons, favicons, watermarks
+  Requirements:
+  - Abstract geometric Z shape
+  - Must work at small sizes (16x16 to 512x512)
+  - Must work on light and dark backgrounds
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <rect width="50" height="50" rx="8" fill="#1F3C88"/>
+  <text x="12" y="38" font-family="Inter, sans-serif" font-weight="700" font-size="36" fill="#ffffff">Z</text>
+</svg>
+

@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: #ffffff;
+  --color-foreground: #333333;
+  --color-primary: #1F3C88;
+  --color-primary-foreground: #ffffff;
+  --color-primary-light: #e8ecf5;
+  --color-primary-lighter: #f3f5fa;
+  --color-primary-hover: #193175;
+  --color-secondary: #1BA6A6;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-light: #e6f5f5;
+  --color-secondary-hover: #158e8e;
+  --color-muted: #F2F2F2;
+  --color-muted-foreground: #666666;
+  --color-accent: #1BA6A6;
+  --color-accent-foreground: #ffffff;
+  --color-border: #e5e7eb;
+  --color-ring: #1F3C88;
+  --color-card: #ffffff;
+  --color-card-hover: #f9fafb;
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+p {
+  line-height: 1.7;
+}
+
+::selection {
+  background-color: #1F3C88;
+  color: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
