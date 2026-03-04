@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { getDictionary, type Locale } from "@/lib/i18n";
+import { getDictionary, i18n, type Locale } from "@/lib/i18n";
 import { t } from "@/lib/config";
 import { AboutContent } from "./AboutContent";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale: raw } = await params;
+  const locale = (i18n.locales.includes(raw as Locale) ? raw : i18n.defaultLocale) as Locale;
   const dict = await getDictionary(locale);
   return {
     title: dict.about.meta.title,
@@ -19,4 +20,3 @@ export async function generateMetadata({
 export default function AboutPage() {
   return <AboutContent />;
 }
-
