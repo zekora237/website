@@ -28,17 +28,18 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white shadow-md"
-          : "bg-transparent"
+        scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
       style={{ backdropFilter: scrolled ? "blur(12px)" : undefined }}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
+          {/* Logo — white on hero, primary when scrolled */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl lg:text-2xl font-bold tracking-tight text-primary">
+            <span
+              className="text-xl lg:text-2xl font-bold tracking-tight transition-colors duration-300"
+              style={{ color: scrolled ? "#1F3C88" : "#ffffff" }}
+            >
               ZEKORA
             </span>
           </Link>
@@ -49,17 +50,31 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
+                className="text-sm font-medium transition-colors duration-300"
+                style={{ color: scrolled ? "#333333" : "rgba(255,255,255,0.85)" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.color = scrolled ? "#1F3C88" : "#ffffff")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = scrolled ? "#333333" : "rgba(255,255,255,0.85)")
+                }
               >
                 {link.label}
               </Link>
             ))}
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200"
-              style={{ backgroundColor: "#1F3C88" }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#193175")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#1F3C88")}
+              className="inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition-colors duration-300"
+              style={{
+                backgroundColor: scrolled ? "#1F3C88" : "#ffffff",
+                color: scrolled ? "#ffffff" : "#1F3C88",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = scrolled ? "#193175" : "rgba(255,255,255,0.9)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = scrolled ? "#1F3C88" : "#ffffff";
+              }}
             >
               Get a Quote
             </Link>
@@ -68,7 +83,8 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 transition-colors"
+            style={{ color: scrolled ? "#333333" : "#ffffff" }}
             aria-label="Toggle navigation menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -97,7 +113,8 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block text-base font-medium text-foreground hover:text-primary transition-colors"
+                    className="block text-base font-medium transition-colors"
+                    style={{ color: "#333333" }}
                   >
                     {link.label}
                   </Link>
