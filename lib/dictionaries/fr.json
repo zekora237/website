@@ -1,0 +1,308 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "getQuote": "Demander un devis"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "{brand} conçoit des sites web, des applications mobiles et des systèmes métier qui aident les organisations à se moderniser, gagner en efficacité et croître en toute confiance.",
+      "ctaPrimary": "Demander un devis",
+      "ctaSecondary": "Voir nos services"
+    },
+    "services": {
+      "title": "Ce que nous construisons",
+      "subtitle": "De la conception à la livraison, nous créons des solutions numériques qui résolvent de vrais problèmes métier — pas juste du logiciel.",
+      "webDev": {
+        "title": "Développement Web",
+        "description": "Sites web et applications web sur mesure, construits avec des technologies modernes. Responsifs, rapides et conçus pour convertir."
+      },
+      "mobile": {
+        "title": "Applications Mobiles",
+        "description": "Applications mobiles natives et cross-platform offrant des expériences fluides sur iOS et Android."
+      },
+      "digital": {
+        "title": "Digitalisation Métier",
+        "description": "Transformez vos processus manuels en systèmes numériques efficaces. Gagnez en clarté et en contrôle opérationnel."
+      },
+      "saas": {
+        "title": "SaaS & Systèmes Sur Mesure",
+        "description": "Plateformes SaaS évolutives et outils internes personnalisés, conçus pour vos besoins spécifiques."
+      }
+    },
+    "whyUs": {
+      "title": "Pourquoi choisir {brand}",
+      "subtitle": "Nos valeurs fondamentales définissent notre façon de travailler et ce que vous pouvez attendre. Chaque projet reflète notre engagement envers la qualité et la clarté.",
+      "clarity": {
+        "title": "Clarté",
+        "description": "Communication claire, périmètre clair, attentes claires. Aucune ambiguïté dans le travail ou les relations."
+      },
+      "reliability": {
+        "title": "Fiabilité",
+        "description": "Les engagements sont respectés. Les délais sont pris au sérieux. La qualité est constante."
+      },
+      "simplicity": {
+        "title": "Simplicité",
+        "description": "Les solutions simples sont privilégiées. La complexité doit toujours être justifiée."
+      },
+      "ownership": {
+        "title": "Responsabilité",
+        "description": "Nous assumons la responsabilité de notre travail. Chaque projet est traité comme une référence de la marque."
+      }
+    },
+    "process": {
+      "title": "Notre Processus",
+      "subtitle": "Une approche structurée, de la compréhension de vos besoins à la livraison des résultats. Pas de surprises, juste de la clarté à chaque étape.",
+      "discovery": {
+        "title": "Découverte",
+        "description": "Nous comprenons votre activité, vos objectifs et vos défis."
+      },
+      "design": {
+        "title": "Conception",
+        "description": "Nous créons des solutions structurées et claires, adaptées à vos besoins."
+      },
+      "development": {
+        "title": "Développement",
+        "description": "Nous construisons avec des outils modernes, du code propre et les meilleures pratiques."
+      },
+      "delivery": {
+        "title": "Livraison",
+        "description": "Nous déployons, accompagnons et veillons à ce que tout fonctionne parfaitement."
+      }
+    },
+    "cta": {
+      "title": "Prêt à construire quelque chose de grand ?",
+      "subtitle": "Discutons de votre projet. Nous vous aiderons à définir la bonne solution et à la concrétiser.",
+      "button": "Démarrer votre projet"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "À propos",
+      "description": "Découvrez la mission, la vision, les valeurs fondamentales et l'approche de {brand} pour construire des solutions numériques qui structurent et font croître les entreprises."
+    },
+    "header": {
+      "title": "À propos de {brand}",
+      "subtitle": "Une entreprise technologique qui conçoit des solutions numériques et crée des produits évolutifs — avec clarté, qualité et sens."
+    },
+    "mission": {
+      "label": "Notre Mission",
+      "title": "Résoudre de vrais problèmes, pas juste livrer du logiciel",
+      "p1": "Aider les entreprises à construire des fondations numériques solides qui rendent leur travail plus facile, plus clair et plus efficace.",
+      "p2": "{brand} conçoit et construit des sites web, des applications mobiles et des systèmes métier internes pour ses clients. Ces services aident les organisations à établir ou améliorer leur présence numérique, digitaliser leurs processus internes et gagner en efficacité, clarté et contrôle opérationnel.",
+      "placeholder": "Illustration de la mission"
+    },
+    "vision": {
+      "label": "Notre Vision",
+      "title": "Des services numériques au Venture Building",
+      "p1": "Évoluer d'une entreprise de services numériques vers une organisation de venture building qui sert ses clients avec des solutions de haute qualité tout en créant des produits numériques évolutifs.",
+      "p2": "{brand} suit une approche de double croissance : les services génèrent des revenus et une compréhension du marché, tandis que les produits génèrent de l'évolutivité et de la valeur à long terme. Les deux piliers sont essentiels et se renforcent mutuellement.",
+      "servicesTitle": "Services",
+      "servicesDesc": "Revenus, expérience et compréhension du marché",
+      "productsTitle": "Produits",
+      "productsDesc": "Évolutivité, propriété et valeur à long terme"
+    },
+    "values": {
+      "title": "Valeurs Fondamentales",
+      "subtitle": "Ces valeurs guident toutes nos décisions, collaborations et projets. Elles sont non négociables et définissent qui nous sommes.",
+      "clarity": {
+        "title": "Clarté",
+        "description": "Communication claire, périmètre clair, attentes claires. Aucune ambiguïté dans le travail ou les relations."
+      },
+      "reliability": {
+        "title": "Fiabilité",
+        "description": "Les engagements sont respectés. Les délais sont pris au sérieux. La qualité est constante. La confiance est un actif fondamental."
+      },
+      "simplicity": {
+        "title": "Simplicité",
+        "description": "Les solutions simples sont privilégiées. La complexité doit toujours être justifiée. Les systèmes doivent être compréhensibles par les utilisateurs."
+      },
+      "ownership": {
+        "title": "Responsabilité",
+        "description": "Nous assumons la responsabilité de notre travail. Les erreurs sont reconnues et corrigées. Chaque projet est une référence."
+      },
+      "ethics": {
+        "title": "Travail Éthique",
+        "description": "Tarification honnête, communication transparente, respect de toutes les parties prenantes. Aucune pratique trompeuse ou nuisible."
+      }
+    },
+    "story": {
+      "title": "L'histoire derrière {brand}",
+      "p1": "{brand} est née d'une observation simple : trop d'entreprises peinent avec des outils numériques qui ne correspondent pas à leurs besoins. Les solutions clé en main sont souvent trop génériques, et le développement sur mesure est souvent trop chaotique.",
+      "p2": "Nous avons décidé de combler ce fossé — en construisant des solutions numériques structurées, claires et fiables qui servent véritablement les entreprises pour lesquelles elles sont faites. Pas précipitées. Pas sur-ingéniérées. Juste ce qu'il faut.",
+      "p3": "En grandissant, nous avons remarqué des schémas : des problèmes qui revenaient chez différents clients. C'est là que l'idée de construire nos propres produits a émergé. Aujourd'hui, {brand} opère sur deux piliers — servir les clients et construire des produits évolutifs — chacun renforçant l'autre."
+    },
+    "philosophy": {
+      "title": "Notre Philosophie",
+      "believeTitle": "Ce que nous croyons",
+      "believe": [
+        "Les services créent la stabilité",
+        "Les produits créent l'effet de levier",
+        "La structure permet une croissance durable",
+        "La croissance est poursuivie avec patience et alignement"
+      ],
+      "avoidTitle": "Ce que nous évitons",
+      "avoid": [
+        "Le travail précipité et de mauvaise qualité",
+        "Les solutions toutes faites",
+        "La sur-ingénierie de problèmes simples",
+        "Les projets en conflit avec nos principes éthiques"
+      ]
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Services",
+      "description": "{brand} propose du développement web, des applications mobiles, de la digitalisation métier et des systèmes SaaS sur mesure. Découvrez comment nous pouvons aider votre entreprise à croître."
+    },
+    "header": {
+      "title": "Nos Services",
+      "subtitle": "Nous construisons des solutions numériques qui résolvent de vrais problèmes. Chaque service est conçu pour aider votre entreprise à gagner en clarté, efficacité et croissance."
+    },
+    "whatsIncluded": "Ce qui est inclus",
+    "theProblem": "Le Problème",
+    "ourSolution": "Notre Solution",
+    "theBenefit": "Le Bénéfice",
+    "detail": {
+      "webDev": {
+        "title": "Développement Web",
+        "problem": "Beaucoup d'entreprises s'appuient sur des sites web obsolètes et mal conçus qui ne représentent pas leur marque et ne convertissent pas les visiteurs. D'autres n'ont aucune présence en ligne.",
+        "solution": "Nous concevons et développons des sites web et applications web sur mesure avec des technologies modernes — responsifs, rapides, optimisés pour le SEO et conçus pour évoluer.",
+        "benefit": "Une présence numérique professionnelle qui travaille pour votre entreprise 24h/24, attirant des clients et instaurant la confiance.",
+        "features": ["Design responsive sur mesure", "Optimisation SEO", "Développement orienté performance", "Systèmes de gestion de contenu", "Solutions e-commerce", "Développement d'applications web"]
+      },
+      "mobile": {
+        "title": "Applications Mobiles",
+        "problem": "Les utilisateurs attendent des expériences mobiles fluides. Une application défaillante ou son absence signifie un engagement et des revenus perdus.",
+        "solution": "Nous développons des applications mobiles natives et cross-platform pour iOS et Android, axées sur la performance, l'ergonomie et les besoins réels des utilisateurs.",
+        "benefit": "Un outil mobile puissant qui maintient l'engagement de vos utilisateurs, simplifie les processus et ouvre de nouveaux canaux de revenus.",
+        "features": ["Développement iOS & Android", "Solutions cross-platform", "Design UI/UX intuitif", "Fonctionnement hors-ligne", "Notifications push", "Optimisation App Store"]
+      },
+      "digital": {
+        "title": "Digitalisation Métier",
+        "problem": "Les processus manuels, les systèmes papier et les outils déconnectés ralentissent les entreprises, créent des erreurs et limitent la croissance.",
+        "solution": "Nous analysons vos flux de travail et construisons des systèmes numériques qui automatisent, organisent et connectent vos opérations.",
+        "benefit": "Des opérations rationalisées, moins d'erreurs, une meilleure visibilité des données et du temps gagné pour ce qui compte vraiment.",
+        "features": ["Analyse et cartographie des processus", "Outils internes sur mesure", "Automatisation des flux", "Systèmes de gestion de données", "Intégration avec les outils existants", "Formation et documentation"]
+      },
+      "saas": {
+        "title": "SaaS & Systèmes Sur Mesure",
+        "problem": "Les logiciels standards répondent rarement aux besoins complexes ou uniques des entreprises. Les options de personnalisation sont limitées et les coûts s'accumulent.",
+        "solution": "Nous concevons et construisons des plateformes SaaS évolutives et des systèmes sur mesure adaptés à vos exigences exactes — que vous possédez et contrôlez.",
+        "benefit": "Un système propriétaire parfaitement adapté à votre entreprise, qui évolue avec vous et vous donne un contrôle total.",
+        "features": ["Développement de plateformes SaaS", "Architecture multi-tenant", "Conception et développement d'API", "Tableaux de bord et analytique", "Gestion des abonnements", "Infrastructure évolutive"]
+      }
+    },
+    "cta": {
+      "title": "Besoin d'une solution sur mesure ?",
+      "subtitle": "Chaque entreprise est unique. Discutons de vos défis spécifiques et trouvons la bonne approche ensemble.",
+      "button": "Demander un devis"
+    }
+  },
+  "portfolio": {
+    "meta": {
+      "title": "Portfolio",
+      "description": "Explorez le portfolio de {brand} — sites web, applications mobiles, systèmes métier et plateformes SaaS construits avec qualité et sens."
+    },
+    "header": {
+      "title": "Nos Réalisations",
+      "subtitle": "Chaque projet est traité comme une référence de la marque. Voici quelques-unes des solutions numériques que nous avons construites."
+    },
+    "moreComingSoon": "D'autres projets arrivent bientôt. Nous documentons chaque réalisation avec soin.",
+    "projects": [
+      {
+        "title": "Plateforme de Réservation Hôtelière",
+        "description": "Un système complet de réservation et de gestion pour une chaîne d'hôtels boutique. Inclut les réservations en ligne, la gestion des chambres et les outils de communication avec les clients.",
+        "tags": ["App Web", "Réservation", "Next.js", "PostgreSQL"],
+        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord de réservation"
+      },
+      {
+        "title": "Système POS Restaurant",
+        "description": "Système de point de vente et de gestion des commandes sur mesure, conçu pour des opérations de restauration multi-sites.",
+        "tags": ["Système Métier", "React", "Node.js", "Temps réel"],
+        "imagePlaceholder": "PLACEHOLDER : Capture de l'interface POS"
+      },
+      {
+        "title": "Application Mobile de Service Terrain",
+        "description": "Application mobile cross-platform pour les techniciens terrain. Inclut la planification des missions, les formulaires numériques, le mode hors-ligne et le suivi GPS.",
+        "tags": ["App Mobile", "React Native", "Hors-ligne"],
+        "imagePlaceholder": "PLACEHOLDER : Maquette des écrans mobiles"
+      },
+      {
+        "title": "SaaS de Gestion de Stock",
+        "description": "Plateforme SaaS multi-tenant pour les petites entreprises permettant de gérer les stocks, suivre les commandes et générer des rapports.",
+        "tags": ["SaaS", "Tableau de bord", "TypeScript", "API"],
+        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord SaaS"
+      },
+      {
+        "title": "Refonte de Site Web Corporate",
+        "description": "Refonte complète et développement d'un site web corporate pour une entreprise de logistique. Axé sur le positionnement de marque, la performance et la génération de leads.",
+        "tags": ["Site Web", "SEO", "Next.js", "Tailwind CSS"],
+        "imagePlaceholder": "PLACEHOLDER : Capture de la page d'accueil corporate"
+      },
+      {
+        "title": "Portail Client & CRM",
+        "description": "Portail client sur mesure avec fonctionnalités CRM intégrées.",
+        "tags": ["App Web", "CRM", "Tableau de bord", "PostgreSQL"],
+        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord CRM"
+      }
+    ],
+    "cta": {
+      "title": "Un projet en tête ?",
+      "subtitle": "Construisons quelque chose de grand ensemble. Parlez-nous de votre projet et nous vous répondrons sous 24 heures.",
+      "button": "Démarrer votre projet"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact",
+      "description": "Contactez {brand}. Parlez-nous de votre projet et nous vous aiderons à trouver la bonne solution numérique."
+    },
+    "header": {
+      "title": "Contactez-nous",
+      "subtitle": "Vous avez un projet en tête ? Nous serions ravis d'en discuter. Remplissez le formulaire et nous vous répondrons sous 24 heures."
+    },
+    "form": {
+      "name": "Nom complet",
+      "email": "Adresse e-mail",
+      "company": "Entreprise",
+      "optional": "(facultatif)",
+      "message": "Message",
+      "messagePlaceholder": "Parlez-nous de votre projet, de vos objectifs et de vos exigences spécifiques...",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "successMessage": "Votre message a été envoyé avec succès. Nous vous répondrons bientôt.",
+      "errorMessage": "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement par e-mail.",
+      "required": "est requis",
+      "invalidEmail": "Veuillez entrer une adresse e-mail valide",
+      "messageMinLength": "Le message doit contenir au moins 10 caractères"
+    },
+    "info": {
+      "title": "Coordonnées",
+      "emailLabel": "E-mail",
+      "locationLabel": "Localisation",
+      "expectTitle": "À quoi s'attendre",
+      "expect1": "Nous examinons votre message sous 24 heures",
+      "expect2": "Nous planifions un appel de découverte si nécessaire",
+      "expect3": "Nous fournissons une proposition claire avec périmètre et calendrier",
+      "expect4": "Aucun engagement requis — juste une conversation"
+    }
+  },
+  "tagline": "Des Solutions Numériques Qui Structurent & Font Croître Votre Entreprise",
+  "footer": {
+    "description": "Construire des solutions numériques qui structurent, modernisent et font croître les entreprises.",
+    "company": "Entreprise",
+    "services": "Services",
+    "contact": "Contact",
+    "webDev": "Développement Web",
+    "mobile": "Applications Mobiles",
+    "digital": "Digitalisation Métier",
+    "saas": "SaaS & Systèmes Sur Mesure",
+    "copyright": "© {year} {brand}. Tous droits réservés.",
+    "builtBy": "Conçu par {brand}"
+  }
+}
+

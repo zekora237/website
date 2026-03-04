@@ -1,0 +1,308 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "getQuote": "Get a Quote"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "{brand} builds websites, mobile apps, and business systems that help organisations modernize, gain efficiency, and grow with confidence.",
+      "ctaPrimary": "Get a Quote",
+      "ctaSecondary": "View Services"
+    },
+    "services": {
+      "title": "What We Build",
+      "subtitle": "From concept to delivery, we create digital solutions that solve real business problems — not just software.",
+      "webDev": {
+        "title": "Web Development",
+        "description": "Custom websites and web applications built with modern technologies. Responsive, fast, and designed to convert."
+      },
+      "mobile": {
+        "title": "Mobile Applications",
+        "description": "Native and cross-platform mobile apps that deliver seamless experiences on iOS and Android."
+      },
+      "digital": {
+        "title": "Business Digitalization",
+        "description": "Transform manual processes into efficient digital systems. Gain clarity and operational control."
+      },
+      "saas": {
+        "title": "SaaS & Custom Systems",
+        "description": "Scalable software-as-a-service platforms and tailored internal tools built for your specific needs."
+      }
+    },
+    "whyUs": {
+      "title": "Why Choose {brand}",
+      "subtitle": "Our core values define how we work and what you can expect. Every project reflects our commitment to quality and clarity.",
+      "clarity": {
+        "title": "Clarity",
+        "description": "Clear communication, clear scope, clear expectations. No ambiguity in work or relationships."
+      },
+      "reliability": {
+        "title": "Reliability",
+        "description": "Commitments are respected. Deadlines are taken seriously. Quality is consistent."
+      },
+      "simplicity": {
+        "title": "Simplicity",
+        "description": "Simple solutions are preferred. Complexity must always be justified."
+      },
+      "ownership": {
+        "title": "Ownership",
+        "description": "We take responsibility for our work. Every project is treated as a reference of the brand."
+      }
+    },
+    "process": {
+      "title": "Our Process",
+      "subtitle": "A structured approach from understanding your needs to delivering results. No surprises, just clarity at every step.",
+      "discovery": {
+        "title": "Discovery",
+        "description": "We understand your business, goals, and challenges."
+      },
+      "design": {
+        "title": "Design",
+        "description": "We create structured, clear solutions tailored to you."
+      },
+      "development": {
+        "title": "Development",
+        "description": "We build with modern tools, clean code, and best practices."
+      },
+      "delivery": {
+        "title": "Delivery",
+        "description": "We launch, support, and ensure everything runs smoothly."
+      }
+    },
+    "cta": {
+      "title": "Ready to Build Something Great?",
+      "subtitle": "Let's discuss your project. We'll help you define the right solution and bring it to life.",
+      "button": "Start Your Project"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "Learn about {brand}'s mission, vision, core values, and approach to building digital solutions that structure and grow businesses."
+    },
+    "header": {
+      "title": "About {brand}",
+      "subtitle": "A technology-driven company that builds digital solutions and creates scalable products — with clarity, quality, and purpose."
+    },
+    "mission": {
+      "label": "Our Mission",
+      "title": "Solving Real Problems, Not Just Delivering Software",
+      "p1": "To help businesses build solid digital foundations that make their work easier, clearer, and more efficient.",
+      "p2": "{brand} designs and builds websites, mobile applications, and internal business systems for clients. These services help organisations establish or improve their digital presence, digitalise internal processes, and gain efficiency, clarity, and operational control.",
+      "placeholder": "Mission illustration placeholder"
+    },
+    "vision": {
+      "label": "Our Vision",
+      "title": "From Digital Services to Venture Building",
+      "p1": "To grow from a digital services company into a venture-building organisation that both serves clients through high-quality solutions and creates scalable digital products.",
+      "p2": "{brand} follows a dual-growth approach: services generate revenue and market understanding, while products generate scalability and long-term value. Both pillars are essential and reinforce each other.",
+      "servicesTitle": "Services",
+      "servicesDesc": "Revenue, experience, and market understanding",
+      "productsTitle": "Products",
+      "productsDesc": "Scalability, ownership, and long-term value"
+    },
+    "values": {
+      "title": "Core Values",
+      "subtitle": "These values guide all decisions, collaborations, and projects. They are non-negotiable and define who we are.",
+      "clarity": {
+        "title": "Clarity",
+        "description": "Clear communication, clear scope, clear expectations. No ambiguity in work or relationships."
+      },
+      "reliability": {
+        "title": "Reliability",
+        "description": "Commitments are respected. Deadlines are taken seriously. Quality is consistent. Trust is a core asset."
+      },
+      "simplicity": {
+        "title": "Simplicity",
+        "description": "Simple solutions are preferred. Complexity must always be justified. Systems should be understandable by users."
+      },
+      "ownership": {
+        "title": "Ownership",
+        "description": "We take responsibility for our work. Mistakes are acknowledged and corrected. Every project is a reference."
+      },
+      "ethics": {
+        "title": "Ethical Work",
+        "description": "Honest pricing, transparent communication, respect for all stakeholders. No deceptive or harmful practices."
+      }
+    },
+    "story": {
+      "title": "The Story Behind {brand}",
+      "p1": "{brand} was born from a simple observation: too many businesses struggle with digital tools that don't fit their needs. Off-the-shelf solutions are often too generic, and custom development is often too chaotic.",
+      "p2": "We set out to bridge that gap — building structured, clear, and reliable digital solutions that truly serve the businesses they're made for. Not rushed. Not over-engineered. Just right.",
+      "p3": "As we grew, we noticed patterns: problems that kept coming back across different clients. That's when the idea of building our own products emerged. Today, {brand} operates on two pillars — serving clients and building scalable products — each reinforcing the other."
+    },
+    "philosophy": {
+      "title": "Our Philosophy",
+      "believeTitle": "What We Believe",
+      "believe": [
+        "Services create stability",
+        "Products create leverage",
+        "Structure enables sustainable growth",
+        "Growth is pursued with patience and alignment"
+      ],
+      "avoidTitle": "What We Avoid",
+      "avoid": [
+        "Rushed, low-quality work",
+        "One-size-fits-all solutions",
+        "Over-engineering simple problems",
+        "Projects conflicting with ethical principles"
+      ]
+    }
+  },
+  "services": {
+    "meta": {
+      "title": "Services",
+      "description": "{brand} offers web development, mobile applications, business digitalization, and SaaS & custom systems. Discover how we can help your business grow."
+    },
+    "header": {
+      "title": "Our Services",
+      "subtitle": "We build digital solutions that solve real problems. Each service is designed to help your business gain clarity, efficiency, and growth."
+    },
+    "whatsIncluded": "What's Included",
+    "theProblem": "The Problem",
+    "ourSolution": "Our Solution",
+    "theBenefit": "The Benefit",
+    "detail": {
+      "webDev": {
+        "title": "Web Development",
+        "problem": "Many businesses rely on outdated, poorly designed websites that fail to represent their brand or convert visitors. Others have no web presence at all.",
+        "solution": "We design and develop custom websites and web applications using modern technologies — responsive, fast, SEO-optimized, and built to scale.",
+        "benefit": "A professional digital presence that works for your business 24/7, attracting clients and building trust.",
+        "features": ["Custom responsive design", "SEO optimization", "Performance-first development", "Content management systems", "E-commerce solutions", "Web application development"]
+      },
+      "mobile": {
+        "title": "Mobile Applications",
+        "problem": "Users expect seamless mobile experiences. A clunky app or the absence of one means lost engagement and revenue.",
+        "solution": "We build native and cross-platform mobile applications for iOS and Android, focused on performance, usability, and real user needs.",
+        "benefit": "A powerful mobile tool that keeps your users engaged, simplifies processes, and opens new revenue channels.",
+        "features": ["iOS & Android development", "Cross-platform solutions", "Intuitive UI/UX design", "Offline-first capabilities", "Push notifications", "App Store optimization"]
+      },
+      "digital": {
+        "title": "Business Digitalization",
+        "problem": "Manual processes, paper-based systems, and disconnected tools slow businesses down, create errors, and limit growth.",
+        "solution": "We analyse your workflows and build digital systems that automate, organize, and connect your operations.",
+        "benefit": "Streamlined operations, reduced errors, better data visibility, and time saved for what matters most.",
+        "features": ["Process analysis & mapping", "Custom internal tools", "Workflow automation", "Data management systems", "Integration with existing tools", "Training & documentation"]
+      },
+      "saas": {
+        "title": "SaaS & Custom Systems",
+        "problem": "Off-the-shelf software rarely fits complex or unique business needs. Customization options are limited, and costs add up.",
+        "solution": "We design and build scalable SaaS platforms and custom systems tailored to your exact requirements — owned and controlled by you.",
+        "benefit": "A proprietary system that fits your business perfectly, grows with you, and gives you full control.",
+        "features": ["SaaS platform development", "Multi-tenant architecture", "API design & development", "Dashboard & analytics", "Subscription management", "Scalable infrastructure"]
+      }
+    },
+    "cta": {
+      "title": "Need a Custom Solution?",
+      "subtitle": "Every business is unique. Let's discuss your specific challenges and find the right approach together.",
+      "button": "Get a Quote"
+    }
+  },
+  "portfolio": {
+    "meta": {
+      "title": "Portfolio",
+      "description": "Explore {brand}'s portfolio of digital projects — websites, mobile apps, business systems, and SaaS platforms built with quality and purpose."
+    },
+    "header": {
+      "title": "Our Work",
+      "subtitle": "Every project is treated as a reference of the brand. Here are some of the digital solutions we've built."
+    },
+    "moreComingSoon": "More projects coming soon. We document every build with care.",
+    "projects": [
+      {
+        "title": "Hotel Booking Platform",
+        "description": "A comprehensive booking and management system for a boutique hotel chain. Includes online reservations, room management, and guest communication tools.",
+        "tags": ["Web App", "Booking System", "Next.js", "PostgreSQL"],
+        "imagePlaceholder": "PLACEHOLDER: Hotel booking dashboard screenshot"
+      },
+      {
+        "title": "Restaurant POS System",
+        "description": "Custom point-of-sale and order management system designed for multi-location restaurant operations.",
+        "tags": ["Business System", "React", "Node.js", "Real-time"],
+        "imagePlaceholder": "PLACEHOLDER: Restaurant POS interface screenshot"
+      },
+      {
+        "title": "Field Service Mobile App",
+        "description": "Cross-platform mobile application for field technicians. Includes job scheduling, digital forms, offline capability, and GPS tracking.",
+        "tags": ["Mobile App", "React Native", "Offline-first"],
+        "imagePlaceholder": "PLACEHOLDER: Mobile app screens mockup"
+      },
+      {
+        "title": "Inventory Management SaaS",
+        "description": "Multi-tenant SaaS platform for small businesses to manage inventory, track orders, and generate reports.",
+        "tags": ["SaaS", "Dashboard", "TypeScript", "API"],
+        "imagePlaceholder": "PLACEHOLDER: SaaS dashboard screenshot"
+      },
+      {
+        "title": "Corporate Website Redesign",
+        "description": "Complete redesign and development of a corporate website for a logistics company. Focus on brand positioning, performance, and lead generation.",
+        "tags": ["Website", "SEO", "Next.js", "Tailwind CSS"],
+        "imagePlaceholder": "PLACEHOLDER: Corporate website homepage screenshot"
+      },
+      {
+        "title": "Client Portal & CRM",
+        "description": "Custom client portal with integrated CRM capabilities.",
+        "tags": ["Web App", "CRM", "Dashboard", "PostgreSQL"],
+        "imagePlaceholder": "PLACEHOLDER: CRM dashboard screenshot"
+      }
+    ],
+    "cta": {
+      "title": "Have a Project in Mind?",
+      "subtitle": "Let's build something great together. Tell us about your project and we'll get back to you within 24 hours.",
+      "button": "Start Your Project"
+    }
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact",
+      "description": "Get in touch with {brand}. Tell us about your project and we'll help you find the right digital solution."
+    },
+    "header": {
+      "title": "Get in Touch",
+      "subtitle": "Have a project in mind? We'd love to hear about it. Fill out the form and we'll get back to you within 24 hours."
+    },
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "company": "Company",
+      "optional": "(optional)",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project, your goals, and any specific requirements...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "successMessage": "Your message has been sent successfully. We'll get back to you soon.",
+      "errorMessage": "Something went wrong. Please try again or email us directly.",
+      "required": "is required",
+      "invalidEmail": "Please enter a valid email address",
+      "messageMinLength": "Message must be at least 10 characters"
+    },
+    "info": {
+      "title": "Contact Information",
+      "emailLabel": "Email",
+      "locationLabel": "Location",
+      "expectTitle": "What to Expect",
+      "expect1": "We review your message within 24 hours",
+      "expect2": "We schedule a discovery call if needed",
+      "expect3": "We provide a clear proposal with scope and timeline",
+      "expect4": "No commitment required — just a conversation"
+    }
+  },
+  "tagline": "Digital Solutions That Structure & Grow Your Business",
+  "footer": {
+    "description": "Building digital solutions that structure, modernize, and grow businesses.",
+    "company": "Company",
+    "services": "Services",
+    "contact": "Contact",
+    "webDev": "Web Development",
+    "mobile": "Mobile Applications",
+    "digital": "Business Digitalization",
+    "saas": "SaaS & Custom Systems",
+    "copyright": "© {year} {brand}. All rights reserved.",
+    "builtBy": "Built by {brand}"
+  }
+}
+

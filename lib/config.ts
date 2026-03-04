@@ -25,3 +25,12 @@ export const BRAND = {
   location: "Global — Remote First",
 } as const;
 
+/**
+ * Replace `{brand}` and `{year}` placeholders in a translation string.
+ */
+export function t(str: string): string {
+  return str
+    .replace(/\{brand\}/g, BRAND.name)
+    .replace(/\{year\}/g, new Date().getFullYear().toString());
+}
+

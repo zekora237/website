@@ -1,23 +1,30 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
-import { BRAND } from "@/lib/config";
-
-const footerLinks = {
-  company: [
-    { href: "/about", label: "About" },
-    { href: "/services", label: "Services" },
-    { href: "/portfolio", label: "Portfolio" },
-    { href: "/contact", label: "Contact" },
-  ],
-  services: [
-    { href: "/services#web-development", label: "Web Development" },
-    { href: "/services#mobile-apps", label: "Mobile Applications" },
-    { href: "/services#digitalization", label: "Business Digitalization" },
-    { href: "/services#saas", label: "SaaS & Custom Systems" },
-  ],
-};
+import { BRAND, t } from "@/lib/config";
+import { useDictionary } from "@/lib/dictionary-context";
+import { useLocale } from "@/lib/locale-context";
 
 export function Footer() {
+  const dict = useDictionary();
+  const locale = useLocale();
+  const f = dict.footer;
+
+  const companyLinks = [
+    { href: `/${locale}/about`, label: dict.nav.about },
+    { href: `/${locale}/services`, label: dict.nav.services },
+    { href: `/${locale}/portfolio`, label: dict.nav.portfolio },
+    { href: `/${locale}/contact`, label: dict.nav.contact },
+  ];
+
+  const serviceLinks = [
+    { href: `/${locale}/services#web-development`, label: f.webDev },
+    { href: `/${locale}/services#mobile-apps`, label: f.mobile },
+    { href: `/${locale}/services#digitalization`, label: f.digital },
+    { href: `/${locale}/services#saas`, label: f.saas },
+  ];
+
   return (
     <footer style={{ backgroundColor: "#1F3C88", color: "#ffffff" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,7 +33,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link
-              href="/"
+              href={`/${locale}`}
               className="text-2xl font-bold tracking-tight"
               style={{ color: "#ffffff" }}
             >
@@ -36,8 +43,7 @@ export function Footer() {
               className="mt-4 text-sm leading-relaxed"
               style={{ color: "rgba(255,255,255,0.7)" }}
             >
-              Building digital solutions that structure, modernize, and grow
-              businesses.
+              {f.description}
             </p>
           </div>
 
@@ -47,10 +53,10 @@ export function Footer() {
               className="text-sm font-semibold uppercase tracking-wider mb-4"
               style={{ color: "rgba(255,255,255,0.9)" }}
             >
-              Company
+              {f.company}
             </h4>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {companyLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -70,10 +76,10 @@ export function Footer() {
               className="text-sm font-semibold uppercase tracking-wider mb-4"
               style={{ color: "rgba(255,255,255,0.9)" }}
             >
-              Services
+              {f.services}
             </h4>
             <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -93,7 +99,7 @@ export function Footer() {
               className="text-sm font-semibold uppercase tracking-wider mb-4"
               style={{ color: "rgba(255,255,255,0.9)" }}
             >
-              Contact
+              {f.contact}
             </h4>
             <ul className="space-y-3">
               <li
@@ -128,13 +134,13 @@ export function Footer() {
             className="text-xs"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
+            {t(f.copyright)}
           </p>
           <p
             className="text-xs"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            Built by {BRAND.name}
+            {t(f.builtBy)}
           </p>
         </div>
       </div>
