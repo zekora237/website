@@ -23,18 +23,18 @@ export function SectionWrapper({
   return (
     <section
       id={id}
-      className={cn("py-16 md:py-20 lg:py-24", className)}
+      className={cn("py-20 md:py-24 lg:py-28", className)}
       style={{
-        backgroundColor: dark ? "#1F3C88" : muted ? "#F2F2F2" : "#ffffff",
-        color: dark ? "#ffffff" : "#333333",
+        backgroundColor: dark ? "#1F3C88" : muted ? "#f8f9fb" : "#ffffff",
+        color: dark ? "#ffffff" : undefined,
       }}
     >
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8"
       >
         {children}
       </motion.div>

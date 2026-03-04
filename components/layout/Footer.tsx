@@ -26,8 +26,10 @@ export function Footer() {
   ];
 
   return (
-    <footer style={{ backgroundColor: "#1F3C88", color: "#ffffff" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer style={{ backgroundColor: "#141f45", color: "#ffffff" }}>
+      {/* Gradient accent line */}
+      <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, #1BA6A6, #1F3C88, transparent)" }} />
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* ===== MOBILE FOOTER (< md) ===== */}
         <div className="md:hidden py-10">
           {/* Brand — centered */}
