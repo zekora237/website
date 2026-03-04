@@ -88,10 +88,24 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 transition-colors" style={{ color: scrolled ? "#333333" : "#ffffff" }} aria-label="Toggle navigation menu">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Language Switcher + Menu Button */}
+          <div className="md:hidden flex items-center gap-3">
+            <Link
+              href={switchLocalePath}
+              className="flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-1.5 transition-colors duration-300"
+              style={{
+                color: scrolled ? "#1F3C88" : "#ffffff",
+                border: scrolled ? "1.5px solid #1F3C88" : "1.5px solid rgba(255,255,255,0.6)",
+              }}
+              title={otherLocale === "fr" ? "Passer en français" : "Switch to English"}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              {otherLocale.toUpperCase()}
+            </Link>
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 transition-colors" style={{ color: scrolled ? "#333333" : "#ffffff" }} aria-label="Toggle navigation menu">
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Eye, ShieldCheck, Lightbulb, Handshake, Heart, Target, TrendingUp, Layers } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { FeatureCard } from "@/components/sections/FeatureCard";
+import { MobileCarousel } from "@/components/ui/MobileCarousel";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
 
@@ -102,7 +103,12 @@ export function AboutContent() {
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">{a.values.title}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">{a.values.subtitle}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {/* Mobile: carousel */}
+        <MobileCarousel>
+          {values.map((v) => <FeatureCard key={v.title} {...v} index={0} />)}
+        </MobileCarousel>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {values.map((v, i) => <FeatureCard key={v.title} {...v} index={i} />)}
         </div>
       </SectionWrapper>

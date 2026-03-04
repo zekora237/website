@@ -8,6 +8,7 @@ import {
   Search, Palette, Code, Rocket, ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { MobileCarousel } from "@/components/ui/MobileCarousel";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { FeatureCard } from "@/components/sections/FeatureCard";
@@ -103,7 +104,12 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">{h.services.title}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">{h.services.subtitle}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile: carousel */}
+        <MobileCarousel>
+          {services.map((s, i) => <ServiceCard key={s.title} {...s} index={0} />)}
+        </MobileCarousel>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((s, i) => <ServiceCard key={s.title} {...s} index={i} />)}
         </div>
       </SectionWrapper>
@@ -114,7 +120,12 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">{t(h.whyUs.title)}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">{h.whyUs.subtitle}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Mobile: carousel */}
+        <MobileCarousel>
+          {features.map((f, i) => <FeatureCard key={f.title} {...f} index={0} />)}
+        </MobileCarousel>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f, i) => <FeatureCard key={f.title} {...f} index={i} />)}
         </div>
       </SectionWrapper>
@@ -146,4 +157,3 @@ export default function HomePage() {
     </>
   );
 }
-
