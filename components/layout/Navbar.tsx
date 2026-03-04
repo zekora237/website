@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { BRAND } from "@/lib/config";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -40,7 +41,7 @@ export function Navbar() {
               className="text-xl lg:text-2xl font-bold tracking-tight transition-colors duration-300"
               style={{ color: scrolled ? "#1F3C88" : "#ffffff" }}
             >
-              ZEKORA
+              {BRAND.nameUpper}
             </span>
           </Link>
 

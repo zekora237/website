@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BRAND } from "@/lib/config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -12,27 +13,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Zekora — Digital Solutions That Structure & Grow Your Business",
-    template: "%s | Zekora",
+    default: `${BRAND.name} — ${BRAND.tagline}`,
+    template: `%s | ${BRAND.name}`,
   },
-  description:
-    "Zekora builds digital solutions that structure, modernize, and grow businesses. Web development, mobile apps, business digitalization, and SaaS products.",
+  description: BRAND.description,
   keywords: [
     "digital solutions",
     "web development",
     "mobile applications",
     "business digitalization",
     "SaaS",
-    "Zekora",
+    BRAND.name,
   ],
-  authors: [{ name: "Zekora" }],
+  authors: [{ name: BRAND.name }],
   openGraph: {
-    title: "Zekora — Digital Solutions That Structure & Grow Your Business",
-    description:
-      "Zekora builds digital solutions that structure, modernize, and grow businesses.",
+    title: `${BRAND.name} — ${BRAND.tagline}`,
+    description: BRAND.description,
     type: "website",
     locale: "en_US",
-    siteName: "Zekora",
+    siteName: BRAND.name,
   },
 };
 

@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { BRAND } from "@/lib/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://zekora.com";
+  const baseUrl = BRAND.url;
 
   return [
     {

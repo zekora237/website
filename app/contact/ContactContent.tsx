@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { Button } from "@/components/ui/Button";
+import { BRAND } from "@/lib/config";
 
 interface FormData {
   name: string;
@@ -288,10 +289,10 @@ export function ContactContent() {
                       Email
                     </h3>
                     <a
-                      href="mailto:contact@zekora.com"
+                      href={`mailto:${BRAND.email}`}
                       className="text-sm text-secondary hover:underline"
                     >
-                      contact@zekora.com
+                      {BRAND.email}
                     </a>
                   </div>
                 </div>
@@ -305,7 +306,7 @@ export function ContactContent() {
                       Location
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      Global — Remote First
+                      {BRAND.location}
                     </p>
                   </div>
                 </div>

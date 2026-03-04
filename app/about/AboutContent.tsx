@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { FeatureCard } from "@/components/sections/FeatureCard";
+import { BRAND } from "@/lib/config";
 
 const values = [
   {
@@ -76,7 +77,7 @@ export function AboutContent() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
               style={{ color: "#ffffff" }}
             >
-              About Zekora
+              About {BRAND.name}
             </h1>
             <p
               className="text-lg sm:text-xl max-w-2xl leading-relaxed"
@@ -112,7 +113,7 @@ export function AboutContent() {
               work easier, clearer, and more efficient.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Zekora designs and builds websites, mobile applications, and
+              {BRAND.name} designs and builds websites, mobile applications, and
               internal business systems for clients. These services help
               organisations establish or improve their digital presence,
               digitalise internal processes, and gain efficiency, clarity, and
@@ -134,7 +135,7 @@ export function AboutContent() {
                   <Target className="w-10 h-10 text-primary" />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  {/* PLACEHOLDER: Replace with a professional image representing Zekora's mission */}
+                  {/* PLACEHOLDER: Replace with a professional image representing the company's mission */}
                   Mission illustration placeholder
                 </p>
               </div>
@@ -199,7 +200,7 @@ export function AboutContent() {
               solutions and creates scalable digital products.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Zekora follows a dual-growth approach: services generate revenue
+              {BRAND.name} follows a dual-growth approach: services generate revenue
               and market understanding, while products generate scalability and
               long-term value. Both pillars are essential and reinforce each
               other.
@@ -230,11 +231,11 @@ export function AboutContent() {
       <SectionWrapper muted>
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6">
-            The Story Behind Zekora
+            The Story Behind {BRAND.name}
           </h2>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              Zekora was born from a simple observation: too many businesses
+              {BRAND.name} was born from a simple observation: too many businesses
               struggle with digital tools that don&apos;t fit their needs. Off-the-shelf
               solutions are often too generic, and custom development is often
               too chaotic.
@@ -247,7 +248,7 @@ export function AboutContent() {
             <p>
               As we grew, we noticed patterns: problems that kept coming back
               across different clients. That&apos;s when the idea of building our own
-              products emerged. Today, Zekora operates on two pillars —
+              products emerged. Today, {BRAND.name} operates on two pillars —
               serving clients and building scalable products — each reinforcing
               the other.
             </p>

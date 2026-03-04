@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
+import { BRAND } from "@/lib/config";
 
 const footerLinks = {
   company: [
@@ -29,7 +30,7 @@ export function Footer() {
               className="text-2xl font-bold tracking-tight"
               style={{ color: "#ffffff" }}
             >
-              ZEKORA
+              {BRAND.nameUpper}
             </Link>
             <p
               className="mt-4 text-sm leading-relaxed"
@@ -101,10 +102,10 @@ export function Footer() {
               >
                 <Mail size={16} />
                 <a
-                  href="mailto:contact@zekora.com"
+                  href={`mailto:${BRAND.email}`}
                   className="hover:text-white transition-colors"
                 >
-                  contact@zekora.com
+                  {BRAND.email}
                 </a>
               </li>
               <li
@@ -112,7 +113,7 @@ export function Footer() {
                 style={{ color: "rgba(255,255,255,0.6)" }}
               >
                 <MapPin size={16} />
-                <span>Global — Remote First</span>
+                <span>{BRAND.location}</span>
               </li>
             </ul>
           </div>
@@ -127,13 +128,13 @@ export function Footer() {
             className="text-xs"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            © {new Date().getFullYear()} Zekora. All rights reserved.
+            © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
           </p>
           <p
             className="text-xs"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >
-            Built by Zekora
+            Built by {BRAND.name}
           </p>
         </div>
       </div>

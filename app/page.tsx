@@ -22,6 +22,7 @@ import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { FeatureCard } from "@/components/sections/FeatureCard";
 import { ProcessStep } from "@/components/sections/ProcessStep";
+import { BRAND } from "@/lib/config";
 
 // --- Data ---
 
@@ -124,7 +125,7 @@ const heroWordVariants: Variants = {
 };
 
 export default function HomePage() {
-  const heroTitle = "Digital Solutions That Structure & Grow Your Business";
+  const heroTitle = BRAND.tagline;
   const words = heroTitle.split(" ");
 
   return (
@@ -192,7 +193,7 @@ export default function HomePage() {
               className="text-lg sm:text-xl max-w-xl mb-10 leading-relaxed"
               style={{ color: "rgba(255, 255, 255, 0.75)" }}
             >
-              Zekora builds websites, mobile apps, and business systems that
+              {BRAND.name} builds websites, mobile apps, and business systems that
               help organisations modernize, gain efficiency, and grow with
               confidence.
             </motion.p>
@@ -246,7 +247,7 @@ export default function HomePage() {
       <SectionWrapper muted>
         <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
-            Why Choose Zekora
+            Why Choose {BRAND.name}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Our core values define how we work and what you can expect. Every
