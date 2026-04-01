@@ -7,11 +7,13 @@ interface ContactFormData {
   message: string;
 }
 
+const RECIPIENT = "abdelzidane3107@gmail.com";
+
 export async function POST(request: NextRequest) {
   try {
     const body: ContactFormData = await request.json();
 
-    // Validation
+    // ── Validation ──────────────────────────────────
     const errors: string[] = [];
 
     if (!body.name || body.name.trim().length === 0) {
@@ -35,29 +37,89 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the contact form submission
-    // TODO: Replace with actual email sending (e.g., Resend, Nodemailer, SendGrid)
-    console.log("📬 New contact form submission:", {
-      name: body.name.trim(),
-      email: body.email.trim(),
-      company: body.company?.trim() || "N/A",
-      message: body.message.trim(),
-      timestamp: new Date().toISOString(),
+    // ── Build the email ─────────────────────────────
+    const name = body.name.trim();
+    const email = body.email.trim();
+    const company = body.company?.trim() || "N/A";
+    const message = body.message.trim();
+    const timestamp = new Date().toLocaleString("en-GB", {
+      dateStyle: "full",
+      timeStyle: "short",
     });
 
-    return NextResponse.json(
-      {
-        success: true,
-        message: "Your message has been received. We will get back to you soon.",
+    const htmlBody = `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f9fafb;border-radius:12px;">
+        <h2 style="color:#1F3C88;margin:0 0 20px;">📬 New Contact Form Submission</h2>
+        <table style="width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="padding:10px 12px;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;width:120px;">Name</td>
+            <td style="padding:10px 12px;color:#111827;border-bottom:1px solid #e5e7eb;">${name}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Email</td>
+            <td style="padding:10px 12px;color:#111827;border-bottom:1px solid #e5e7eb;">
+              <a href="mailto:${email}" style="color:#1F3C88;">${email}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;font-weight:600;color:#374151;border-bottom:1px solid #e5e7eb;">Company</td>
+            <td style="padding:10px 12px;color:#111827;border-bottom:1px solid #e5e7eb;">${company}</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 12px;font-weight:600;color:#374151;vertical-align:top;">Message</td>
+            <td style="padding:10px 12px;color:#111827;white-space:pre-wrap;">${message}</td>
+          </tr>
+        </table>
+        <p style="margin:20px 0 0;font-size:12px;color:#9ca3af;">Received on ${timestamp}</p>
+      </div>
+    `;
+
+    // ── Send via Resend API ─────────────────────────
+    const resendKey = process.env.RESEND_API_KEY;
+
+    if (!resendKey || resendKey.startsWith("re_xxx")) {
+      // Dev fallback: just log
+      console.log("⚠️  RESEND_API_KEY not set — logging email instead.");
+      console.log("📬 Contact form →", { name, email, company, message, timestamp });
+      return NextResponse.json(
+        { success: true, message: "Message received (dev mode)." },
+        { status: 200 }
+      );
+    }
+
+    const resendRes = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendKey}`,
       },
+      body: JSON.stringify({
+        from: "Zekora Contact <onboarding@resend.dev>",
+        to: [RECIPIENT],
+        reply_to: email,
+        subject: `[Zekora] New message from ${name}`,
+        html: htmlBody,
+      }),
+    });
+
+    if (!resendRes.ok) {
+      const errBody = await resendRes.text();
+      console.error("Resend API error:", resendRes.status, errBody);
+      return NextResponse.json(
+        { success: false, errors: ["Failed to send email. Please try again later."] },
+        { status: 502 }
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, message: "Your message has been sent. We'll get back to you soon!" },
       { status: 200 }
     );
-  } catch {
-    console.error("Contact form error:", "Failed to process request");
+  } catch (err) {
+    console.error("Contact form error:", err);
     return NextResponse.json(
       { success: false, errors: ["Internal server error"] },
       { status: 500 }
     );
   }
 }
-

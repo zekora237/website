@@ -9,7 +9,7 @@
   - Must work on light and dark backgrounds
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-  <rect width="50" height="50" rx="8" fill="#1F3C88"/>
-  <text x="12" y="38" font-family="Inter, sans-serif" font-weight="700" font-size="36" fill="#ffffff">Z</text>
+  <rect width="50" height="50" rx="10" fill="#1F3C88"/>
+  <path d="M11 12h28v5L17 38H39v5H11v-5L33 17H11v-5z" fill="#ffffff"/>
+  <rect x="11" y="22" width="28" height="5" rx="2.5" fill="#1BA6A6"/>
 </svg>
-
