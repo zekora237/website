@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Eye, ShieldCheck, Lightbulb, Handshake, Heart, Target, TrendingUp, Layers, CheckCircle2, XCircle } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
@@ -50,13 +51,14 @@ export function AboutContent() {
             <p className="text-muted-foreground leading-relaxed">{t(a.mission.p2)}</p>
           </div>
           <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden" style={{ background: "linear-gradient(135deg, #f0f2f8 0%, #e6f5f5 50%, #f3f5fa 100%)" }}>
-              <div className="text-center p-8 relative">
-                <div className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md" style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}>
-                  <Target className="w-10 h-10 text-white" />
-                </div>
-                <p className="text-xs text-muted-foreground font-medium">{a.mission.placeholder}</p>
-              </div>
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden">
+              <Image
+                src="/images/aboutPic.png"
+                alt={a.mission.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
           </div>
         </div>
@@ -106,8 +108,12 @@ export function AboutContent() {
         <MobileCarousel>
           {values.map((v) => <FeatureCard key={v.title} {...v} index={0} />)}
         </MobileCarousel>
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7 max-w-4xl mx-auto">
-          {values.map((v, i) => <FeatureCard key={v.title} {...v} index={i} />)}
+        <div className="hidden sm:flex sm:flex-wrap sm:justify-center gap-6 lg:gap-7 max-w-4xl mx-auto">
+          {values.map((v, i) => (
+            <div key={v.title} className="w-[calc(50%-14px)] lg:w-[calc(33.333%-19px)]">
+              <FeatureCard {...v} index={i} />
+            </div>
+          ))}
         </div>
       </SectionWrapper>
 

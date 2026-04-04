@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Eye,
@@ -121,24 +122,14 @@ export function AboutContent() {
             </p>
           </div>
           <div className="relative">
-            <div
-              className="aspect-square rounded-2xl flex items-center justify-center"
-              style={{
-                background: "linear-gradient(135deg, #f3f5fa 0%, #e6f5f5 100%)",
-              }}
-            >
-              <div className="text-center p-8">
-                <div
-                  className="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style={{ backgroundColor: "#e8ecf5" }}
-                >
-                  <Target className="w-10 h-10 text-primary" />
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {/* PLACEHOLDER: Replace with a professional image representing the company's mission */}
-                  Mission illustration placeholder
-                </p>
-              </div>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
+              <Image
+                src="/images/aboutPic.png"
+                alt="Solving Real Problems, Not Just Delivering Software"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
           </div>
         </div>
@@ -220,9 +211,11 @@ export function AboutContent() {
             They are non-negotiable and define who we are.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto">
           {values.map((value, i) => (
-            <FeatureCard key={value.title} {...value} index={i} />
+            <div key={value.title} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
+              <FeatureCard {...value} index={i} />
+            </div>
           ))}
         </div>
       </SectionWrapper>
