@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink, Layers, Eye } from "lucide-react";
+import { Layers, Eye } from "lucide-react";
 import { ProjectDetailModal, type ProjectDetail } from "./ProjectDetailModal";
 
 interface ProjectCardProps {
@@ -56,13 +56,14 @@ export function ProjectCard({
   return (
     <>
       <motion.div
+        className="h-full"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
       >
         <div
-          className="group block rounded-2xl border border-border bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
+          className="group flex flex-col h-full rounded-2xl border border-border bg-white overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-out cursor-pointer"
           onClick={() => setModalOpen(true)}
         >
           {/* Image area — object-contain to show the full image */}
@@ -86,17 +87,6 @@ export function ProjectCard({
                 />
                 {/* Subtle overlay on hover */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-                {/* Indicators */}
-                <div className="absolute top-3 right-3 flex items-center gap-2">
-                  {link && (
-                    <div className="w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
-                      <ExternalLink className="w-4 h-4 text-primary" />
-                    </div>
-                  )}
-                  <div className="w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
-                    <Eye className="w-4 h-4 text-primary" />
-                  </div>
-                </div>
               </>
             ) : (
               <>
@@ -126,7 +116,7 @@ export function ProjectCard({
           </div>
 
           {/* Content */}
-          <div className="p-6 lg:p-7">
+          <div className="p-6 lg:p-7 flex flex-col flex-1">
             <h3 className="text-lg font-semibold text-primary mb-2">{title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
               {description}
@@ -146,9 +136,9 @@ export function ProjectCard({
                 </span>
               ))}
             </div>
-            {/* View details link */}
+            {/* View details link — pinned to bottom */}
             <span
-              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors duration-300"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold transition-colors duration-300 mt-auto"
               style={{ color: "#1BA6A6" }}
             >
               <Eye className="w-3.5 h-3.5" />
