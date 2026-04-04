@@ -7,7 +7,7 @@ interface ContactFormData {
   message: string;
 }
 
-const RECIPIENT = "abdelzidane3107@gmail.com";
+const RECIPIENT = "zekora237@gmail.com";
 
 export async function POST(request: NextRequest) {
   try {
@@ -77,15 +77,23 @@ export async function POST(request: NextRequest) {
     // ── Send via Resend API ─────────────────────────
     const resendKey = process.env.RESEND_API_KEY;
 
-    if (!resendKey || resendKey.startsWith("re_xxx")) {
-      // Dev fallback: just log
-      console.log("⚠️  RESEND_API_KEY not set — logging email instead.");
-      console.log("📬 Contact form →", { name, email, company, message, timestamp });
+    if (!resendKey) {
+      console.error("❌ RESEND_API_KEY is not set in environment variables.");
       return NextResponse.json(
-        { success: true, message: "Message received (dev mode)." },
-        { status: 200 }
+        { success: false, errors: ["Email service is not configured. Please contact us directly at " + RECIPIENT] },
+        { status: 503 }
       );
     }
+
+    console.log("📧 Sending email via Resend… (key starts with:", resendKey.substring(0, 6) + "…)");
+
+    const payload = {
+      from: "Zekora Contact <onboarding@resend.dev>",
+      to: [RECIPIENT],
+      reply_to: email,
+      subject: `[Zekora] New message from ${name}`,
+      html: htmlBody,
+    };
 
     const resendRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -93,18 +101,14 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${resendKey}`,
       },
-      body: JSON.stringify({
-        from: "Zekora Contact <onboarding@resend.dev>",
-        to: [RECIPIENT],
-        reply_to: email,
-        subject: `[Zekora] New message from ${name}`,
-        html: htmlBody,
-      }),
+      body: JSON.stringify(payload),
     });
 
+    const resendBody = await resendRes.text();
+    console.log("Resend response:", resendRes.status, resendBody);
+
     if (!resendRes.ok) {
-      const errBody = await resendRes.text();
-      console.error("Resend API error:", resendRes.status, errBody);
+      console.error("Resend API error:", resendRes.status, resendBody);
       return NextResponse.json(
         { success: false, errors: ["Failed to send email. Please try again later."] },
         { status: 502 }
