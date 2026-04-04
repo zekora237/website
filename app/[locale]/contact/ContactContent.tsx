@@ -27,6 +27,7 @@ export function ContactContent() {
   const [formData, setFormData] = useState<ContactFormData>({ name: "", email: "", company: "", message: "" });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+  const [serverError, setServerError] = useState<string>("");
 
   const validate = (): boolean => {
     const newErrors: Partial<ContactFormData> = {};
@@ -43,20 +44,24 @@ export function ContactContent() {
     e.preventDefault();
     if (!validate()) return;
     setStatus("loading");
+    setServerError("");
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
+      const data = await response.json();
+      if (response.ok && data.success) {
         setStatus("success");
         setFormData({ name: "", email: "", company: "", message: "" });
       } else {
         setStatus("error");
+        setServerError(data.errors?.[0] || f.errorMessage);
       }
     } catch {
       setStatus("error");
+      setServerError(f.errorMessage);
     }
   };
 
@@ -151,7 +156,11 @@ export function ContactContent() {
               )}
               {status === "error" && (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-3 p-4 rounded-xl border border-red-200 bg-red-50 text-red-700 text-sm">
-                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" /><p>{f.errorMessage}</p>
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <p>
+                    {serverError || f.errorMessage}{" "}
+                    <a href={`mailto:${BRAND.email}`} className="underline font-medium">{BRAND.email}</a>
+                  </p>
                 </motion.div>
               )}
             </form>

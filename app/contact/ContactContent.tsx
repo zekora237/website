@@ -25,6 +25,7 @@ export function ContactContent() {
   });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [serverError, setServerError] = useState<string>("");
 
   const validate = (): boolean => {
     const newErrors: Partial<FormData> = {};
@@ -55,6 +56,7 @@ export function ContactContent() {
     if (!validate()) return;
 
     setStatus("loading");
+    setServerError("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -63,14 +65,18 @@ export function ContactContent() {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setStatus("success");
         setFormData({ name: "", email: "", company: "", message: "" });
       } else {
         setStatus("error");
+        setServerError(data.errors?.[0] || "Something went wrong. Please try again.");
       }
     } catch {
       setStatus("error");
+      setServerError("Network error. Please check your connection and try again.");
     }
   };
 
@@ -264,8 +270,11 @@ export function ContactContent() {
                 >
                   <AlertCircle className="w-5 h-5 shrink-0" />
                   <p>
-                    Something went wrong. Please try again or email us
-                    directly.
+                    {serverError || "Something went wrong."} You can also email us
+                    directly at{" "}
+                    <a href={`mailto:${BRAND.email}`} className="underline font-medium">
+                      {BRAND.email}
+                    </a>.
                   </p>
                 </motion.div>
               )}

@@ -51,7 +51,13 @@ export function PortfolioContent() {
 			</section>
 
 			<SectionWrapper>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+				<div className={
+					p.projects.length === 1
+						? "max-w-lg mx-auto"
+						: p.projects.length === 2
+							? "grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+							: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+				}>
 					{p.projects.map((project, i) => (
 						<ProjectCard key={project.title} {...project} index={i} />
 					))}

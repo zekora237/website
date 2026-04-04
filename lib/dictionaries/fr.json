@@ -214,40 +214,63 @@
     "moreComingSoon": "D'autres projets arrivent bientôt. Nous documentons chaque réalisation avec soin.",
     "projects": [
       {
-        "title": "Plateforme de Réservation Hôtelière",
-        "description": "Un système complet de réservation et de gestion pour une chaîne d'hôtels boutique. Inclut les réservations en ligne, la gestion des chambres et les outils de communication avec les clients.",
-        "tags": ["App Web", "Réservation", "Next.js", "PostgreSQL"],
-        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord de réservation"
+        "title": "Healthy Living Association (H.L.A)",
+        "description": "Un site web moderne et professionnel pour une ONG dédiée à la santé préventive et à l'éducation sanitaire communautaire au Cameroun.",
+        "tags": ["ONG", "Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+        "image": "/images/hla.png",
+        "link": "https://hla-website-nine.vercel.app",
+        "client": "Healthy Living Association",
+        "type": "Site Web ONG / Association",
+        "aim": "Construire une présence web moderne et professionnelle pour une organisation à but non lucratif dédiée à la santé préventive et à l'éducation sanitaire communautaire au Cameroun.",
+        "features": [
+          "Présentation des programmes de santé et campagnes de dépistage",
+          "Annonces d'opportunités de bénévolat",
+          "Intégration de dons via Stripe",
+          "Optimisé pour le SEO et entièrement responsive",
+          "Architecture de contenu facile à mettre à jour"
+        ],
+        "techStack": ["Next.js", "TypeScript", "Tailwind CSS", "Lucide React", "Stripe", "Vercel"]
       },
       {
-        "title": "Système POS Restaurant",
-        "description": "Système de point de vente et de gestion des commandes sur mesure, conçu pour des opérations de restauration multi-sites.",
-        "tags": ["Système Métier", "React", "Node.js", "Temps réel"],
-        "imagePlaceholder": "PLACEHOLDER : Capture de l'interface POS"
+        "title": "TAMWIL — Gestionnaire de Finances Personnelles",
+        "description": "Une application multiplateforme de gestion financière personnelle, conçue avec Flutter. Architecture 100% hors-ligne avec suivi financier complet et analyses interactives.",
+        "tags": ["App Mobile", "Flutter", "Dart", "Riverpod", "FinTech"],
+        "image": "/images/tamwil.jpg",
+        "client": "Produit Interne",
+        "type": "Application Mobile Multiplateforme",
+        "aim": "Fournir une application de gestion financière personnelle axée sur la confidentialité, fonctionnant 100% hors-ligne pour que les données ne quittent jamais l'appareil.",
+        "features": [
+          "Suivi multi-sources de revenus (salaire, freelance, investissements)",
+          "Catégorisation détaillée des dépenses avec catégories personnalisées",
+          "Gestion bidirectionnelle des dettes (dues & à recevoir)",
+          "Épargne intelligente avec allocation en pourcentage",
+          "Système de score de santé financière",
+          "Tableau de bord analytique avec graphiques interactifs",
+          "Support multilingue (Anglais, Français)",
+          "Thème Sombre / Clair / Adaptatif"
+        ],
+        "techStack": ["Flutter", "Dart", "Riverpod", "Dartz", "Material Design 3"]
       },
       {
-        "title": "Application Mobile de Service Terrain",
-        "description": "Application mobile cross-platform pour les techniciens terrain. Inclut la planification des missions, les formulaires numériques, le mode hors-ligne et le suivi GPS.",
-        "tags": ["App Mobile", "React Native", "Hors-ligne"],
-        "imagePlaceholder": "PLACEHOLDER : Maquette des écrans mobiles"
-      },
-      {
-        "title": "SaaS de Gestion de Stock",
-        "description": "Plateforme SaaS multi-tenant pour les petites entreprises permettant de gérer les stocks, suivre les commandes et générer des rapports.",
-        "tags": ["SaaS", "Tableau de bord", "TypeScript", "API"],
-        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord SaaS"
-      },
-      {
-        "title": "Refonte de Site Web Corporate",
-        "description": "Refonte complète et développement d'un site web corporate pour une entreprise de logistique. Axé sur le positionnement de marque, la performance et la génération de leads.",
-        "tags": ["Site Web", "SEO", "Next.js", "Tailwind CSS"],
-        "imagePlaceholder": "PLACEHOLDER : Capture de la page d'accueil corporate"
-      },
-      {
-        "title": "Portail Client & CRM",
-        "description": "Portail client sur mesure avec fonctionnalités CRM intégrées.",
-        "tags": ["App Web", "CRM", "Tableau de bord", "PostgreSQL"],
-        "imagePlaceholder": "PLACEHOLDER : Capture du tableau de bord CRM"
+        "title": "Djangi — Gestionnaire de Cotisations",
+        "description": "Une PWA mobile-first pour la gestion des tontines/djangi — une tradition d'épargne communautaire en Afrique Centrale et de l'Ouest.",
+        "tags": ["PWA", "Next.js", "TypeScript", "Tailwind CSS", "Hors-ligne"],
+        "image": "/images/cotisation.jpg",
+        "link": "https://cotisation-ashy.vercel.app",
+        "client": "Produit Interne",
+        "type": "Progressive Web App (PWA)",
+        "aim": "Digitaliser et simplifier la gestion des groupes d'épargne communautaire (djangi/tontines), en remplaçant les registres papier par une application sécurisée, hors-ligne et mobile-friendly.",
+        "features": [
+          "Tableau de bord en temps réel avec suivi de progression",
+          "Suivi des cotisations hebdomadaires par participant",
+          "Génération de rapports PDF (par participant & résumé)",
+          "Sauvegarde et synchronisation chiffrée via Google Drive",
+          "Verrouillage par PIN pour l'accès à l'application",
+          "100% hors-ligne — fonctionne sans internet",
+          "PWA installable sur Android & iOS",
+          "Nom de groupe, montants et semaines configurables"
+        ],
+        "techStack": ["Next.js", "TypeScript", "Tailwind CSS", "Dexie.js", "jsPDF", "Google Drive API", "Web Crypto API"]
       }
     ],
     "cta": {
@@ -305,4 +328,3 @@
     "builtBy": "Conçu par {brand}"
   }
 }
-

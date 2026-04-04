@@ -95,22 +95,36 @@ export async function POST(request: NextRequest) {
       html: htmlBody,
     };
 
-    const resendRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${resendKey}`,
-      },
-      body: JSON.stringify(payload),
-    });
+    let resendRes: Response;
+    try {
+      resendRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resendKey}`,
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch (fetchErr) {
+      console.error("❌ Failed to reach Resend API:", fetchErr);
+      return NextResponse.json(
+        { success: false, errors: ["Could not connect to email service. Please try again later."] },
+        { status: 502 }
+      );
+    }
 
     const resendBody = await resendRes.text();
     console.log("Resend response:", resendRes.status, resendBody);
 
     if (!resendRes.ok) {
       console.error("Resend API error:", resendRes.status, resendBody);
+      let detail = "Failed to send email. Please try again later.";
+      try {
+        const parsed = JSON.parse(resendBody);
+        if (parsed.message) detail = parsed.message;
+      } catch { /* use default */ }
       return NextResponse.json(
-        { success: false, errors: ["Failed to send email. Please try again later."] },
+        { success: false, errors: [detail] },
         { status: 502 }
       );
     }

@@ -16,7 +16,7 @@ export const BRAND = {
   description:
     "Zekora builds digital solutions that structure, modernize, and grow businesses. Web development, mobile apps, business digitalization, and SaaS products.",
   /** Contact email */
-  email: "contact@zekora.com",
+  email: "zekora237@gmail.com",
   /** Website domain (no protocol) */
   domain: "zekora.com",
   /** Full site URL */
