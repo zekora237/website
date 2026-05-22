@@ -77,6 +77,13 @@
         "description": "We launch, support, and ensure everything runs smoothly."
       }
     },
+    "work": {
+      "eyebrow": "Selected work",
+      "title": "Recent projects",
+      "subtitle": "A look at what we've designed and shipped — for clients and as our own products.",
+      "viewAll": "View all work"
+    },
+    "stackLabel": "The tools we build with",
     "cta": {
       "title": "Ready to Build Something Great?",
       "subtitle": "Let's discuss your project. We'll help you define the right solution and bring it to life.",

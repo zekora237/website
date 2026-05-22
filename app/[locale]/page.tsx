@@ -17,11 +17,15 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { buttonClass } from "@/components/ui/Button";
+import { HeroShowcase } from "@/components/sections/HeroShowcase";
+import { CtaBand } from "@/components/sections/CtaBand";
+import { ProjectCard } from "@/components/sections/ProjectCard";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
 import { useLocale } from "@/lib/locale-context";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const TECH = ["Next.js", "React", "Flutter", "TypeScript", "Node.js", "PostgreSQL", "Tailwind CSS"];
 
 const heroStagger: Variants = {
   hidden: {},
@@ -31,10 +35,15 @@ const heroItem: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
+const reveal = {
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.6, ease: EASE },
+};
 
-/** A radial fade applied to the grid / glow textures. */
 const fadeMask =
-  "radial-gradient(ellipse 75% 60% at 50% 0%, #000 45%, transparent 100%)";
+  "radial-gradient(ellipse 70% 60% at 60% 0%, #000 45%, transparent 100%)";
 
 export default function HomePage() {
   const dict = useDictionary();
@@ -68,84 +77,79 @@ export default function HomePage() {
           className="pointer-events-none absolute inset-0 bg-grid"
           style={{ maskImage: fadeMask, WebkitMaskImage: fadeMask }}
         />
-        <div className="pointer-events-none absolute -right-32 -top-44 h-[560px] w-[560px] rounded-full bg-primary/10 blur-3xl" />
-        <div className="pointer-events-none absolute -left-44 top-40 h-[420px] w-[420px] rounded-full bg-secondary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -left-44 top-20 h-[440px] w-[440px] rounded-full bg-secondary/8 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-5 pb-16 pt-36 sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
-          <motion.div
-            variants={heroStagger}
-            initial="hidden"
-            animate="visible"
-            className="max-w-3xl"
-          >
-            <motion.div variants={heroItem} className="eyebrow mb-6 text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-              {h.hero.eyebrow}
-            </motion.div>
-            <motion.h1
-              variants={heroItem}
-              className="font-display text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.035em] text-ink sm:text-[3.4rem] lg:text-[4.3rem]"
-            >
-              {dict.tagline}
-            </motion.h1>
-            <motion.p
-              variants={heroItem}
-              className="mt-6 max-w-xl text-[17px] leading-relaxed text-slate lg:text-lg"
-            >
-              {t(h.hero.subtitle)}
-            </motion.p>
-            <motion.div
-              variants={heroItem}
-              className="mt-9 flex flex-wrap items-center gap-x-2 gap-y-3"
-            >
-              <Link
-                href={`/${locale}/contact`}
-                className={buttonClass("primary", "lg")}
+        <div className="relative mx-auto max-w-7xl px-5 pb-24 pt-32 sm:px-6 lg:px-8 lg:pb-32 lg:pt-40">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-12">
+            {/* Text */}
+            <motion.div variants={heroStagger} initial="hidden" animate="visible">
+              <motion.div variants={heroItem} className="eyebrow mb-6 text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                {h.hero.eyebrow}
+              </motion.div>
+              <motion.h1
+                variants={heroItem}
+                className="font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-[3rem] lg:text-[3.45rem]"
               >
-                {h.hero.ctaPrimary}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href={`/${locale}/services`}
-                className="group inline-flex h-12 items-center gap-1.5 px-3 text-[15px] font-semibold text-foreground"
+                {dict.tagline}
+              </motion.h1>
+              <motion.p
+                variants={heroItem}
+                className="mt-6 max-w-md text-[16.5px] leading-relaxed text-slate"
               >
-                {h.hero.ctaSecondary}
-                <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
-              </Link>
+                {t(h.hero.subtitle)}
+              </motion.p>
+              <motion.div
+                variants={heroItem}
+                className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3"
+              >
+                <Link
+                  href={`/${locale}/contact`}
+                  className={buttonClass("primary", "lg")}
+                >
+                  {h.hero.ctaPrimary}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href={`/${locale}/services`}
+                  className="group inline-flex h-12 items-center gap-1.5 px-3 text-[15px] font-semibold text-foreground"
+                >
+                  {h.hero.ctaSecondary}
+                  <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
             </motion.div>
-          </motion.div>
 
-          {/* capability strip */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.62, duration: 0.6 }}
-            className="mt-14 border-t border-border pt-7 lg:mt-20"
-          >
-            <div className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
-              {services.map((s) => (
-                <div key={s.title} className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-light text-primary">
-                    <s.icon className="h-[18px] w-[18px]" />
-                  </span>
-                  <span className="text-[13.5px] font-semibold text-foreground">
-                    {s.title}
-                  </span>
-                </div>
-              ))}
+            {/* Visual */}
+            <div className="flex justify-center lg:justify-end">
+              <HeroShowcase />
             </div>
-          </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ TECH STRIP ═══════════════ */}
+      <section className="border-y border-border bg-paper">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 px-5 py-8 sm:flex-row sm:justify-between sm:gap-10 sm:px-6 lg:px-8">
+          <span className="eyebrow shrink-0 text-steel">{h.stackLabel}</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+            {TECH.map((name) => (
+              <span
+                key={name}
+                className="font-display text-[15px] font-semibold text-slate"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ═══════════════ SERVICES ═══════════════ */}
-      <section className="border-t border-border bg-paper py-20 md:py-24 lg:py-28">
+      <section className="bg-white py-20 md:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: EASE }}
+            {...reveal}
             className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10"
           >
             <div className="lg:col-span-7">
@@ -162,9 +166,7 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            {...reveal}
             transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
             className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:mt-14"
           >
@@ -193,16 +195,47 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══════════════ SELECTED WORK ═══════════════ */}
+      <section className="border-t border-border bg-paper py-20 md:py-24 lg:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+          <motion.div
+            {...reveal}
+            className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10"
+          >
+            <div className="lg:col-span-7">
+              <div className="eyebrow mb-4 text-secondary">
+                {h.work.eyebrow}
+              </div>
+              <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl lg:text-[2.7rem]">
+                {h.work.title}
+              </h2>
+            </div>
+            <div className="lg:col-span-5 lg:pb-1.5">
+              <p className="text-[15px] leading-relaxed text-slate">
+                {h.work.subtitle}
+              </p>
+              <Link
+                href={`/${locale}/portfolio`}
+                className="group mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-primary"
+              >
+                {h.work.viewAll}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </motion.div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
+            {dict.portfolio.projects.map((project, i) => (
+              <ProjectCard key={project.title} {...project} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ VALUES ═══════════════ */}
       <section className="border-t border-border bg-white py-20 md:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="max-w-2xl"
-          >
+          <motion.div {...reveal} className="max-w-2xl">
             <div className="eyebrow mb-4 text-secondary">{h.whyUs.eyebrow}</div>
             <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl lg:text-[2.7rem]">
               {t(h.whyUs.title)}
@@ -241,10 +274,7 @@ export default function HomePage() {
       <section className="border-t border-border bg-paper py-20 md:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: EASE }}
+            {...reveal}
             className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10"
           >
             <div className="lg:col-span-7">
@@ -289,43 +319,12 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ CTA ═══════════════ */}
-      <section className="relative overflow-hidden bg-primary">
-        <div
-          className="pointer-events-none absolute inset-0 bg-grid-dark"
-          style={{
-            maskImage:
-              "radial-gradient(ellipse 80% 100% at 50% 50%, #000 25%, transparent 100%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 80% 100% at 50% 50%, #000 25%, transparent 100%)",
-          }}
-        />
-        <div className="pointer-events-none absolute -right-24 -top-24 h-[380px] w-[380px] rounded-full bg-white/[0.06] blur-3xl" />
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-6 lg:px-8 lg:py-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between"
-          >
-            <div className="max-w-xl">
-              <h2 className="font-display text-3xl font-semibold text-white sm:text-4xl lg:text-[2.6rem]">
-                {h.cta.title}
-              </h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-white/70">
-                {t(h.cta.subtitle)}
-              </p>
-            </div>
-            <Link
-              href={`/${locale}/contact`}
-              className="group inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-xl bg-white px-6 text-[15px] font-semibold text-primary transition-colors hover:bg-white/90 lg:self-auto"
-            >
-              {h.cta.button}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <CtaBand
+        title={h.cta.title}
+        subtitle={t(h.cta.subtitle)}
+        button={h.cta.button}
+        href={`/${locale}/contact`}
+      />
     </>
   );
 }

@@ -77,6 +77,13 @@
         "description": "Nous déployons, accompagnons et veillons à ce que tout fonctionne parfaitement."
       }
     },
+    "work": {
+      "eyebrow": "Travaux sélectionnés",
+      "title": "Projets récents",
+      "subtitle": "Un aperçu de ce que nous concevons et livrons — pour nos clients comme pour nos propres produits.",
+      "viewAll": "Voir tous les travaux"
+    },
+    "stackLabel": "Les outils que nous utilisons",
     "cta": {
       "title": "Prêt à construire quelque chose de grand ?",
       "subtitle": "Discutons de votre projet. Nous vous aiderons à définir la bonne solution et à la concrétiser.",
