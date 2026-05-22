@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Eye,
@@ -15,6 +14,8 @@ import {
 } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { CountUp } from "@/components/sections/CountUp";
+import { BrowserMock } from "@/components/mockups/Mockups";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
 
@@ -36,6 +37,29 @@ export function AboutContent() {
     <>
       <PageHeader title={t(a.header.title)} subtitle={a.header.subtitle} />
 
+      {/* ── Figures ── */}
+      <section className="border-b border-border bg-paper">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 py-12 sm:grid-cols-3 sm:px-6 sm:py-14 lg:px-8">
+          {a.figures.map((fig, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
+              className="sm:border-l sm:border-border sm:pl-7 sm:first:border-l-0 sm:first:pl-0"
+            >
+              <div className="font-display text-4xl font-semibold tracking-tight text-brand lg:text-5xl">
+                <CountUp to={fig.value} suffix={fig.suffix} />
+              </div>
+              <p className="mt-2 max-w-[15rem] text-sm leading-relaxed text-slate">
+                {fig.label}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* ── Mission ── */}
       <SectionWrapper>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -47,14 +71,12 @@ export function AboutContent() {
             <p className="mt-5 leading-relaxed text-slate">{a.mission.p1}</p>
             <p className="mt-4 leading-relaxed text-slate">{t(a.mission.p2)}</p>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border">
-            <Image
-              src="/images/aboutPic.png"
-              alt={a.mission.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+          <div className="relative">
+            <div className="pointer-events-none absolute -inset-8 -z-10">
+              <div className="absolute right-6 top-4 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
+              <div className="absolute bottom-2 left-6 h-40 w-40 rounded-full bg-secondary/10 blur-3xl" />
+            </div>
+            <BrowserMock screen="site" url="zekora.dev" />
           </div>
         </div>
       </SectionWrapper>
@@ -79,13 +101,13 @@ export function AboutContent() {
             ].map((card) => (
               <div
                 key={card.title}
-                className="rounded-2xl border border-border bg-white p-6"
+                className="rounded-2xl border border-border bg-card p-6"
               >
                 <span
                   className={
                     "flex h-11 w-11 items-center justify-center rounded-xl " +
                     (card.tone === "primary"
-                      ? "bg-primary-light text-primary"
+                      ? "bg-primary-light text-brand"
                       : "bg-secondary-light text-secondary")
                   }
                 >
@@ -129,7 +151,7 @@ export function AboutContent() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, ease: EASE, delay: i * 0.06 }}
-              className="rounded-2xl border border-border bg-white p-7"
+              className="rounded-2xl border border-border bg-card p-7 transition-colors duration-300 hover:border-primary/30"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-secondary">
                 <v.icon className="h-5 w-5" />
@@ -166,7 +188,7 @@ export function AboutContent() {
             {a.philosophy.title}
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-white p-7 lg:p-8">
+            <div className="rounded-2xl border border-border bg-card p-7 lg:p-8">
               <h3 className="font-display text-lg font-semibold text-ink">
                 {a.philosophy.believeTitle}
               </h3>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Plus } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { CtaBand } from "@/components/sections/CtaBand";
@@ -23,9 +24,16 @@ export function PortfolioContent() {
             <ProjectCard key={project.title} {...project} index={i} />
           ))}
         </div>
-        <p className="mt-14 text-center text-sm text-slate">
-          {p.moreComingSoon}
-        </p>
+
+        {/* More to come */}
+        <div className="mx-auto mt-8 flex max-w-lg items-center gap-4 rounded-2xl border border-dashed border-mist bg-paper px-6 py-6">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-indigo-tint text-brand">
+            <Plus className="h-5 w-5" />
+          </span>
+          <p className="text-sm leading-relaxed text-slate">
+            {p.moreComingSoon}
+          </p>
+        </div>
       </SectionWrapper>
 
       <CtaBand

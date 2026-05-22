@@ -14,7 +14,7 @@ const fadeMask =
 /** Consistent light header for inner pages — matches the home hero language. */
 export function PageHeader({ title, subtitle, eyebrow }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-white">
+    <section className="relative overflow-hidden border-b border-border bg-background">
       <div
         className="pointer-events-none absolute inset-0 bg-grid"
         style={{ maskImage: fadeMask, WebkitMaskImage: fadeMask }}
@@ -28,7 +28,7 @@ export function PageHeader({ title, subtitle, eyebrow }: PageHeaderProps) {
           className="max-w-3xl"
         >
           {eyebrow && (
-            <div className="eyebrow mb-5 text-primary">
+            <div className="eyebrow mb-5 text-brand">
               <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
               {eyebrow}
             </div>

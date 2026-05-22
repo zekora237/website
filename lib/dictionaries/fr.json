@@ -99,6 +99,11 @@
       "title": "À propos de {brand}",
       "subtitle": "Une entreprise technologique qui conçoit des solutions numériques et crée des produits évolutifs — avec clarté, qualité et sens."
     },
+    "figures": [
+      { "value": 24, "suffix": "h", "label": "Délai de réponse habituel" },
+      { "value": 3, "suffix": "", "label": "Livraison en phases claires et définies" },
+      { "value": 100, "suffix": "%", "label": "Code et pleine propriété transférés à vous" }
+    ],
     "mission": {
       "label": "Notre Mission",
       "title": "Résoudre de vrais problèmes, pas juste livrer du logiciel",
@@ -307,6 +312,7 @@
       "title": "Contactez-nous",
       "subtitle": "Vous avez un projet en tête ? Nous serions ravis d'en discuter. Remplissez le formulaire et nous vous répondrons sous 24 heures."
     },
+    "available": "Disponible pour de nouveaux projets",
     "form": {
       "name": "Nom complet",
       "email": "Adresse e-mail",

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { PageHeader } from "@/components/sections/PageHeader";
+import { PulseDot } from "@/components/mockups/Mockups";
 import { Button } from "@/components/ui/Button";
 import { BRAND } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
@@ -27,7 +28,7 @@ interface ContactFormData {
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 const inputBase =
-  "w-full rounded-xl border bg-white px-4 py-3 text-sm text-foreground " +
+  "w-full rounded-xl border bg-card px-4 py-3 text-sm text-foreground " +
   "placeholder:text-steel/70 transition-colors duration-200 " +
   "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
 
@@ -243,12 +244,18 @@ export function ContactContent() {
           <div className="lg:col-span-2">
             <div className="space-y-8 lg:sticky lg:top-28">
               <div>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5">
+                  <PulseDot />
+                  <span className="text-[13px] font-medium text-foreground">
+                    {c.available}
+                  </span>
+                </div>
                 <h2 className="font-display text-xl font-semibold text-ink">
                   {c.info.title}
                 </h2>
                 <div className="mt-5 space-y-4">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-brand">
                       <Mail className="h-5 w-5" />
                     </span>
                     <div>
@@ -264,7 +271,7 @@ export function ContactContent() {
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-brand">
                       <MapPin className="h-5 w-5" />
                     </span>
                     <div>

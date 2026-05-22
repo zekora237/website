@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getDictionary, i18n, type Locale } from "@/lib/i18n";
 import { t } from "@/lib/config";
+import { alternatesFor } from "@/lib/seo";
 import { ContactContent } from "./ContactContent";
 
 export async function generateMetadata({
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return {
     title: dict.contact.meta.title,
     description: t(dict.contact.meta.description),
+    alternates: alternatesFor("/contact", locale),
   };
 }
 

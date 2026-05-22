@@ -72,7 +72,7 @@ export default function HomePage() {
   return (
     <>
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative overflow-hidden bg-white">
+      <section className="relative overflow-hidden bg-background">
         <div
           className="pointer-events-none absolute inset-0 bg-grid"
           style={{ maskImage: fadeMask, WebkitMaskImage: fadeMask }}
@@ -83,13 +83,13 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-12">
             {/* Text */}
             <motion.div variants={heroStagger} initial="hidden" animate="visible">
-              <motion.div variants={heroItem} className="eyebrow mb-6 text-primary">
+              <motion.div variants={heroItem} className="eyebrow mb-6 text-brand">
                 <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
                 {h.hero.eyebrow}
               </motion.div>
               <motion.h1
                 variants={heroItem}
-                className="font-display text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.035em] text-ink sm:text-[3rem] lg:text-[3.45rem]"
+                className="font-display text-[2.3rem] font-semibold leading-[1.06] tracking-[-0.03em] text-ink sm:text-[3rem] lg:text-[3.45rem]"
               >
                 {dict.tagline}
               </motion.h1>
@@ -101,21 +101,25 @@ export default function HomePage() {
               </motion.p>
               <motion.div
                 variants={heroItem}
-                className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3"
+                className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2"
               >
                 <Link
                   href={`/${locale}/contact`}
-                  className={buttonClass("primary", "lg")}
+                  className={buttonClass(
+                    "primary",
+                    "lg",
+                    "w-full justify-center sm:w-auto"
+                  )}
                 >
                   {h.hero.ctaPrimary}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href={`/${locale}/services`}
-                  className="group inline-flex h-12 items-center gap-1.5 px-3 text-[15px] font-semibold text-foreground"
+                  className="group inline-flex h-12 w-full items-center justify-center gap-1.5 px-3 text-[15px] font-semibold text-foreground sm:w-auto sm:justify-start"
                 >
                   {h.hero.ctaSecondary}
-                  <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 text-brand transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
             </motion.div>
@@ -146,7 +150,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ SERVICES ═══════════════ */}
-      <section className="bg-white py-20 md:py-24 lg:py-28">
+      <section className="bg-background py-20 md:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <motion.div
             {...reveal}
@@ -173,10 +177,10 @@ export default function HomePage() {
             {services.map((s, i) => (
               <div
                 key={s.title}
-                className="group bg-white p-7 transition-colors duration-300 hover:bg-primary-lighter lg:p-9"
+                className="group bg-card p-7 transition-colors duration-300 hover:bg-primary-lighter lg:p-9"
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-brand transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
                     <s.icon className="h-5 w-5" />
                   </span>
                   <span className="font-mono text-xs text-steel">
@@ -216,7 +220,7 @@ export default function HomePage() {
               </p>
               <Link
                 href={`/${locale}/portfolio`}
-                className="group mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-primary"
+                className="group mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-brand"
               >
                 {h.work.viewAll}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -233,7 +237,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ VALUES ═══════════════ */}
-      <section className="border-t border-border bg-white py-20 md:py-24 lg:py-28">
+      <section className="border-t border-border bg-background py-20 md:py-24 lg:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
           <motion.div {...reveal} className="max-w-2xl">
             <div className="eyebrow mb-4 text-secondary">{h.whyUs.eyebrow}</div>
@@ -300,7 +304,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, ease: EASE, delay: i * 0.09 }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="font-display text-2xl font-semibold text-primary">
+                  <span className="font-display text-2xl font-semibold text-brand">
                     0{i + 1}
                   </span>
                   <span className="h-px flex-1 bg-border" />

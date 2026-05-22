@@ -1,47 +1,108 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Light palette ──────────────────────────────────────────────── */
+:root {
+  --c-bg: #ffffff;
+  --c-fg: #14162e;
+  --c-primary: #2e3a9e;
+  --c-primary-fg: #ffffff;
+  --c-primary-light: #eef0fb;
+  --c-primary-lighter: #f5f6fc;
+  --c-primary-hover: #222a75;
+  --c-secondary: #1e9e86;
+  --c-secondary-fg: #ffffff;
+  --c-secondary-light: #e4f4f0;
+  --c-secondary-hover: #147a68;
+  --c-muted: #f6f7fb;
+  --c-muted-fg: #565c73;
+  --c-border: #e7e9f2;
+  --c-card: #ffffff;
+  --c-card-hover: #fafbfd;
+  --c-ink: #14162e;
+  --c-slate: #565c73;
+  --c-steel: #8a8fa3;
+  --c-mist: #d8dbe7;
+  --c-cloud: #eceef5;
+  --c-paper: #f6f7fb;
+  --c-brand: #2e3a9e;
+  --c-indigo-tint: #eef0fb;
+  --c-teal: #1e9e86;
+  --c-teal-deep: #147a68;
+  --c-teal-tint: #e4f4f0;
+  --c-indigo-darker: #1a1f4a;
+  --grid-line: rgba(46, 58, 158, 0.055);
+}
+
+/* ── Dark palette ───────────────────────────────────────────────── */
+.dark {
+  --c-bg: #0f1020;
+  --c-fg: #e8eaf4;
+  --c-primary: #2e3a9e;
+  --c-primary-fg: #ffffff;
+  --c-primary-light: #1f2240;
+  --c-primary-lighter: #181a30;
+  --c-primary-hover: #3946c4;
+  --c-secondary: #2ab89d;
+  --c-secondary-fg: #04221c;
+  --c-secondary-light: #15302a;
+  --c-secondary-hover: #36c6ab;
+  --c-muted: #15172a;
+  --c-muted-fg: #a4a8c2;
+  --c-border: #2a2d4a;
+  --c-card: #1c1e38;
+  --c-card-hover: #22243f;
+  --c-ink: #e8eaf4;
+  --c-slate: #a4a8c2;
+  --c-steel: #777c98;
+  --c-mist: #383c5e;
+  --c-cloud: #1f2139;
+  --c-paper: #15172a;
+  --c-brand: #8e98f2;
+  --c-indigo-tint: #1f2240;
+  --c-teal: #2ab89d;
+  --c-teal-deep: #36c6ab;
+  --c-teal-tint: #15302a;
+  --c-indigo-darker: #090a14;
+  --grid-line: rgba(255, 255, 255, 0.05);
+}
+
 @theme inline {
-  /* ── Brand tokens (Zekora Visual Identity v1.0) ───────────────── */
-  --color-background: #ffffff;
-  --color-foreground: #14162e;
-
-  --color-primary: #2e3a9e;
-  --color-primary-foreground: #ffffff;
-  --color-primary-light: #eef0fb;
-  --color-primary-lighter: #f5f6fc;
-  --color-primary-hover: #222a75;
-
-  --color-secondary: #1e9e86;
-  --color-secondary-foreground: #ffffff;
-  --color-secondary-light: #e4f4f0;
-  --color-secondary-hover: #147a68;
-
-  --color-accent: #1e9e86;
-  --color-accent-foreground: #ffffff;
-
-  --color-muted: #f6f7fb;
-  --color-muted-foreground: #565c73;
-  --color-border: #e7e9f2;
-  --color-ring: #2e3a9e;
-  --color-card: #ffffff;
-  --color-card-hover: #fafbfd;
-
-  /* ── Extended palette ─────────────────────────────────────────── */
-  --color-ink: #14162e;
-  --color-slate: #565c73;
-  --color-steel: #8a8fa3;
-  --color-mist: #d8dbe7;
-  --color-cloud: #eceef5;
-  --color-paper: #f6f7fb;
+  --color-background: var(--c-bg);
+  --color-foreground: var(--c-fg);
+  --color-primary: var(--c-primary);
+  --color-primary-foreground: var(--c-primary-fg);
+  --color-primary-light: var(--c-primary-light);
+  --color-primary-lighter: var(--c-primary-lighter);
+  --color-primary-hover: var(--c-primary-hover);
+  --color-secondary: var(--c-secondary);
+  --color-secondary-foreground: var(--c-secondary-fg);
+  --color-secondary-light: var(--c-secondary-light);
+  --color-secondary-hover: var(--c-secondary-hover);
+  --color-accent: var(--c-secondary);
+  --color-accent-foreground: var(--c-secondary-fg);
+  --color-muted: var(--c-muted);
+  --color-muted-foreground: var(--c-muted-fg);
+  --color-border: var(--c-border);
+  --color-ring: var(--c-primary);
+  --color-card: var(--c-card);
+  --color-card-hover: var(--c-card-hover);
+  --color-ink: var(--c-ink);
+  --color-slate: var(--c-slate);
+  --color-steel: var(--c-steel);
+  --color-mist: var(--c-mist);
+  --color-cloud: var(--c-cloud);
+  --color-paper: var(--c-paper);
+  --color-brand: var(--c-brand);
   --color-indigo: #2e3a9e;
   --color-indigo-deep: #222a75;
-  --color-indigo-darker: #1a1f4a;
-  --color-indigo-tint: #eef0fb;
-  --color-teal: #1e9e86;
-  --color-teal-deep: #147a68;
-  --color-teal-tint: #e4f4f0;
+  --color-indigo-darker: var(--c-indigo-darker);
+  --color-indigo-tint: var(--c-indigo-tint);
+  --color-teal: var(--c-teal);
+  --color-teal-deep: var(--c-teal-deep);
+  --color-teal-tint: var(--c-teal-tint);
 
-  /* ── Typefaces ────────────────────────────────────────────────── */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jbmono), ui-monospace, "SFMono-Regular", monospace;
@@ -60,6 +121,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1,
@@ -70,7 +132,6 @@ h5 {
   font-family: var(--font-display);
   text-wrap: balance;
 }
-
 h1 {
   line-height: 1.04;
   letter-spacing: -0.032em;
@@ -83,7 +144,6 @@ h3 {
   line-height: 1.25;
   letter-spacing: -0.018em;
 }
-
 p {
   text-wrap: pretty;
 }
@@ -108,22 +168,16 @@ p {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d8dbe7;
-  border: 3px solid #ffffff;
+  background: var(--c-mist);
+  border: 3px solid var(--c-bg);
   border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #b9bdd0;
 }
 
 /* ── Utilities ──────────────────────────────────────────────────── */
-
-/* Wordmark-style tightened display text */
 .font-display {
   font-family: var(--font-display);
 }
 
-/* Eyebrow / kicker label above section titles */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -135,11 +189,10 @@ p {
   text-transform: uppercase;
 }
 
-/* Fine grid texture for hero / feature surfaces */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(46, 58, 158, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(46, 58, 158, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 .bg-grid-dark {
@@ -149,7 +202,6 @@ p {
   background-size: 64px 64px;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

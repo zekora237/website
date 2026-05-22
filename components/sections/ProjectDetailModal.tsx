@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -40,6 +41,8 @@ export function ProjectDetailModal({
 }: ProjectDetailModalProps) {
   const dict = useDictionary();
   const d = dict.portfolio.detail;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
@@ -59,7 +62,7 @@ export function ProjectDetailModal({
     };
   }, [isOpen, handleEsc]);
 
-  return (
+  const ui = (
     <AnimatePresence>
       {isOpen && project && (
         <motion.div
@@ -70,7 +73,7 @@ export function ProjectDetailModal({
           transition={{ duration: 0.2 }}
         >
           <motion.div
-            className="absolute inset-0 bg-ink/65 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -78,7 +81,7 @@ export function ProjectDetailModal({
           />
 
           <motion.div
-            className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-card shadow-2xl"
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
@@ -86,7 +89,7 @@ export function ProjectDetailModal({
           >
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/90 text-slate shadow-md backdrop-blur-sm transition-colors hover:bg-white hover:text-ink"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-card/90 text-slate shadow-md backdrop-blur-sm transition-colors hover:bg-card hover:text-ink"
               aria-label="Close"
             >
               <X className="h-5 w-5" />
@@ -160,7 +163,7 @@ export function ProjectDetailModal({
                 {project.aim && (
                   <div className="rounded-xl border border-border bg-paper p-4">
                     <div className="flex items-center gap-2">
-                      <Target className="h-4 w-4 text-primary" />
+                      <Target className="h-4 w-4 text-brand" />
                       <h3 className="font-display text-sm font-semibold text-ink">
                         {d.objective}
                       </h3>
@@ -205,7 +208,7 @@ export function ProjectDetailModal({
                       {project.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-md border border-border bg-white px-2.5 py-1 font-mono text-[11px] text-slate"
+                          className="rounded-md border border-border bg-card px-2.5 py-1 font-mono text-[11px] text-slate"
                         >
                           {tech}
                         </span>
@@ -234,4 +237,7 @@ export function ProjectDetailModal({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) return null;
+  return createPortal(ui, document.body);
 }

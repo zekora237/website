@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonClass } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useDictionary } from "@/lib/dictionary-context";
 import { useLocale } from "@/lib/locale-context";
 
@@ -42,13 +43,13 @@ export function Navbar() {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-border bg-white/85 backdrop-blur-xl backdrop-saturate-150"
+          ? "border-b border-border bg-background/85 backdrop-blur-xl backdrop-saturate-150"
           : "border-b border-transparent bg-transparent"
       )}
     >
       <nav className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between lg:h-[72px]">
-          {/* Wordmark */}
+          {/* Wordmark — swaps for dark mode */}
           <Link
             href={`/${locale}`}
             className="shrink-0 rounded-sm transition-opacity hover:opacity-80"
@@ -58,7 +59,13 @@ export function Navbar() {
             <img
               src="/logos/zekora-logo.svg"
               alt="Zekora"
-              className="h-[21px] w-auto lg:h-[23px]"
+              className="h-[21px] w-auto lg:h-[23px] dark:hidden"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/zekora-logo-white.svg"
+              alt="Zekora"
+              className="hidden h-[21px] w-auto lg:h-[23px] dark:block"
             />
           </Link>
 
@@ -87,7 +94,8 @@ export function Navbar() {
           </div>
 
           {/* Right cluster */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
+            <ThemeToggle />
             <Link
               href={switchPath}
               className="hidden items-center gap-1.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:flex"
@@ -98,7 +106,7 @@ export function Navbar() {
             </Link>
             <Link
               href={`/${locale}/contact`}
-              className={cn(buttonClass("primary", "sm"), "hidden md:inline-flex")}
+              className={cn(buttonClass("primary", "sm"), "ml-1 hidden md:inline-flex")}
             >
               {dict.nav.getQuote}
             </Link>
@@ -106,7 +114,7 @@ export function Navbar() {
             {/* Mobile controls */}
             <Link
               href={switchPath}
-              className="flex items-center gap-1 rounded-lg border border-border bg-white/70 px-2.5 py-1.5 text-[12px] font-semibold text-foreground md:hidden"
+              className="flex items-center gap-1 rounded-lg border border-border bg-card/70 px-2.5 py-1.5 text-[12px] font-semibold text-foreground md:hidden"
               aria-label="Switch language"
             >
               <Globe className="h-3.5 w-3.5" />
@@ -132,7 +140,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-border bg-white md:hidden"
+            className="overflow-hidden border-t border-border bg-background md:hidden"
           >
             <div className="space-y-0.5 px-4 py-4">
               {links.map((link, i) => (
@@ -148,7 +156,7 @@ export function Navbar() {
                     className={cn(
                       "flex items-center rounded-lg px-3.5 py-3 text-[15px] font-medium transition-colors",
                       isActive(link.href)
-                        ? "bg-primary-light text-primary"
+                        ? "bg-primary-light text-brand"
                         : "text-foreground hover:bg-muted"
                     )}
                   >

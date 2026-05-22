@@ -41,7 +41,7 @@ export function CtaBand({ title, subtitle, button, href }: CtaBandProps) {
           </div>
           <Link
             href={href}
-            className="group inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-xl bg-white px-6 text-[15px] font-semibold text-primary transition-colors hover:bg-white/90 lg:self-auto"
+            className="group inline-flex h-12 shrink-0 items-center gap-2 self-start rounded-xl bg-white px-6 text-[15px] font-semibold text-indigo transition-colors hover:bg-white/90 lg:self-auto"
           >
             {button}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

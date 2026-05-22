@@ -32,7 +32,7 @@ export function SectionWrapper({
           ? "bg-primary text-white"
           : muted
             ? "bg-paper text-foreground"
-            : "bg-white text-foreground",
+            : "bg-background text-foreground",
         className
       )}
     >

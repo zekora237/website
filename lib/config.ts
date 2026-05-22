@@ -10,6 +10,8 @@ export const BRAND = {
   name: "Zekora",
   /** Uppercase version used in logo / navbar */
   nameUpper: "ZEKORA",
+  /** Alternate name — matches the domain, helps "zekora tech" searches */
+  altName: "Zekora Tech",
   /** Primary tagline */
   tagline: "Digital Solutions That Structure & Grow Your Business",
   /** Short description used in metadata & footer */
@@ -18,11 +20,13 @@ export const BRAND = {
   /** Contact email */
   email: "zekora237@gmail.com",
   /** Website domain (no protocol) */
-  domain: "zekora.com",
-  /** Full site URL */
-  url: "https://zekora.com",
+  domain: "zekoratech.com",
+  /** Full site URL — canonical (www) */
+  url: "https://www.zekoratech.com",
   /** Location */
   location: "Global — Remote First",
+  /** Year the company was established */
+  founded: "2024",
 } as const;
 
 /**

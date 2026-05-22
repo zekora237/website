@@ -63,7 +63,7 @@ export function ProjectCard({
           delay: index * 0.08,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-white text-left transition-all duration-300 hover:border-primary/30 hover:shadow-lg"
+        className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card text-left transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_22px_44px_-22px_rgba(20,22,46,0.32)]"
       >
         {/* Screenshot */}
         <div className="relative aspect-[16/10] overflow-hidden bg-cloud">
@@ -102,7 +102,7 @@ export function ProjectCard({
               </span>
             ))}
           </div>
-          <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary">
+          <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand">
             {dict.portfolio.detail.viewDetails}
             <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>

@@ -11,6 +11,7 @@ import {
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { BrowserMock, PhoneMock } from "@/components/mockups/Mockups";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
 import { useLocale } from "@/lib/locale-context";
@@ -24,6 +25,21 @@ const icons: Record<string, LucideIcon> = {
 const keys = ["webDev", "mobile", "digital", "saas"] as const;
 const ids = ["web-development", "mobile-apps", "digitalization", "saas"];
 
+/** The matching brand mockup for each service. */
+function ServiceMock({ k }: { k: string }) {
+  if (k === "mobile")
+    return (
+      <div className="mx-auto w-[62%] max-w-[248px]">
+        <PhoneMock />
+      </div>
+    );
+  if (k === "webDev")
+    return <BrowserMock screen="site" url="zekora.dev" />;
+  if (k === "digital")
+    return <BrowserMock screen="board" url="zekora.app/workflow" />;
+  return <BrowserMock screen="dashboard" url="zekora.app/dashboard" />;
+}
+
 export function ServicesContent() {
   const dict = useDictionary();
   const locale = useLocale();
@@ -31,6 +47,7 @@ export function ServicesContent() {
 
   const data = keys.map((key, i) => ({
     id: ids[i],
+    key,
     icon: icons[key],
     ...s.detail[key],
   }));
@@ -49,8 +66,8 @@ export function ServicesContent() {
         ];
         return (
           <SectionWrapper key={svc.id} id={svc.id} muted={muted}>
-            <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-              {/* Problem · Solution · Benefit */}
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Text */}
               <div className={muted ? "lg:order-2" : ""}>
                 <div className="flex items-center gap-4">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
@@ -60,7 +77,7 @@ export function ServicesContent() {
                     {svc.title}
                   </h2>
                 </div>
-                <div className="mt-7 space-y-5">
+                <div className="mt-6 space-y-4">
                   {blocks.map((b) => (
                     <div key={b.label} className={`border-l-2 pl-5 ${b.line}`}>
                       <div className="flex items-center gap-2">
@@ -75,33 +92,31 @@ export function ServicesContent() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* What's included */}
-              <div className={muted ? "lg:order-1" : ""}>
-                <div
-                  className={
-                    "rounded-2xl border border-border p-7 lg:p-8 " +
-                    (muted ? "bg-white" : "bg-paper")
-                  }
-                >
-                  <h3 className="font-display text-base font-semibold text-ink">
+                <div className="mt-6 border-t border-border pt-5">
+                  <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-steel">
                     {s.whatsIncluded}
                   </h3>
-                  <ul className="mt-5 space-y-3.5">
-                    {svc.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-3 text-sm text-slate"
+                  <div className="mt-3 grid gap-x-5 gap-y-2 sm:grid-cols-2">
+                    {svc.features.map((f) => (
+                      <div
+                        key={f}
+                        className="flex items-start gap-2 text-[13px] text-slate"
                       >
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary-light text-secondary">
-                          <Check className="h-3.5 w-3.5" />
-                        </span>
-                        <span>{feature}</span>
-                      </li>
+                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-secondary" />
+                        <span>{f}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
+              </div>
+
+              {/* Mockup */}
+              <div className={`relative ${muted ? "lg:order-1" : ""}`}>
+                <div className="pointer-events-none absolute -inset-8 -z-10">
+                  <div className="absolute right-6 top-6 h-44 w-44 rounded-full bg-primary/10 blur-3xl" />
+                  <div className="absolute bottom-2 left-4 h-40 w-40 rounded-full bg-secondary/10 blur-3xl" />
+                </div>
+                <ServiceMock k={svc.key} />
               </div>
             </div>
           </SectionWrapper>

@@ -99,6 +99,11 @@
       "title": "About {brand}",
       "subtitle": "A technology-driven company that builds digital solutions and creates scalable products — with clarity, quality, and purpose."
     },
+    "figures": [
+      { "value": 24, "suffix": "h", "label": "Typical response time" },
+      { "value": 3, "suffix": "", "label": "Delivery in clear, defined phases" },
+      { "value": 100, "suffix": "%", "label": "Code & ownership transferred to you" }
+    ],
     "mission": {
       "label": "Our Mission",
       "title": "Solving Real Problems, Not Just Delivering Software",
@@ -307,6 +312,7 @@
       "title": "Get in Touch",
       "subtitle": "Have a project in mind? We'd love to hear about it. Fill out the form and we'll get back to you within 24 hours."
     },
+    "available": "Available for new projects",
     "form": {
       "name": "Full Name",
       "email": "Email Address",
