@@ -3,7 +3,16 @@
 import { useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, Target, Wrench, CheckCircle2, User, Layers } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  Target,
+  Wrench,
+  Check,
+  User,
+  Layers,
+} from "lucide-react";
+import { useDictionary } from "@/lib/dictionary-context";
 
 export interface ProjectDetail {
   title: string;
@@ -24,7 +33,14 @@ interface ProjectDetailModalProps {
   onClose: () => void;
 }
 
-export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailModalProps) {
+export function ProjectDetailModal({
+  project,
+  isOpen,
+  onClose,
+}: ProjectDetailModalProps) {
+  const dict = useDictionary();
+  const d = dict.portfolio.detail;
+
   const handleEsc = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -47,92 +63,78 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
     <AnimatePresence>
       {isOpen && project && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/65 backdrop-blur-sm"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
 
-          {/* Modal */}
           <motion.div
-            className="relative w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* Close button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-md hover:bg-white transition-colors cursor-pointer"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white/90 text-slate shadow-md backdrop-blur-sm transition-colors hover:bg-white hover:text-ink"
               aria-label="Close"
             >
-              <X className="w-5 h-5 text-gray-600" />
+              <X className="h-5 w-5" />
             </button>
 
-            {/* Scrollable content */}
-            <div className="overflow-y-auto flex-1">
+            <div className="flex-1 overflow-y-auto">
               {/* Image */}
-              {project.image ? (
-                <div className="relative w-full bg-gradient-to-br from-slate-100 to-slate-50">
-                  <div className="relative w-full" style={{ aspectRatio: "16/10" }}>
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 672px) 100vw, 672px"
-                      priority
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className="w-full flex items-center justify-center"
-                  style={{
-                    aspectRatio: "16/10",
-                    background: "linear-gradient(135deg, #f0f2f8 0%, #e6f5f5 50%, #f3f5fa 100%)",
-                  }}
-                >
-                  <div className="text-center">
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-sm"
-                      style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}
-                    >
-                      <Layers className="w-7 h-7 text-white" />
+              <div className="relative aspect-[16/10] w-full bg-cloud">
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 672px) 100vw, 672px"
+                    priority
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center">
+                    <div className="text-center">
+                      <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white">
+                        <Layers className="h-6 w-6" />
+                      </span>
+                      <p className="mt-3 font-mono text-xs text-steel">
+                        {d.preview}
+                      </p>
                     </div>
-                    <p className="text-sm text-gray-400">Project preview</p>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
 
               {/* Content */}
-              <div className="p-6 sm:p-8 space-y-6">
-                {/* Title */}
+              <div className="space-y-6 p-6 sm:p-8">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
+                  <h2 className="font-display text-xl font-semibold text-ink sm:text-2xl">
                     {project.title}
                   </h2>
                   {(project.client || project.type) && (
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+                    <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1">
                       {project.client && (
-                        <span className="flex items-center gap-1.5 text-xs text-gray-500">
-                          <User className="w-3.5 h-3.5" />
+                        <span className="flex items-center gap-1.5 text-xs text-steel">
+                          <User className="h-3.5 w-3.5" />
                           {project.client}
                         </span>
                       )}
                       {project.type && (
-                        <span className="flex items-center gap-1.5 text-xs text-gray-500">
-                          <Layers className="w-3.5 h-3.5" />
+                        <span className="flex items-center gap-1.5 text-xs text-steel">
+                          <Layers className="h-3.5 w-3.5" />
                           {project.type}
                         </span>
                       )}
@@ -140,47 +142,50 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   )}
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <p className="text-sm leading-relaxed text-slate">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border"
-                      style={{
-                        color: "#1F3C88",
-                        borderColor: "#e8eaef",
-                        backgroundColor: "#f0f2f8",
-                      }}
+                      className="rounded-md border border-border bg-paper px-2 py-0.5 font-mono text-[11px] text-slate"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                {/* Aim */}
                 {project.aim && (
-                  <div className="rounded-xl p-4 border border-gray-100" style={{ backgroundColor: "#f8f9fb" }}>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Target className="w-4 h-4" style={{ color: "#1F3C88" }} />
-                      <h3 className="text-sm font-semibold" style={{ color: "#1F3C88" }}>
-                        Objective
+                  <div className="rounded-xl border border-border bg-paper p-4">
+                    <div className="flex items-center gap-2">
+                      <Target className="h-4 w-4 text-primary" />
+                      <h3 className="font-display text-sm font-semibold text-ink">
+                        {d.objective}
                       </h3>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed">{project.aim}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-slate">
+                      {project.aim}
+                    </p>
                   </div>
                 )}
 
-                {/* Key Features */}
                 {project.features && project.features.length > 0 && (
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <CheckCircle2 className="w-4 h-4" style={{ color: "#1BA6A6" }} />
-                      <h3 className="text-sm font-semibold text-gray-900">Key Features</h3>
+                    <div className="mb-3 flex items-center gap-2">
+                      <Check className="h-4 w-4 text-secondary" />
+                      <h3 className="font-display text-sm font-semibold text-ink">
+                        {d.keyFeatures}
+                      </h3>
                     </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                    <ul className="grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2">
                       {project.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#1BA6A6" }} />
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm text-slate"
+                        >
+                          <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-secondary" />
                           {feature}
                         </li>
                       ))}
@@ -188,18 +193,19 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   </div>
                 )}
 
-                {/* Tech Stack */}
                 {project.techStack && project.techStack.length > 0 && (
                   <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Wrench className="w-4 h-4 text-gray-500" />
-                      <h3 className="text-sm font-semibold text-gray-900">Tech Stack</h3>
+                    <div className="mb-3 flex items-center gap-2">
+                      <Wrench className="h-4 w-4 text-steel" />
+                      <h3 className="font-display text-sm font-semibold text-ink">
+                        {d.techStack}
+                      </h3>
                     </div>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5">
                       {project.techStack.map((tech) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200"
+                          className="rounded-md border border-border bg-white px-2.5 py-1 font-mono text-[11px] text-slate"
                         >
                           {tech}
                         </span>
@@ -208,18 +214,16 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
                   </div>
                 )}
 
-                {/* Visit link */}
                 {project.link && (
-                  <div className="pt-2">
+                  <div className="pt-1">
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg"
-                      style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}
+                      className="inline-flex h-11 items-center gap-2 rounded-xl bg-primary px-5 text-sm font-semibold text-white transition-colors hover:bg-primary-hover"
                     >
-                      Visit Live Project
-                      <ExternalLink className="w-4 h-4" />
+                      {d.visitProject}
+                      <ExternalLink className="h-4 w-4" />
                     </a>
                   </div>
                 )}
@@ -231,4 +235,3 @@ export function ProjectDetailModal({ project, isOpen, onClose }: ProjectDetailMo
     </AnimatePresence>
   );
 }
-

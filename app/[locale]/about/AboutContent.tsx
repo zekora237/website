@@ -2,128 +2,156 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Eye, ShieldCheck, Lightbulb, Handshake, Heart, Target, TrendingUp, Layers, CheckCircle2, XCircle } from "lucide-react";
+import {
+  Eye,
+  ShieldCheck,
+  Feather,
+  Handshake,
+  Scale,
+  Layers,
+  TrendingUp,
+  Check,
+  X,
+} from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { FeatureCard } from "@/components/sections/FeatureCard";
-import { MobileCarousel } from "@/components/ui/MobileCarousel";
+import { PageHeader } from "@/components/sections/PageHeader";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function AboutContent() {
   const dict = useDictionary();
   const a = dict.about;
 
   const values = [
-    { icon: Eye, title: a.values.clarity.title, description: a.values.clarity.description },
-    { icon: ShieldCheck, title: a.values.reliability.title, description: a.values.reliability.description },
-    { icon: Lightbulb, title: a.values.simplicity.title, description: a.values.simplicity.description },
-    { icon: Handshake, title: a.values.ownership.title, description: a.values.ownership.description },
-    { icon: Heart, title: a.values.ethics.title, description: a.values.ethics.description },
+    { icon: Eye, ...a.values.clarity },
+    { icon: ShieldCheck, ...a.values.reliability },
+    { icon: Feather, ...a.values.simplicity },
+    { icon: Handshake, ...a.values.ownership },
+    { icon: Scale, ...a.values.ethics },
   ];
 
   return (
     <>
-      {/* Page Header */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20" style={{ background: "linear-gradient(135deg, #1F3C88 0%, #162d6b 50%, #1F3C88 100%)" }}>
-        <div className="absolute inset-0" style={{ opacity: 0.06 }}>
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ color: "#ffffff" }}>{t(a.header.title)}</h1>
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{a.header.subtitle}</p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader title={t(a.header.title)} subtitle={a.header.subtitle} />
 
-      {/* Mission */}
+      {/* ── Mission ── */}
       <SectionWrapper>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#e8ecf5" }}>
-                <Target className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-sm font-semibold uppercase tracking-wider text-secondary">{a.mission.label}</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6">{a.mission.title}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">{a.mission.p1}</p>
-            <p className="text-muted-foreground leading-relaxed">{t(a.mission.p2)}</p>
+            <div className="eyebrow mb-4 text-secondary">{a.mission.label}</div>
+            <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+              {a.mission.title}
+            </h2>
+            <p className="mt-5 leading-relaxed text-slate">{a.mission.p1}</p>
+            <p className="mt-4 leading-relaxed text-slate">{t(a.mission.p2)}</p>
           </div>
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden">
-              <Image
-                src="/images/aboutPic.png"
-                alt={a.mission.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border">
+            <Image
+              src="/images/aboutPic.png"
+              alt={a.mission.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </div>
       </SectionWrapper>
 
-      {/* Vision */}
+      {/* ── Vision ── */}
       <SectionWrapper muted>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="grid grid-cols-2 gap-5">
-              <div className="p-6 rounded-2xl bg-white border border-border shadow-sm hover:shadow-md transition-shadow duration-300">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: "#e8ecf5" }}>
-                  <Layers className="w-5 h-5 text-primary" />
-                </div>
-                <h4 className="text-sm font-semibold text-primary mb-1.5">{a.vision.servicesTitle}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">{a.vision.servicesDesc}</p>
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="order-2 grid gap-5 sm:grid-cols-2 lg:order-1">
+            {[
+              {
+                icon: Layers,
+                title: a.vision.servicesTitle,
+                desc: a.vision.servicesDesc,
+                tone: "primary" as const,
+              },
+              {
+                icon: TrendingUp,
+                title: a.vision.productsTitle,
+                desc: a.vision.productsDesc,
+                tone: "secondary" as const,
+              },
+            ].map((card) => (
+              <div
+                key={card.title}
+                className="rounded-2xl border border-border bg-white p-6"
+              >
+                <span
+                  className={
+                    "flex h-11 w-11 items-center justify-center rounded-xl " +
+                    (card.tone === "primary"
+                      ? "bg-primary-light text-primary"
+                      : "bg-secondary-light text-secondary")
+                  }
+                >
+                  <card.icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 font-display text-base font-semibold text-ink">
+                  {card.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate">
+                  {card.desc}
+                </p>
               </div>
-              <div className="p-6 rounded-2xl bg-white border border-border shadow-sm hover:shadow-md transition-shadow duration-300">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: "#e6f5f5" }}>
-                  <TrendingUp className="w-5 h-5 text-secondary" />
-                </div>
-                <h4 className="text-sm font-semibold text-primary mb-1.5">{a.vision.productsTitle}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed">{a.vision.productsDesc}</p>
-              </div>
-            </div>
+            ))}
           </div>
           <div className="order-1 lg:order-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#e6f5f5" }}>
-                <TrendingUp className="w-5 h-5 text-secondary" />
-              </div>
-              <span className="text-sm font-semibold uppercase tracking-wider text-secondary">{a.vision.label}</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-6">{a.vision.title}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">{a.vision.p1}</p>
-            <p className="text-muted-foreground leading-relaxed">{t(a.vision.p2)}</p>
+            <div className="eyebrow mb-4 text-secondary">{a.vision.label}</div>
+            <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+              {a.vision.title}
+            </h2>
+            <p className="mt-5 leading-relaxed text-slate">{a.vision.p1}</p>
+            <p className="mt-4 leading-relaxed text-slate">{t(a.vision.p2)}</p>
           </div>
         </div>
       </SectionWrapper>
 
-      {/* Core Values */}
+      {/* ── Core Values ── */}
       <SectionWrapper>
-        <div className="text-center mb-14 lg:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-5">{a.values.title}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg">{a.values.subtitle}</p>
+        <div className="max-w-2xl">
+          <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+            {a.values.title}
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-slate">
+            {a.values.subtitle}
+          </p>
         </div>
-        <MobileCarousel>
-          {values.map((v) => <FeatureCard key={v.title} {...v} index={0} />)}
-        </MobileCarousel>
-        <div className="hidden sm:flex sm:flex-wrap sm:justify-center gap-6 lg:gap-7 max-w-4xl mx-auto">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {values.map((v, i) => (
-            <div key={v.title} className="w-[calc(50%-14px)] lg:w-[calc(33.333%-19px)]">
-              <FeatureCard {...v} index={i} />
-            </div>
+            <motion.div
+              key={v.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, ease: EASE, delay: i * 0.06 }}
+              className="rounded-2xl border border-border bg-white p-7"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-secondary">
+                <v.icon className="h-5 w-5" />
+              </span>
+              <h3 className="mt-4 font-display text-base font-semibold text-ink">
+                {v.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate">
+                {v.description}
+              </p>
+            </motion.div>
           ))}
         </div>
       </SectionWrapper>
 
-      {/* Founder Story */}
+      {/* ── Story ── */}
       <SectionWrapper muted>
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">{t(a.story.title)}</h2>
-          </div>
-          <div className="relative pl-6 border-l-2 border-secondary/30 space-y-6 text-muted-foreground leading-relaxed">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+            {t(a.story.title)}
+          </h2>
+          <div className="mt-8 space-y-5 border-l-2 border-secondary/35 pl-6 leading-relaxed text-slate">
             <p>{t(a.story.p1)}</p>
             <p>{t(a.story.p2)}</p>
             <p>{t(a.story.p3)}</p>
@@ -131,34 +159,44 @@ export function AboutContent() {
         </div>
       </SectionWrapper>
 
-      {/* Philosophy */}
+      {/* ── Philosophy ── */}
       <SectionWrapper>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary">{a.philosophy.title}</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {/* What We Believe */}
-            <div className="relative p-7 lg:p-8 rounded-2xl border border-border bg-white shadow-sm overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full" style={{ background: "linear-gradient(to bottom, #1BA6A6, #1F3C88)" }} />
-              <h3 className="text-lg font-bold text-primary mb-5">{a.philosophy.believeTitle}</h3>
-              <ul className="space-y-3.5">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-display text-3xl font-semibold text-ink sm:text-4xl">
+            {a.philosophy.title}
+          </h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-border bg-white p-7 lg:p-8">
+              <h3 className="font-display text-lg font-semibold text-ink">
+                {a.philosophy.believeTitle}
+              </h3>
+              <ul className="mt-5 space-y-3.5">
                 {a.philosophy.believe.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4.5 h-4.5 text-secondary mt-0.5 shrink-0" />
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm text-slate"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary-light text-secondary">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            {/* What We Avoid */}
-            <div className="relative p-7 lg:p-8 rounded-2xl border border-border bg-white shadow-sm overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full" style={{ background: "linear-gradient(to bottom, #ef4444, #dc2626)" }} />
-              <h3 className="text-lg font-bold text-primary mb-5">{a.philosophy.avoidTitle}</h3>
-              <ul className="space-y-3.5">
+            <div className="rounded-2xl border border-border bg-paper p-7 lg:p-8">
+              <h3 className="font-display text-lg font-semibold text-ink">
+                {a.philosophy.avoidTitle}
+              </h3>
+              <ul className="mt-5 space-y-3.5">
                 {a.philosophy.avoid.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <XCircle className="w-4.5 h-4.5 mt-0.5 shrink-0" style={{ color: "#ef4444" }} />
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm text-slate"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-mist text-steel">
+                      <X className="h-3.5 w-3.5" />
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}

@@ -1,0 +1,174 @@
+﻿ZEKORA — VISUAL IDENTITY & DESIGN SYSTEM
+(Internal & Reference Document)
+________________
+
+
+1️⃣ Purpose of This Document
+This document defines all visual rules for Zekora.
+Goals:
+* Ensure visual consistency across all platforms
+* Protect the brand from random or incorrect design choices
+* Make collaboration with designers easier
+* Allow Zekora to scale visually without confusion
+📌 Any visual asset must comply with this document.
+________________
+
+
+2️⃣ Core Visual Philosophy
+Zekora visuals must always feel:
+* Clean
+* Structured
+* Modern
+* Trustworthy
+* Calm, not noisy
+If a design looks “too flashy”, it is probably wrong for Zekora.
+________________
+
+
+3️⃣ Logo System
+Primary Logo
+* Abstract geometric Z symbol
+* Accompanied by ZEKORA in uppercase
+* Sans-serif typography
+  
+
+Secondary Logo
+* Symbol only (Z icon)
+* Used for:
+   * App icons
+   * Favicons
+   * Watermarks
+Logo Rules
+✔ Must remain proportional
+✔ Must have breathing space
+✔ Must work on light and dark backgrounds
+❌ No stretching
+❌ No rotation
+❌ No color alteration
+❌ No effects (shadows, glows, gradients beyond defined ones)
+________________
+
+
+4️⃣ Official Color Palette
+(Based on the generated logo)
+🎨 Primary Colors
+Zekora Deep Blue
+* Usage: main brand color
+* Meaning: trust, technology, stability
+Suggested HEX (reference):
+#1F3C88
+
+
+________________
+
+
+Zekora Teal
+* Usage: accents, highlights
+* Meaning: growth, innovation
+Suggested HEX:
+#1BA6A6
+
+
+________________
+
+
+⚪ Neutral Colors
+Soft Gray
+#F2F2F2
+
+
+Dark Gray
+#333333
+
+
+White
+#FFFFFF
+
+
+________________
+
+
+Color Usage Rules
+* Blue is dominant
+* Teal is secondary
+* Neutrals support content
+* Never use more than 3 colors in one layout
+________________
+
+
+5️⃣ Typography System
+Primary Font (Brand & UI)
+Choose one and stick to it:
+* Inter (recommended)
+* Poppins
+* Roboto
+Usage:
+* Headings
+* Buttons
+* Navigation
+* Body text
+________________
+
+
+Typography Rules
+✔ Sans-serif only
+✔ Clear hierarchy (H1, H2, body)
+✔ Good line spacing
+❌ Decorative fonts
+❌ Script fonts
+❌ Mixed font families
+________________
+
+
+6️⃣ Layout & Composition Rules
+* Use generous white space
+* Align elements to a grid
+* Content > decoration
+* Visual hierarchy is mandatory
+📌 Zekora designs must feel organized, not crowded.
+________________
+
+
+7️⃣ Iconography & Graphics
+* Simple, line-based icons
+* Rounded or geometric shapes
+* Consistent stroke width
+Recommended style:
+* Material Icons–style
+* Feather-style icons
+❌ No cartoon icons
+❌ No 3D emojis
+________________
+
+
+8️⃣ Imagery & Illustrations
+If images are used:
+* Realistic
+* Professional
+* Neutral backgrounds
+* Business or technology-related
+If illustrations are used:
+* Flat
+* Minimal
+* Consistent color palette
+________________
+
+
+9️⃣ Usage Contexts Covered by This System
+This document applies to:
+* Websites
+* Mobile apps
+* SaaS dashboards
+* Proposals & documents
+* Social media visuals
+* Presentations
+* Marketing materials
+📌 One system → all platforms.
+________________
+
+
+🔒 Document Status
+* Owner: Zekora
+* Version: 1.0
+* Last update: (date)
+* Applies to: All Zekora visuals

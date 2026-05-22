@@ -2,8 +2,17 @@
 
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Clock } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
+  Loader2,
+} from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { PageHeader } from "@/components/sections/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { BRAND } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
@@ -17,14 +26,22 @@ interface ContactFormData {
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-const inputBase = "w-full px-4 py-3.5 rounded-xl border bg-white text-foreground text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary transition-all duration-300";
+const inputBase =
+  "w-full rounded-xl border bg-white px-4 py-3 text-sm text-foreground " +
+  "placeholder:text-steel/70 transition-colors duration-200 " +
+  "focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
 
 export function ContactContent() {
   const dict = useDictionary();
   const c = dict.contact;
   const f = c.form;
 
-  const [formData, setFormData] = useState<ContactFormData>({ name: "", email: "", company: "", message: "" });
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
   const [serverError, setServerError] = useState<string>("");
@@ -33,9 +50,12 @@ export function ContactContent() {
     const newErrors: Partial<ContactFormData> = {};
     if (!formData.name.trim()) newErrors.name = `${f.name} ${f.required}`;
     if (!formData.email.trim()) newErrors.email = `${f.email} ${f.required}`;
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = f.invalidEmail;
-    if (!formData.message.trim()) newErrors.message = `${f.message} ${f.required}`;
-    else if (formData.message.trim().length < 10) newErrors.message = f.messageMinLength;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = f.invalidEmail;
+    if (!formData.message.trim())
+      newErrors.message = `${f.message} ${f.required}`;
+    else if (formData.message.trim().length < 10)
+      newErrors.message = f.messageMinLength;
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -65,146 +85,219 @@ export function ContactContent() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof ContactFormData]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+    if (errors[name as keyof ContactFormData])
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
+
+  const labelClass = "mb-2 block text-sm font-medium text-foreground";
 
   return (
     <>
-      {/* Page Header */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20" style={{ background: "linear-gradient(135deg, #1F3C88 0%, #162d6b 50%, #1F3C88 100%)" }}>
-        <div className="absolute inset-0" style={{ opacity: 0.06 }}>
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ color: "#ffffff" }}>{c.header.title}</h1>
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{c.header.subtitle}</p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader title={c.header.title} subtitle={c.header.subtitle} />
 
-      {/* Contact Form + Info */}
       <SectionWrapper>
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20">
-          {/* Form */}
+        <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
+          {/* ── Form ── */}
           <div className="lg:col-span-3">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    {f.name} <span className="text-red-400">*</span>
+                  <label htmlFor="name" className={labelClass}>
+                    {f.name} <span className="text-secondary-hover">*</span>
                   </label>
                   <input
-                    type="text" id="name" name="name" value={formData.name} onChange={handleChange}
-                    placeholder="John Doe"
-                    className={`${inputBase} ${errors.name ? "border-red-400 focus:ring-red-100" : "border-border"}`}
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Jane Doe"
+                    className={`${inputBase} ${
+                      errors.name ? "border-red-400" : "border-border"
+                    }`}
                   />
-                  {errors.name && <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>}
+                  {errors.name && (
+                    <p className="mt-1.5 text-xs text-red-500">{errors.name}</p>
+                  )}
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    {f.email} <span className="text-red-400">*</span>
+                  <label htmlFor="email" className={labelClass}>
+                    {f.email} <span className="text-secondary-hover">*</span>
                   </label>
                   <input
-                    type="email" id="email" name="email" value={formData.email} onChange={handleChange}
-                    placeholder="john@company.com"
-                    className={`${inputBase} ${errors.email ? "border-red-400 focus:ring-red-100" : "border-border"}`}
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="jane@company.com"
+                    className={`${inputBase} ${
+                      errors.email ? "border-red-400" : "border-border"
+                    }`}
                   />
-                  {errors.email && <p className="mt-1.5 text-xs text-red-500">{errors.email}</p>}
+                  {errors.email && (
+                    <p className="mt-1.5 text-xs text-red-500">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-foreground mb-2">
-                  {f.company} <span className="text-muted-foreground font-normal text-xs">({f.optional})</span>
+                <label htmlFor="company" className={labelClass}>
+                  {f.company}{" "}
+                  <span className="text-xs font-normal text-steel">
+                    ({f.optional})
+                  </span>
                 </label>
                 <input
-                  type="text" id="company" name="company" value={formData.company} onChange={handleChange}
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
                   className={`${inputBase} border-border`}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  {f.message} <span className="text-red-400">*</span>
+                <label htmlFor="message" className={labelClass}>
+                  {f.message} <span className="text-secondary-hover">*</span>
                 </label>
                 <textarea
-                  id="message" name="message" value={formData.message} onChange={handleChange}
-                  rows={6} placeholder={f.messagePlaceholder}
-                  className={`${inputBase} resize-y ${errors.message ? "border-red-400 focus:ring-red-100" : "border-border"}`}
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={6}
+                  placeholder={f.messagePlaceholder}
+                  className={`${inputBase} resize-y ${
+                    errors.message ? "border-red-400" : "border-border"
+                  }`}
                 />
-                {errors.message && <p className="mt-1.5 text-xs text-red-500">{errors.message}</p>}
+                {errors.message && (
+                  <p className="mt-1.5 text-xs text-red-500">
+                    {errors.message}
+                  </p>
+                )}
               </div>
 
-              <div className="pt-2">
-                <Button type="submit" size="lg" variant="primary" disabled={status === "loading"} className="w-full sm:w-auto">
+              <div className="pt-1">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={status === "loading"}
+                  className="w-full sm:w-auto"
+                >
                   {status === "loading" ? (
-                    <><span className="animate-spin mr-2">⟳</span>{f.sending}</>
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      {f.sending}
+                    </>
                   ) : (
-                    <>{f.submit}<Send className="ml-2 w-4 h-4" /></>
+                    <>
+                      {f.submit}
+                      <Send className="h-4 w-4" />
+                    </>
                   )}
                 </Button>
               </div>
 
               {status === "success" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-3 p-4 rounded-xl border border-green-200 bg-green-50 text-green-700 text-sm">
-                  <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" /><p>{f.successMessage}</p>
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-start gap-3 rounded-xl border border-secondary/30 bg-secondary-light p-4 text-sm text-secondary-hover"
+                >
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0" />
+                  <p>{f.successMessage}</p>
                 </motion.div>
               )}
               {status === "error" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-start gap-3 p-4 rounded-xl border border-red-200 bg-red-50 text-red-700 text-sm">
-                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
+                >
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
                   <p>
                     {serverError || f.errorMessage}{" "}
-                    <a href={`mailto:${BRAND.email}`} className="underline font-medium">{BRAND.email}</a>
+                    <a
+                      href={`mailto:${BRAND.email}`}
+                      className="font-medium underline"
+                    >
+                      {BRAND.email}
+                    </a>
                   </p>
                 </motion.div>
               )}
             </form>
           </div>
 
-          {/* Info sidebar */}
+          {/* ── Info sidebar ── */}
           <div className="lg:col-span-2">
-            <div className="sticky top-28 space-y-8">
+            <div className="space-y-8 lg:sticky lg:top-28">
               <div>
-                <h2 className="text-2xl font-bold text-primary mb-6">{c.info.title}</h2>
-                <div className="space-y-5">
+                <h2 className="font-display text-xl font-semibold text-ink">
+                  {c.info.title}
+                </h2>
+                <div className="mt-5 space-y-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 shadow-sm" style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}>
-                      <Mail className="w-5 h-5 text-white" />
-                    </div>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                      <Mail className="h-5 w-5" />
+                    </span>
                     <div>
-                      <h3 className="text-sm font-semibold text-foreground mb-1">{c.info.emailLabel}</h3>
-                      <a href={`mailto:${BRAND.email}`} className="text-sm text-secondary hover:underline">{BRAND.email}</a>
+                      <h3 className="text-sm font-semibold text-foreground">
+                        {c.info.emailLabel}
+                      </h3>
+                      <a
+                        href={`mailto:${BRAND.email}`}
+                        className="text-sm text-secondary-hover hover:underline"
+                      >
+                        {BRAND.email}
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 shadow-sm" style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}>
-                      <MapPin className="w-5 h-5 text-white" />
-                    </div>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary">
+                      <MapPin className="h-5 w-5" />
+                    </span>
                     <div>
-                      <h3 className="text-sm font-semibold text-foreground mb-1">{c.info.locationLabel}</h3>
-                      <p className="text-sm text-muted-foreground">{BRAND.location}</p>
+                      <h3 className="text-sm font-semibold text-foreground">
+                        {c.info.locationLabel}
+                      </h3>
+                      <p className="text-sm text-slate">{BRAND.location}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* What to expect */}
-              <div className="relative p-6 lg:p-7 rounded-2xl border border-border overflow-hidden" style={{ backgroundColor: "#f8f9fb" }}>
-                <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1F3C88, #1BA6A6)" }} />
-                <div className="flex items-center gap-2 mb-4">
-                  <Clock className="w-4 h-4 text-secondary" />
-                  <h3 className="text-sm font-bold text-primary">{c.info.expectTitle}</h3>
+              <div className="rounded-2xl border border-border bg-paper p-6 lg:p-7">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-secondary" />
+                  <h3 className="font-display text-sm font-semibold text-ink">
+                    {c.info.expectTitle}
+                  </h3>
                 </div>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />{c.info.expect1}</li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />{c.info.expect2}</li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />{c.info.expect3}</li>
-                  <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />{c.info.expect4}</li>
+                <ul className="mt-4 space-y-3 text-sm text-slate">
+                  {[
+                    c.info.expect1,
+                    c.info.expect2,
+                    c.info.expect3,
+                    c.info.expect4,
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary-light text-secondary">
+                        <CheckCircle2 className="h-3.5 w-3.5" />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -214,4 +307,3 @@ export function ContactContent() {
     </>
   );
 }
-

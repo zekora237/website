@@ -9,11 +9,13 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Services & produits numériques",
       "subtitle": "{brand} conçoit des sites web, des applications mobiles et des systèmes métier qui aident les organisations à se moderniser, gagner en efficacité et croître en toute confiance.",
       "ctaPrimary": "Demander un devis",
       "ctaSecondary": "Voir nos services"
     },
     "services": {
+      "eyebrow": "Ce que nous construisons",
       "title": "Ce que nous construisons",
       "subtitle": "De la conception à la livraison, nous créons des solutions numériques qui résolvent de vrais problèmes métier — pas juste du logiciel.",
       "webDev": {
@@ -34,6 +36,7 @@
       }
     },
     "whyUs": {
+      "eyebrow": "Pourquoi Zekora",
       "title": "Pourquoi choisir {brand}",
       "subtitle": "Nos valeurs fondamentales définissent notre façon de travailler et ce que vous pouvez attendre. Chaque projet reflète notre engagement envers la qualité et la clarté.",
       "clarity": {
@@ -54,6 +57,7 @@
       }
     },
     "process": {
+      "eyebrow": "Notre méthode",
       "title": "Notre Processus",
       "subtitle": "Une approche structurée, de la compréhension de vos besoins à la livraison des résultats. Pas de surprises, juste de la clarté à chaque étape.",
       "discovery": {
@@ -212,6 +216,14 @@
       "subtitle": "Chaque projet est traité comme une référence de la marque. Voici quelques-unes des solutions numériques que nous avons construites."
     },
     "moreComingSoon": "D'autres projets arrivent bientôt. Nous documentons chaque réalisation avec soin.",
+    "detail": {
+      "viewDetails": "Voir les détails",
+      "objective": "Objectif",
+      "keyFeatures": "Fonctionnalités clés",
+      "techStack": "Technologies",
+      "visitProject": "Voir le projet en ligne",
+      "preview": "Aperçu du projet"
+    },
     "projects": [
       {
         "title": "Healthy Living Association (H.L.A)",

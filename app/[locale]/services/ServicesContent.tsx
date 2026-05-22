@@ -1,92 +1,103 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Globe, Smartphone, Database, Cloud, ArrowRight, CheckCircle2, type LucideIcon } from "lucide-react";
+import {
+  Code2,
+  Smartphone,
+  Workflow,
+  Layers,
+  Check,
+  type LucideIcon,
+} from "lucide-react";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/sections/PageHeader";
+import { CtaBand } from "@/components/sections/CtaBand";
 import { t } from "@/lib/config";
 import { useDictionary } from "@/lib/dictionary-context";
 import { useLocale } from "@/lib/locale-context";
 
-const serviceIcons: Record<string, LucideIcon> = {
-  "web-development": Globe,
-  "mobile-apps": Smartphone,
-  "digitalization": Database,
-  "saas": Cloud,
+const icons: Record<string, LucideIcon> = {
+  webDev: Code2,
+  mobile: Smartphone,
+  digital: Workflow,
+  saas: Layers,
 };
-
-const serviceKeys = ["webDev", "mobile", "digital", "saas"] as const;
-const serviceIds = ["web-development", "mobile-apps", "digitalization", "saas"];
+const keys = ["webDev", "mobile", "digital", "saas"] as const;
+const ids = ["web-development", "mobile-apps", "digitalization", "saas"];
 
 export function ServicesContent() {
   const dict = useDictionary();
   const locale = useLocale();
   const s = dict.services;
 
-  const servicesData = serviceKeys.map((key, i) => ({
-    id: serviceIds[i],
-    icon: serviceIcons[serviceIds[i]],
+  const data = keys.map((key, i) => ({
+    id: ids[i],
+    icon: icons[key],
     ...s.detail[key],
   }));
 
   return (
     <>
-      {/* Page Header */}
-      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20" style={{ background: "linear-gradient(135deg, #1F3C88 0%, #162d6b 50%, #1F3C88 100%)" }}>
-        <div className="absolute inset-0" style={{ opacity: 0.06 }}>
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6" style={{ color: "#ffffff" }}>{s.header.title}</h1>
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{s.header.subtitle}</p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHeader title={s.header.title} subtitle={s.header.subtitle} />
 
-      {/* Services Detail */}
-      {servicesData.map((service, index) => {
-        const Icon = service.icon;
-        const isMuted = index % 2 === 1;
+      {data.map((svc, index) => {
+        const Icon = svc.icon;
+        const muted = index % 2 === 1;
+        const blocks = [
+          { label: s.theProblem, text: svc.problem, dot: "bg-steel", line: "border-mist" },
+          { label: s.ourSolution, text: svc.solution, dot: "bg-secondary", line: "border-secondary/45" },
+          { label: s.theBenefit, text: svc.benefit, dot: "bg-primary", line: "border-primary/40" },
+        ];
         return (
-          <SectionWrapper key={service.id} id={service.id} muted={isMuted}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-              <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
-                    style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}
-                  >
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">{service.title}</h2>
+          <SectionWrapper key={svc.id} id={svc.id} muted={muted}>
+            <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Problem · Solution · Benefit */}
+              <div className={muted ? "lg:order-2" : ""}>
+                <div className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h2 className="font-display text-2xl font-semibold text-ink sm:text-3xl">
+                    {svc.title}
+                  </h2>
                 </div>
-                <div className="space-y-6 mt-6">
-                  <div className="relative pl-5 border-l-2" style={{ borderColor: "rgba(239,68,68,0.4)" }}>
-                    <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#ef4444" }}>{s.theProblem}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">{service.problem}</p>
-                  </div>
-                  <div className="relative pl-5 border-l-2" style={{ borderColor: "rgba(27,166,166,0.4)" }}>
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-secondary mb-2">{s.ourSolution}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">{service.solution}</p>
-                  </div>
-                  <div className="relative pl-5 border-l-2" style={{ borderColor: "rgba(31,60,136,0.4)" }}>
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{s.theBenefit}</h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm">{service.benefit}</p>
-                  </div>
+                <div className="mt-7 space-y-5">
+                  {blocks.map((b) => (
+                    <div key={b.label} className={`border-l-2 pl-5 ${b.line}`}>
+                      <div className="flex items-center gap-2">
+                        <span className={`h-1.5 w-1.5 rounded-full ${b.dot}`} />
+                        <h3 className="font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-steel">
+                          {b.label}
+                        </h3>
+                      </div>
+                      <p className="mt-1.5 text-sm leading-relaxed text-slate">
+                        {b.text}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                <div className="relative p-7 lg:p-8 rounded-2xl border border-border overflow-hidden" style={{ background: isMuted ? "#ffffff" : "#f8f9fb" }}>
-                  {/* Accent */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #1F3C88, #1BA6A6)" }} />
-                  <h3 className="text-base font-bold text-primary mb-6">{s.whatsIncluded}</h3>
-                  <ul className="space-y-4">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-4.5 h-4.5 text-secondary mt-0.5 shrink-0" />
-                        <span className="text-sm text-foreground">{feature}</span>
+
+              {/* What's included */}
+              <div className={muted ? "lg:order-1" : ""}>
+                <div
+                  className={
+                    "rounded-2xl border border-border p-7 lg:p-8 " +
+                    (muted ? "bg-white" : "bg-paper")
+                  }
+                >
+                  <h3 className="font-display text-base font-semibold text-ink">
+                    {s.whatsIncluded}
+                  </h3>
+                  <ul className="mt-5 space-y-3.5">
+                    {svc.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-3 text-sm text-slate"
+                      >
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary-light text-secondary">
+                          <Check className="h-3.5 w-3.5" />
+                        </span>
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -97,19 +108,12 @@ export function ServicesContent() {
         );
       })}
 
-      {/* CTA */}
-      <SectionWrapper dark>
-        <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5" style={{ color: "#ffffff" }}>{s.cta.title}</h2>
-          <p className="max-w-xl mx-auto mb-10 text-base lg:text-lg" style={{ color: "rgba(255,255,255,0.75)" }}>{t(s.cta.subtitle)}</p>
-          <Link href={`/${locale}/contact`}>
-            <Button size="lg" variant="secondary">
-              {s.cta.button}
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-          </Link>
-        </div>
-      </SectionWrapper>
+      <CtaBand
+        title={s.cta.title}
+        subtitle={t(s.cta.subtitle)}
+        button={s.cta.button}
+        href={`/${locale}/contact`}
+      />
     </>
   );
 }

@@ -1,0 +1,173 @@
+﻿ZEKORA — BRAND GUIDELINES
+(Internal Document — Version 1.0)
+________________
+
+
+1️. Purpose of This Document
+This document defines how Zekora looks, sounds, and feels everywhere.
+Goals:
+* Ensure consistency across all platforms
+* Make Zekora instantly recognizable
+* Guide collaborators, designers, and developers
+* Prevent random or emotional branding decisions
+📌 This document evolves, but changes must be intentional.
+________________
+
+
+2️. Brand Essence
+Brand Name
+ZEKORA
+Brand Meaning
+A modern, abstract name representing:
+* Precision
+* Structure
+* Technology
+* African-rooted but globally scalable innovation
+________________
+
+
+Brand Positioning
+“Zekora builds digital solutions that structure, modernize, and grow businesses — while also creating scalable tech products.”
+________________
+
+
+Brand Personality
+Zekora is:
+* Professional, not corporate
+* Clear, not complicated
+* Calm, not loud
+* Confident, not arrogant
+* Modern, not trendy
+📌 If Zekora were a person:
+A calm, intelligent engineer who explains complex things simply.
+________________
+
+
+3️. Target Audience (Brand Perspective)
+Zekora speaks to:
+* Small & medium businesses
+* Hotels, motels, local enterprises
+* Entrepreneurs & startups
+* Organizations seeking digitalisation
+* Future SaaS users
+📌 Brand language must be understandable by non-technical people.
+________________
+
+
+4️. Brand Voice & Tone
+Voice (Never changes)
+* Clear
+* Respectful
+* Structured
+* Solution-oriented
+Tone (Adapts slightly)
+Context
+	Tone
+	Client discussion
+	Calm & reassuring
+	Proposal / document
+	Professional & structured
+	Marketing
+	Clear & confident
+	Internal
+	Direct & precise
+	Words Zekora Likes
+* Solution
+* Structure
+* Clarity
+* Reliable
+* Scalable
+* Simple
+Words Zekora Avoids
+* Cheap
+* Quick money
+* Magic
+* Guaranteed success
+* Hype language
+________________
+
+
+5️. Visual Identity
+🎨 Color Palette (Initial)
+Primary Color
+* Deep Tech Blue / Indigo
+→ Trust, technology, stability
+Secondary Colors
+   * Soft Gray
+→ Neutral, professional
+   * White
+→ Clarity, simplicity
+Accent Color (Optional)
+      * Muted Green or Teal
+→ Growth, progress
+📌 Avoid flashy neon colors.
+________________
+
+
+🅰 Typography
+Primary Font (Suggested)
+         * Inter
+         * Poppins
+         * Roboto
+Rules
+         * Sans-serif only
+         * Clean and readable
+         * No decorative fonts
+________________
+
+
+🧱 Layout Principles
+         * White space is intentional
+         * Content > decoration
+         * Clear sections
+         * Simple alignment
+📌 If it looks “too simple”, it’s probably right.
+________________
+
+
+6️. Logo Guidelines (Conceptual for now)
+Until a final logo is designed:
+         * Use ZEKORA in uppercase
+         * Sans-serif font
+         * Neutral or dark color
+         * No shadows, no gradients
+📌 Logo must:
+         * Work in black & white
+         * Look professional even without color
+         * Scale well (favicon → banner)
+________________
+
+
+7️. Brand Signature / Attribution
+For client projects:
+“Built by Zekora”
+or
+“Powered by Zekora”
+📌 Subtle, professional, never intrusive.
+________________
+
+
+8️. Brand Behavior Rules
+Zekora always:
+✔ Explains before selling
+✔ Sets clear expectations
+✔ Documents decisions
+✔ Delivers what is promised
+Zekora never:
+✖ Overpromises
+✖ Copies competitors blindly
+✖ Talks badly about other businesses
+✖ Sacrifices quality for speed
+________________
+
+
+9️. Cultural & Ethical Foundations
+         * Respect for people and businesses
+         * Transparency in pricing and delivery
+         * Long-term thinking
+         * Ethical tech usage
+📌 Zekora builds trust before revenue.
+________________
+
+
+End of Document — Zekora Internal Use

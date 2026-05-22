@@ -5,206 +5,166 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Globe } from "lucide-react";
-import { BRAND } from "@/lib/config";
+import { cn } from "@/lib/utils";
+import { buttonClass } from "@/components/ui/Button";
 import { useDictionary } from "@/lib/dictionary-context";
 import { useLocale } from "@/lib/locale-context";
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const dict = useDictionary();
   const locale = useLocale();
   const pathname = usePathname();
 
-  const navLinks = [
+  const links = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/about`, label: dict.nav.about },
     { href: `/${locale}/services`, label: dict.nav.services },
     { href: `/${locale}/portfolio`, label: dict.nav.portfolio },
     { href: `/${locale}/contact`, label: dict.nav.contact },
   ];
-
   const otherLocale = locale === "en" ? "fr" : "en";
+  const switchPath = pathname.replace(`/${locale}`, `/${otherLocale}`) || `/${otherLocale}`;
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /** Build the path for the other locale based on current pathname */
-  const switchLocalePath = pathname.replace(`/${locale}`, `/${otherLocale}`) || `/${otherLocale}`;
-
-  const isActive = (href: string) => {
-    if (href === `/${locale}`) return pathname === `/${locale}`;
-    return pathname.startsWith(href);
-  };
+  const isActive = (href: string) =>
+    href === `/${locale}` ? pathname === `/${locale}` : pathname.startsWith(href);
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        backgroundColor: scrolled ? "rgba(255,255,255,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px) saturate(180%)" : undefined,
-        WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : undefined,
-        boxShadow: scrolled ? "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)" : "none",
-      }}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "border-b border-border bg-white/85 backdrop-blur-xl backdrop-saturate-150"
+          : "border-b border-transparent bg-transparent"
+      )}
     >
-      <nav className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-105"
-              style={{ background: scrolled ? "linear-gradient(135deg, #1F3C88, #1BA6A6)" : "rgba(255,255,255,0.15)" }}
-            >
-              <span className="text-sm font-bold" style={{ color: "#ffffff" }}>Z</span>
-            </div>
-            <span
-              className="text-lg lg:text-xl font-bold tracking-tight transition-colors duration-300"
-              style={{ color: scrolled ? "#1F3C88" : "#ffffff" }}
-            >
-              {BRAND.nameUpper}
-            </span>
+      <nav className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between lg:h-[72px]">
+          {/* Wordmark */}
+          <Link
+            href={`/${locale}`}
+            className="shrink-0 rounded-sm transition-opacity hover:opacity-80"
+            aria-label="Zekora — home"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/zekora-logo.svg"
+              alt="Zekora"
+              className="h-[21px] w-auto lg:h-[23px]"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative px-3.5 py-2 text-sm font-medium rounded-lg transition-all duration-300"
-                style={{
-                  color: isActive(link.href)
-                    ? (scrolled ? "#1F3C88" : "#ffffff")
-                    : (scrolled ? "#5a6577" : "rgba(255,255,255,0.7)"),
-                  backgroundColor: isActive(link.href)
-                    ? (scrolled ? "rgba(31,60,136,0.08)" : "rgba(255,255,255,0.12)")
-                    : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive(link.href)) e.currentTarget.style.color = scrolled ? "#1F3C88" : "#ffffff";
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive(link.href)) e.currentTarget.style.color = scrolled ? "#5a6577" : "rgba(255,255,255,0.7)";
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Desktop nav */}
+          <div className="hidden items-center gap-1 md:flex">
+            {links.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "relative px-3.5 py-2 text-[14px] font-medium transition-colors",
+                    active
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {link.label}
+                  {active && (
+                    <span className="absolute inset-x-3.5 -bottom-px h-0.5 rounded-full bg-primary" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
 
-            {/* Language switcher */}
+          {/* Right cluster */}
+          <div className="flex items-center gap-2">
             <Link
-              href={switchLocalePath}
-              className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ml-2"
-              style={{ color: scrolled ? "#5a6577" : "rgba(255,255,255,0.7)" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = scrolled ? "#1F3C88" : "#ffffff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = scrolled ? "#5a6577" : "rgba(255,255,255,0.7)")}
+              href={switchPath}
+              className="hidden items-center gap-1.5 rounded-lg px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:flex"
               title={otherLocale === "fr" ? "Passer en français" : "Switch to English"}
             >
-              <Globe className="w-4 h-4" />
+              <Globe className="h-4 w-4" />
               {otherLocale.toUpperCase()}
             </Link>
-
-            {/* CTA */}
             <Link
               href={`/${locale}/contact`}
-              className="ml-3 inline-flex items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5"
-              style={{
-                backgroundColor: scrolled ? "#1F3C88" : "rgba(255,255,255,0.95)",
-                color: scrolled ? "#ffffff" : "#1F3C88",
-                boxShadow: scrolled ? "0 2px 8px rgba(31,60,136,0.25)" : "0 2px 8px rgba(0,0,0,0.1)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = scrolled ? "#193175" : "#ffffff";
-                e.currentTarget.style.boxShadow = scrolled ? "0 4px 16px rgba(31,60,136,0.35)" : "0 4px 16px rgba(0,0,0,0.15)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = scrolled ? "#1F3C88" : "rgba(255,255,255,0.95)";
-                e.currentTarget.style.boxShadow = scrolled ? "0 2px 8px rgba(31,60,136,0.25)" : "0 2px 8px rgba(0,0,0,0.1)";
-              }}
+              className={cn(buttonClass("primary", "sm"), "hidden md:inline-flex")}
             >
               {dict.nav.getQuote}
             </Link>
-          </div>
 
-          {/* Mobile: Language + Menu */}
-          <div className="md:hidden flex items-center gap-2.5">
+            {/* Mobile controls */}
             <Link
-              href={switchLocalePath}
-              className="flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-1.5 transition-all duration-300"
-              style={{
-                color: scrolled ? "#1F3C88" : "#ffffff",
-                border: scrolled ? "1.5px solid rgba(31,60,136,0.25)" : "1.5px solid rgba(255,255,255,0.4)",
-                backgroundColor: scrolled ? "rgba(31,60,136,0.05)" : "rgba(255,255,255,0.1)",
-              }}
+              href={switchPath}
+              className="flex items-center gap-1 rounded-lg border border-border bg-white/70 px-2.5 py-1.5 text-[12px] font-semibold text-foreground md:hidden"
+              aria-label="Switch language"
             >
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="h-3.5 w-3.5" />
               {otherLocale.toUpperCase()}
             </Link>
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300"
-              style={{
-                color: scrolled ? "#1a1a2e" : "#ffffff",
-                backgroundColor: isOpen ? (scrolled ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.15)") : "transparent",
-              }}
-              aria-label="Toggle navigation menu"
+              onClick={() => setOpen((v) => !v)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted md:hidden"
+              aria-label="Toggle menu"
+              aria-expanded={open}
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
+              {open ? <X size={21} /> : <Menu size={21} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
+      {/* Mobile drawer */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden"
-            style={{ backgroundColor: "rgba(255,255,255,0.98)", backdropFilter: "blur(20px)", borderTop: "1px solid #e8eaef" }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden border-t border-border bg-white md:hidden"
           >
-            <div className="px-5 py-5 space-y-1">
-              {navLinks.map((link, index) => (
+            <div className="space-y-0.5 px-4 py-4">
+              {links.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.04 }}
+                  transition={{ delay: 0.03 + i * 0.035 }}
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center px-4 py-3 text-base font-medium rounded-xl transition-colors"
-                    style={{
-                      color: isActive(link.href) ? "#1F3C88" : "#5a6577",
-                      backgroundColor: isActive(link.href) ? "rgba(31,60,136,0.06)" : "transparent",
-                    }}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-center rounded-lg px-3.5 py-3 text-[15px] font-medium transition-colors",
+                      isActive(link.href)
+                        ? "bg-primary-light text-primary"
+                        : "text-foreground hover:bg-muted"
+                    )}
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.04 }}
-                className="pt-2"
-              >
+              <div className="pt-2">
                 <Link
                   href={`/${locale}/contact`}
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center w-full px-5 py-3.5 text-sm font-semibold text-white rounded-xl transition-all"
-                  style={{ background: "linear-gradient(135deg, #1F3C88, #253f80)" }}
+                  onClick={() => setOpen(false)}
+                  className={cn(buttonClass("primary", "default"), "w-full")}
                 >
                   {dict.nav.getQuote}
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         )}

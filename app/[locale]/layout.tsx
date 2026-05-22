@@ -42,6 +42,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_US",
       siteName: BRAND.name,
+      images: ["/og-image.png"],
     },
   };
 }

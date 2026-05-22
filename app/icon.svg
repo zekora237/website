@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#1F3C88"/>
-  <path d="M7.5 8h17v3.2L11.8 22.8H24.5v3.2h-17v-3.2L20.2 11.2H7.5V8z" fill="#ffffff"/>
-  <rect x="7.5" y="14.5" width="17" height="3" rx="1.5" fill="#1BA6A6"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Zekora">
+  <title>Zekora</title>
+  <rect width="64" height="64" rx="14" fill="#2E3A9E"/>
+  <path d="M26.53 45.54L17.98 45.54L37.47 18.46L46.02 18.46L26.53 45.54ZM45.6 50.56L17.98 50.56L17.98 45.54L23.37 44.22L45.6 44.22L45.6 50.56ZM40.58 19.78L19.09 19.78L19.09 13.44L46.02 13.44L46.02 18.46L40.58 19.78Z" fill="#FFFFFF"/>
 </svg>
-

@@ -9,11 +9,13 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Digital services & products",
       "subtitle": "{brand} builds websites, mobile apps, and business systems that help organisations modernize, gain efficiency, and grow with confidence.",
       "ctaPrimary": "Get a Quote",
       "ctaSecondary": "View Services"
     },
     "services": {
+      "eyebrow": "What we build",
       "title": "What We Build",
       "subtitle": "From concept to delivery, we create digital solutions that solve real business problems — not just software.",
       "webDev": {
@@ -34,6 +36,7 @@
       }
     },
     "whyUs": {
+      "eyebrow": "Why Zekora",
       "title": "Why Choose {brand}",
       "subtitle": "Our core values define how we work and what you can expect. Every project reflects our commitment to quality and clarity.",
       "clarity": {
@@ -54,6 +57,7 @@
       }
     },
     "process": {
+      "eyebrow": "How we work",
       "title": "Our Process",
       "subtitle": "A structured approach from understanding your needs to delivering results. No surprises, just clarity at every step.",
       "discovery": {
@@ -212,6 +216,14 @@
       "subtitle": "Every project is treated as a reference of the brand. Here are some of the digital solutions we've built."
     },
     "moreComingSoon": "More projects coming soon. We document every build with care.",
+    "detail": {
+      "viewDetails": "View details",
+      "objective": "Objective",
+      "keyFeatures": "Key features",
+      "techStack": "Tech stack",
+      "visitProject": "Visit live project",
+      "preview": "Project preview"
+    },
     "projects": [
       {
         "title": "Healthy Living Association (H.L.A)",
