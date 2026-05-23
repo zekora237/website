@@ -269,6 +269,63 @@ p {
   font-style: italic;
 }
 
+/* ── Figures, images, inline SVG diagrams ────────────────────── */
+.prose-zekora figure {
+  margin: 2em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+}
+.prose-zekora figure > img,
+.prose-zekora > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background-color: var(--c-paper);
+}
+/* inline SVG diagrams — boxed, theme-aware, never overflow */
+.prose-zekora figure > svg,
+.prose-zekora > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background-color: var(--c-paper);
+  border: 1px solid var(--c-border);
+  padding: 1.4em 1.1em;
+  border-radius: 14px;
+}
+.prose-zekora figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  color: var(--c-steel);
+  text-align: center;
+}
+/* Tables — for comparison blocks */
+.prose-zekora table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.94em;
+  margin: 1.6em 0;
+}
+.prose-zekora th,
+.prose-zekora td {
+  border-bottom: 1px solid var(--c-border);
+  padding: 0.65em 0.75em;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-zekora th {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-steel);
+  border-bottom: 1px solid var(--c-mist);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -34,7 +34,7 @@ function ServiceMock({ k }: { k: string }) {
       </div>
     );
   if (k === "webDev")
-    return <BrowserMock screen="site" url="zekora.dev" />;
+    return <BrowserMock screen="code" url="zekora.dev / src/app/page.tsx" />;
   if (k === "digital")
     return <BrowserMock screen="board" url="zekora.app/workflow" />;
   return <BrowserMock screen="dashboard" url="zekora.app/dashboard" />;

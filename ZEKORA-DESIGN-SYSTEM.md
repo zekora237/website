@@ -1,37 +1,43 @@
-# ZEKORA — Universal Design System & Visual Identity Guide
+# ZEKORA — Design System & Visual Identity Guide
 
-> **Version:** 2.0  
-> **Status:** Active — Applies to all Zekora products  
-> **Last updated:** April 2026  
-> **Owner:** Zekora  
-> **Scope:** Websites, Mobile Apps, SaaS Dashboards, Internal Tools, Marketing Materials
+> **Version:** 3.0
+> **Status:** Active — applies to all Zekora products
+> **Last updated:** May 2026
+> **Owner:** Zekora
+> **Scope:** Websites, mobile apps, SaaS dashboards, internal tools, marketing materials.
+> **Implementation reference:** the website at `D:/Zekora/website/zekora/` is the canonical implementation of this system. When the docs and the code disagree, the code wins and this doc is updated.
 
 ---
 
 ## Table of Contents
 
 1. [Purpose & Philosophy](#1-purpose--philosophy)
-2. [Brand Identity](#2-brand-identity)
-3. [Color System](#3-color-system)
-4. [Typography](#4-typography)
-5. [Spacing & Layout](#5-spacing--layout)
-6. [Border Radius & Shapes](#6-border-radius--shapes)
-7. [Shadows & Elevation](#7-shadows--elevation)
-8. [Iconography](#8-iconography)
-9. [Motion & Animation](#9-motion--animation)
-10. [Component Library](#10-component-library)
-11. [Page Structure Patterns](#11-page-structure-patterns)
-12. [Imagery & Illustrations](#12-imagery--illustrations)
-13. [Dark & Light Surfaces](#13-dark--light-surfaces)
-14. [Responsive Design](#14-responsive-design)
-15. [Accessibility](#15-accessibility)
-16. [SEO & Performance](#16-seo--performance)
-17. [Code Standards](#17-code-standards)
-18. [Brand Configuration Pattern](#18-brand-configuration-pattern)
-19. [Internationalization (i18n)](#19-internationalization-i18n)
-20. [Platform-Specific Guidelines](#20-platform-specific-guidelines)
-21. [Anti-Patterns — What to Avoid](#21-anti-patterns--what-to-avoid)
-22. [Checklist for New Projects](#22-checklist-for-new-projects)
+2. [File Map](#2-file-map)
+3. [Brand Identity](#3-brand-identity)
+4. [Color System](#4-color-system)
+5. [Typography](#5-typography)
+6. [Spacing & Layout](#6-spacing--layout)
+7. [Border Radius & Shapes](#7-border-radius--shapes)
+8. [Shadows & Elevation](#8-shadows--elevation)
+9. [Iconography](#9-iconography)
+10. [Motion & Animation](#10-motion--animation)
+11. [Dark Mode Token Pattern](#11-dark-mode-token-pattern)
+12. [Component Library](#12-component-library)
+13. [Mockup Library](#13-mockup-library)
+14. [Page Structure Patterns](#14-page-structure-patterns)
+15. [Page Transitions](#15-page-transitions)
+16. [Blog & Long-Form Content](#16-blog--long-form-content)
+17. [Imagery & Illustrations](#17-imagery--illustrations)
+18. [Responsive Design](#18-responsive-design)
+19. [Accessibility](#19-accessibility)
+20. [SEO & Structured Data](#20-seo--structured-data)
+21. [Code Standards](#21-code-standards)
+22. [Brand Configuration Pattern](#22-brand-configuration-pattern)
+23. [Internationalization (i18n)](#23-internationalization-i18n)
+24. [Platform-Specific Guidelines](#24-platform-specific-guidelines)
+25. [Anti-Patterns — What to Avoid](#25-anti-patterns--what-to-avoid)
+26. [Checklist for New Projects](#26-checklist-for-new-projects)
+27. [Quick Reference Card](#27-quick-reference-card)
 
 ---
 
@@ -39,31 +45,31 @@
 
 ### 1.1 Purpose
 
-This document is the **single source of truth** for all visual and interaction decisions across every product built by or for Zekora. It ensures:
+This document is the **single source of truth** for visual and interaction decisions across every Zekora product. It exists so we can:
 
-- **Visual consistency** across all platforms (web, mobile, SaaS, marketing)
-- **Brand protection** from random or emotional design decisions
-- **Scalability** — new products can be created without re-inventing the visual language
-- **Developer onboarding** — any developer or designer can build on-brand immediately
+- Maintain visual consistency across web, mobile, SaaS, marketing.
+- Protect the brand from emotional or improvised design choices.
+- Onboard new contributors quickly — open the doc, ship on-brand within hours.
+- Spin up new products without re-inventing the language.
 
-> 📌 **Rule:** Any visual asset, UI component, or design decision must comply with this document.
+> **Rule:** any new visual asset, UI component, or design decision should comply with this document. If it can't, update this document first.
 
 ### 1.2 Core Visual Philosophy
 
 Every Zekora interface must feel:
 
-| Attribute       | Meaning                                            |
-| --------------- | -------------------------------------------------- |
-| **Clean**       | No clutter. White space is intentional.             |
-| **Structured**  | Grid-aligned. Clear hierarchy. Organized.           |
-| **Modern**      | Current technologies, current patterns. Not trendy. |
-| **Trustworthy** | Professional, reliable, predictable.                |
-| **Calm**        | Not noisy. No flashy gimmicks.                      |
+| Attribute       | Meaning                                              |
+| --------------- | ---------------------------------------------------- |
+| **Clean**       | No clutter. White space is intentional, not lazy.    |
+| **Structured**  | Grid-aligned. Clear hierarchy. Organised.            |
+| **Modern**      | Current patterns. Not trendy. Not retro.             |
+| **Trustworthy** | Professional, reliable, predictable.                 |
+| **Calm**        | Not noisy. No gimmicks. No bouncy demos.             |
+| **Confident**   | Generous type, deliberate motion, real product UI.   |
 
-> **The golden test:** If a design looks "too flashy" or "too decorated", it is probably wrong for Zekora.  
-> **If it looks "too simple", it's probably right.**
+> **The golden test:** if it looks "too flashy", it's probably wrong. If it looks "too simple", it's probably right.
 
-### 1.3 Brand Personality in UI
+### 1.3 Brand personality in UI
 
 Zekora is:
 - **Professional**, not corporate
@@ -72,1115 +78,1212 @@ Zekora is:
 - **Confident**, not arrogant
 - **Modern**, not trendy
 
-> If Zekora were a person: _A calm, intelligent engineer who explains complex things simply._
+> If Zekora were a person: *a calm, intelligent engineer who explains complex things simply.*
 
 ---
 
-## 2. Brand Identity
+## 2. File Map
 
-### 2.1 Brand Name
+Every token, font, logo, mockup and component referenced in this doc has a real file. Cross-reference:
+
+```
+app/
+  globals.css                 ← Tokens (:root + .dark) + @theme inline + prose-zekora
+  layout.tsx                  ← Root layout, localFont setup, no-FOUC theme script, metadata
+  sitemap.ts / robots.ts / manifest.ts
+  fonts/                      ← Bundled Outfit, Inter, JetBrains Mono .ttf files
+  [locale]/
+    layout.tsx                ← Locale wrapper: dictionary, JsonLd, Navbar, Footer
+    template.tsx              ← Page transition (re-mounts per route)
+    page.tsx                  ← Home
+    about/        AboutContent.tsx
+    services/     ServicesContent.tsx
+    portfolio/    PortfolioContent.tsx
+    contact/      ContactContent.tsx
+    blog/         page.tsx + [slug]/page.tsx
+
+components/
+  ui/             Button.tsx, ThemeToggle.tsx
+  layout/         Navbar.tsx, Footer.tsx
+  sections/       SectionWrapper.tsx, PageHeader.tsx, CtaBand.tsx,
+                  CountUp.tsx, HeroShowcase.tsx, ProjectCard.tsx,
+                  ProjectDetailModal.tsx
+  mockups/        Mockups.tsx     (BrowserMock, PhoneMock, FloatingChip, PulseDot)
+  seo/            JsonLd.tsx
+
+lib/
+  config.ts                   ← BRAND constants + t() placeholder helper
+  utils.ts                    ← cn() (clsx + tailwind-merge)
+  i18n.ts                     ← locale list + getDictionary()
+  dictionaries/               ← en.json, fr.json
+  dictionary-context.tsx / locale-context.tsx
+  blog.ts                     ← Typed BlogPost records
+  seo.ts                      ← alternatesFor() + JSON-LD builders
+
+public/
+  logos/                      ← zekora-logo.svg, zekora-logo-white.svg,
+                                zekora-icon.svg, zekora-icon-white.svg
+  og-image.png                ← 1600 × 900 social preview
+  _headers                    ← Cloudflare cache + security headers
+```
+
+When in doubt: **read the file path** above and follow that pattern.
+
+---
+
+## 3. Brand Identity
+
+### 3.1 Name
 
 - **Full name:** Zekora
-- **Display name (logo/nav):** ZEKORA (uppercase)
-- **Positioning statement:** _"Zekora builds digital solutions that structure, modernize, and grow businesses."_
+- **Wordmark (visual):** lowercase-set "Zekora" in Outfit SemiBold, deep indigo
+- **Alternate (SEO-friendly):** "Zekora Tech" — matches the domain `zekoratech.com`
+- **Positioning:** *Zekora builds digital solutions that structure, modernise, and grow businesses.*
 
-### 2.2 Brand Signature (for client projects)
+### 3.2 Logo system
 
-Use one of:
-- `Built by Zekora`
-- `Powered by Zekora`
+| File                                       | Use                                            |
+| ------------------------------------------ | ---------------------------------------------- |
+| `public/logos/zekora-logo.svg`             | Wordmark on **light** surfaces (default)       |
+| `public/logos/zekora-logo-white.svg`       | Wordmark on **dark** surfaces (footer, hero)   |
+| `public/logos/zekora-icon.svg`             | Icon mark only (favicon, app icon, watermark)  |
+| `public/logos/zekora-icon-white.svg`       | Icon mark on dark surfaces                     |
 
-> Placement: subtle, professional, never intrusive. Typically in the footer.
+The logo is a **wordmark** — typographic, not an abstracted geometric Z. No icon-in-a-box badge. The icon mark exists for app icons and tight spaces (favicons, manifest) only.
 
-### 2.3 Logo System
-
-#### Primary Logo
-- Abstract geometric **Z** symbol + `ZEKORA` in uppercase
-- Sans-serif typography
-- Used for: headers, footers, main branding areas
-
-#### Icon Logo (Secondary)
-- Z symbol only (no text)
-- Used for: app icons, favicons, watermarks, small spaces
-
-#### Logo Construction (SVG reference)
-
-The Zekora icon is composed of three layers:
-1. **Rounded rectangle background** — filled with Primary Blue (`#1F3C88`)
-2. **Z letterform** — white (`#FFFFFF`), geometric angular shape
-3. **Horizontal accent bar** — Teal (`#1BA6A6`), centered across the Z
-
-```svg
-<!-- Icon example at 50×50 -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-  <rect width="50" height="50" rx="10" fill="#1F3C88"/>
-  <path d="M11 12h28v5L17 38H39v5H11v-5L33 17H11v-5z" fill="#ffffff"/>
-  <rect x="11" y="22" width="28" height="5" rx="2.5" fill="#1BA6A6"/>
-</svg>
-```
-
-#### Logo Rules
+### 3.3 Logo rules
 
 ✅ **Do:**
-- Keep proportional at all sizes
-- Ensure breathing space (minimum clear zone = 50% of logo height on all sides)
-- Ensure it works on both light and dark backgrounds
-- Scale properly from 16×16 (favicon) to banner size
+- Keep proportional at all sizes.
+- Use the white variant on any background darker than `--c-primary`.
+- Maintain breathing space ≥ 50% of logo height on all sides.
+- Use SVG everywhere — never raster.
 
 ❌ **Never:**
-- Stretch or distort
-- Rotate
-- Alter colors
-- Add shadows, glows, or gradients beyond the defined ones
-- Place on busy/cluttered backgrounds without proper contrast
+- Stretch, rotate, recolour or distort the wordmark.
+- Add shadows, glows, gradients, or outlines.
+- Re-letter the wordmark in a different typeface — always use the bundled SVG.
+- Place over a busy photo without a solid panel underneath.
 
-### 2.4 Logo in UI (Navbar Pattern)
+### 3.4 Signature lines
 
-When used in navigation bars:
+For client work, use one of:
+- *"Built by Zekora"* — typical default
+- *"Powered by Zekora"* — when Zekora-built tech is a feature
 
-```
-[Z icon in gradient box] ZEKORA    nav-links...    [CTA button]
-```
-
-- **Icon container:** 32×32px (w-8 h-8), rounded-lg, gradient background (`linear-gradient(135deg, #1F3C88, #1BA6A6)`)
-- **Text:** `ZEKORA` in font-bold, tracking-tight, text-lg to text-xl
-- On dark/hero backgrounds: icon container uses `rgba(255,255,255,0.15)`, text is white
-- On scrolled/light backgrounds: icon container uses gradient, text is Primary Blue
+Placement: footer, subtle, never intrusive.
 
 ---
 
-## 3. Color System
+## 4. Color System
 
-### 3.1 Core Palette
+### 4.1 Source of truth
 
-#### Primary Colors
+Tokens live in **`app/globals.css`**, defined twice — once on `:root` (light), once on `.dark` (dark) — and then mapped into Tailwind's `@theme inline { ... }` block so they're available as `bg-primary`, `text-secondary`, etc.
 
-| Token                | Hex         | Usage                          | Meaning                        |
-| -------------------- | ----------- | ------------------------------ | ------------------------------ |
-| `primary`            | `#1F3C88`   | Main brand color, headings, CTA backgrounds, links | Trust, technology, stability |
-| `primary-hover`      | `#193175`   | Hover state for primary elements | Darker primary                |
-| `primary-light`      | `#e8ecf5`   | Icon backgrounds, subtle highlights | Tinted primary surface       |
-| `primary-lighter`    | `#f3f5fa`   | Very subtle backgrounds        | Barely-there primary tint      |
+### 4.2 Light palette (`:root`)
 
-#### Secondary / Accent Colors
+| Token                  | Value       | Role                                                    |
+| ---------------------- | ----------- | ------------------------------------------------------- |
+| `--c-bg`               | `#ffffff`   | Page background                                         |
+| `--c-fg`               | `#14162e`   | Default body text                                       |
+| `--c-primary`          | `#2e3a9e`   | Brand indigo — headings, CTAs, links                    |
+| `--c-primary-fg`       | `#ffffff`   | Text on primary                                         |
+| `--c-primary-light`    | `#eef0fb`   | Tinted indigo surface (active nav, badge bg)            |
+| `--c-primary-lighter`  | `#f5f6fc`   | Subtle indigo background                                |
+| `--c-primary-hover`    | `#222a75`   | Primary hover                                           |
+| `--c-secondary`        | `#1e9e86`   | Brand teal — accents, secondary CTAs                    |
+| `--c-secondary-fg`     | `#ffffff`   | Text on secondary                                       |
+| `--c-secondary-light`  | `#e4f4f0`   | Teal-tinted surface                                     |
+| `--c-secondary-hover`  | `#147a68`   | Secondary hover                                         |
+| `--c-muted`            | `#f6f7fb`   | Alternating section background                          |
+| `--c-muted-fg`         | `#565c73`   | Secondary text on light surfaces                        |
+| `--c-border`           | `#e7e9f2`   | Borders, dividers                                       |
+| `--c-card`             | `#ffffff`   | Card surface                                            |
+| `--c-card-hover`       | `#fafbfd`   | Card hover surface                                      |
+| `--c-ink`              | `#14162e`   | Strong text (titles)                                    |
+| `--c-slate`            | `#565c73`   | Soft secondary text                                     |
+| `--c-steel`            | `#8a8fa3`   | Tertiary text, axis labels                              |
+| `--c-mist`             | `#d8dbe7`   | Soft fill, fake "text" bars in mockups                  |
+| `--c-cloud`            | `#eceef5`   | Subtle elevation surface                                |
+| `--c-paper`            | `#f6f7fb`   | Section "paper" background                              |
+| `--c-brand`            | `#2e3a9e`   | Same as primary — used in copy ("text-brand")           |
+| `--c-indigo-tint`      | `#eef0fb`   | Accent tint                                             |
+| `--c-teal`             | `#1e9e86`   | Same as secondary                                       |
+| `--c-teal-deep`        | `#147a68`   | Deeper teal                                             |
+| `--c-teal-tint`        | `#e4f4f0`   | Same as secondary-light                                 |
+| `--c-indigo-darker`    | `#1a1f4a`   | Footer background                                       |
+| `--grid-line`          | `rgba(46,58,158,0.055)` | `.bg-grid` overlay                          |
 
-| Token                | Hex         | Usage                          | Meaning                      |
-| -------------------- | ----------- | ------------------------------ | ---------------------------- |
-| `secondary`          | `#1BA6A6`   | Accents, highlights, badges, secondary CTAs | Growth, innovation  |
-| `secondary-hover`    | `#158e8e`   | Hover state for secondary elements | Darker teal                |
-| `secondary-light`    | `#e6f5f5`   | Icon ring backgrounds, subtle teal surfaces | Tinted teal surface  |
+### 4.3 Dark palette (`.dark`)
 
-#### Neutral Colors
+The same tokens are redefined under `.dark`. Highlights of the dark variant:
 
-| Token                | Hex         | Usage                          |
-| -------------------- | ----------- | ------------------------------ |
-| `background`         | `#ffffff`   | Page backgrounds               |
-| `foreground`         | `#1a1a2e`   | Primary text color             |
-| `muted`              | `#f8f9fb`   | Alternate section backgrounds  |
-| `muted-foreground`   | `#5a6577`   | Secondary text, descriptions   |
-| `border`             | `#e8eaef`   | Card borders, dividers         |
-| `card`               | `#ffffff`   | Card backgrounds               |
-| `card-hover`         | `#f9fafb`   | Card hover state               |
+| Token                  | Dark value  | Notes                                                   |
+| ---------------------- | ----------- | ------------------------------------------------------- |
+| `--c-bg`               | `#0f1020`   | Deep indigo-black                                       |
+| `--c-fg`               | `#e8eaf4`   | Off-white body                                          |
+| `--c-primary`          | `#2e3a9e`   | Same hue — but `--c-brand` lifts to `#8e98f2` for legibility |
+| `--c-brand`            | `#8e98f2`   | Lifted indigo — used for links / brand text in dark     |
+| `--c-secondary`        | `#2ab89d`   | Slightly brighter teal                                  |
+| `--c-card`             | `#1c1e38`   | Card surface                                            |
+| `--c-ink`              | `#e8eaf4`   | Inverts in dark mode                                    |
+| `--c-paper`            | `#15172a`   | Section paper                                           |
+| `--c-indigo-darker`    | `#090a14`   | Footer in dark                                          |
+| `--grid-line`          | `rgba(255,255,255,0.05)` | Grid overlay                                |
 
-#### Dark Surface Colors (Footer, Hero, Dark Sections)
+> **Critical:** `--c-ink` flips meaning between light (`#14162e`) and dark (`#e8eaf4`). Never use raw `bg-ink` or `text-ink` on a surface that doesn't also flip — always use semantic pairs (`bg-card text-ink`, `bg-background text-foreground`).
 
-| Token                | Hex                       | Usage                          |
-| -------------------- | ------------------------- | ------------------------------ |
-| `dark-bg`            | `#141f45`                 | Footer background              |
-| `hero-gradient`      | `linear-gradient(135deg, #1F3C88 0%, #162d6b 50%, #1F3C88 100%)` | Hero & page header backgrounds |
-| `dark-text`          | `#ffffff`                 | Text on dark surfaces          |
-| `dark-text-muted`    | `rgba(255,255,255,0.75)`  | Subtitle text on dark surfaces |
-| `dark-text-subtle`   | `rgba(255,255,255,0.7)`   | Description text on dark       |
-| `dark-text-dim`      | `rgba(255,255,255,0.6)`   | Footer links                   |
-| `dark-text-faint`    | `rgba(255,255,255,0.5)`   | Copyright text                 |
-| `dark-border`        | `rgba(255,255,255,0.1)`   | Dividers on dark surfaces      |
+### 4.4 Tailwind mapping (`@theme inline`)
 
-#### Semantic Colors
-
-| Purpose     | Color       | Usage                          |
-| ----------- | ----------- | ------------------------------ |
-| `success`   | `green-50/200/700` | Success messages, confirmations |
-| `error`     | `red-50/200/400/500/700` | Error states, validation, destructive actions |
-| `warning`   | _(use sparingly)_ | Warnings, caution states       |
-
-### 3.2 Brand Gradient
-
-The primary brand gradient is used sparingly for accent elements:
-
-```css
-background: linear-gradient(135deg, #1F3C88 0%, #1BA6A6 100%);
-```
-
-**Used for:**
-- Gradient text (`.text-gradient` utility)
-- Accent lines on cards (top 3px border)
-- Decorative separator in footer
-- Icon containers in process steps
-
-**Also used (more subtle):**
-```css
-/* Blue-only gradient for buttons/icon boxes */
-background: linear-gradient(135deg, #1F3C88, #253f80);
-```
-
-### 3.3 Color Usage Rules
-
-1. **Blue is dominant** — used for headings, primary CTAs, navbar active states, section titles
-2. **Teal is secondary** — used for accents, secondary CTAs, icon highlights, badges
-3. **Neutrals support content** — backgrounds, text, borders
-4. **Maximum 3 colors per layout** — never more
-5. **Selection highlight:** `rgba(31, 60, 136, 0.15)` background with `#1F3C88` text
-6. **Focus ring:** 2px solid `#1F3C88`, 2px offset
-
-### 3.4 CSS Custom Properties (Web)
+Inside `app/globals.css`:
 
 ```css
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #1a1a2e;
-  --color-primary: #1F3C88;
-  --color-primary-foreground: #ffffff;
-  --color-primary-light: #e8ecf5;
-  --color-primary-lighter: #f3f5fa;
-  --color-primary-hover: #193175;
-  --color-secondary: #1BA6A6;
-  --color-secondary-foreground: #ffffff;
-  --color-secondary-light: #e6f5f5;
-  --color-secondary-hover: #158e8e;
-  --color-muted: #f8f9fb;
-  --color-muted-foreground: #5a6577;
-  --color-accent: #1BA6A6;
-  --color-accent-foreground: #ffffff;
-  --color-border: #e8eaef;
-  --color-ring: #1F3C88;
-  --color-card: #ffffff;
-  --color-card-hover: #f9fafb;
+  --color-background: var(--c-bg);
+  --color-foreground: var(--c-fg);
+  --color-primary: var(--c-primary);
+  --color-primary-foreground: var(--c-primary-fg);
+  --color-primary-light: var(--c-primary-light);
+  --color-primary-lighter: var(--c-primary-lighter);
+  --color-primary-hover: var(--c-primary-hover);
+  --color-secondary: var(--c-secondary);
+  --color-secondary-foreground: var(--c-secondary-fg);
+  --color-secondary-light: var(--c-secondary-light);
+  --color-secondary-hover: var(--c-secondary-hover);
+  --color-accent: var(--c-secondary);
+  --color-muted: var(--c-muted);
+  --color-muted-foreground: var(--c-muted-fg);
+  --color-border: var(--c-border);
+  --color-ring: var(--c-primary);
+  --color-card: var(--c-card);
+  --color-ink: var(--c-ink);
+  --color-slate: var(--c-slate);
+  --color-steel: var(--c-steel);
+  --color-mist: var(--c-mist);
+  --color-paper: var(--c-paper);
+  --color-brand: var(--c-brand);
+  /* ...also indigo, teal variants for explicit naming */
 }
 ```
 
-### 3.5 Mobile (Flutter/Native) Equivalent
+This is what makes `bg-paper`, `text-slate`, `border-border`, `bg-card`, etc. work as Tailwind utilities.
 
-```dart
-class ZekoraColors {
-  static const primary = Color(0xFF1F3C88);
-  static const primaryHover = Color(0xFF193175);
-  static const primaryLight = Color(0xFFe8ecf5);
-  static const secondary = Color(0xFF1BA6A6);
-  static const secondaryHover = Color(0xFF158e8e);
-  static const secondaryLight = Color(0xFFe6f5f5);
-  static const background = Color(0xFFffffff);
-  static const foreground = Color(0xFF1a1a2e);
-  static const muted = Color(0xFFf8f9fb);
-  static const mutedForeground = Color(0xFF5a6577);
-  static const border = Color(0xFFe8eaef);
-  static const card = Color(0xFFffffff);
-  static const footerBg = Color(0xFF141f45);
-}
-```
+### 4.5 Color usage rules
+
+1. **Indigo is dominant** — headings, primary CTAs, active states, accent lines.
+2. **Teal is the accent** — secondary CTAs, icon highlights, "Live" dots, success badges.
+3. **Neutrals carry content** — `bg`, `card`, `paper`, `muted`, `ink`, `slate`, `steel`, `mist`.
+4. **Max 3 colours per layout.** Indigo + teal + neutral. Anything else is decoration drift.
+5. **Selection highlight:** indigo `#2e3a9e` background, white text (set via `::selection` in globals.css).
+6. **Focus ring:** 2px solid `var(--color-primary)` with 2px offset (set globally via `*:focus-visible`).
+
+### 4.6 Semantic colours
+
+| Purpose   | Token / pattern                                              |
+| --------- | ------------------------------------------------------------ |
+| Success   | `bg-secondary-light text-secondary` for badges; `text-secondary` for dots |
+| Error     | `text-red-500` / `border-red-400` (Tailwind palette)         |
+| Warning   | Use sparingly — `text-amber-600` only when essential         |
+
+We do not maintain dedicated success/error/warning tokens because they are rare. If they become common, promote them into the `--c-*` system.
 
 ---
 
-## 4. Typography
+## 5. Typography
 
-### 4.1 Font Family
+### 5.1 Font system
 
-**Primary (and only) font:** [Inter](https://fonts.google.com/specimen/Inter)
+Three families, loaded as `next/font/local` from `app/fonts/`:
 
-- Used for: **everything** — headings, body, buttons, navigation, labels, inputs
-- Fallback stack: `'Inter', system-ui, -apple-system, sans-serif`
+| Family             | CSS var          | Use                                                |
+| ------------------ | ---------------- | -------------------------------------------------- |
+| **Outfit**         | `--font-outfit`  | Display: H1–H5, the Zekora wordmark, large stats   |
+| **Inter**          | `--font-inter`   | Body, UI, buttons, navigation, labels              |
+| **JetBrains Mono** | `--font-jbmono`  | Eyebrows, code, metadata, axis labels, URLs        |
 
-> ❌ No decorative fonts. No script fonts. No mixed font families.  
-> ✅ Sans-serif only. One font. Always.
+Mapped to Tailwind via `@theme inline` as:
 
-### 4.2 Web Loading Strategy
-
-```typescript
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+```css
+--font-sans:    var(--font-inter), system-ui, -apple-system, sans-serif;
+--font-display: var(--font-outfit), var(--font-inter), system-ui, sans-serif;
+--font-mono:    var(--font-jbmono), ui-monospace, "SFMono-Regular", monospace;
 ```
 
-### 4.3 Type Scale & Hierarchy
+So you can use `font-sans`, `font-display`, `font-mono` directly in Tailwind classes.
 
-#### Headings
+### 5.2 Loading (Next.js)
 
-| Level | Weight    | Line Height | Letter Spacing | Sizes (responsive)                              |
-| ----- | --------- | ----------- | -------------- | ------------------------------------------------ |
-| H1    | **700** (bold) | 1.06–1.08 | -0.025em     | `text-4xl sm:text-5xl lg:text-6xl xl:text-7xl`  |
-| H2    | **700** (bold) | 1.15      | -0.02em       | `text-3xl sm:text-4xl lg:text-5xl`              |
-| H3    | **600** (semi-bold) | 1.3  | -0.01em       | `text-lg` to `text-base`                        |
+In `app/layout.tsx`:
 
-#### Body & Labels
+```tsx
+import localFont from "next/font/local";
 
-| Role              | Weight | Size                  | Line Height | Color                |
-| ----------------- | ------ | --------------------- | ----------- | -------------------- |
-| Body text         | 400    | `text-base lg:text-lg`| 1.75        | `foreground`         |
-| Description       | 400    | `text-sm`             | relaxed     | `muted-foreground`   |
-| Small / Captions  | 400–500| `text-xs`             | normal      | `muted-foreground`   |
-| Labels (form)     | 500    | `text-sm`             | normal      | `foreground`         |
-| Badges / Tags     | 600    | `text-xs`             | normal      | varies               |
-| Section labels    | 600    | `text-xs` uppercase   | normal      | `secondary`          |
-| Nav links         | 500    | `text-sm`             | normal      | varies by state      |
-| Buttons           | 600–700| `text-sm` to `text-base` | normal   | white or primary     |
+const inter = localFont({
+  variable: "--font-inter",
+  display: "swap",
+  src: [
+    { path: "./fonts/Inter-Regular.ttf",  weight: "400", style: "normal" },
+    { path: "./fonts/Inter-Medium.ttf",   weight: "500", style: "normal" },
+    { path: "./fonts/Inter-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/Inter-Bold.ttf",     weight: "700", style: "normal" },
+  ],
+});
+// Same shape for outfit + jetbrainsMono
+```
 
-### 4.4 Typography Rules
+The three variables are added to the `<html>` className together. Bundled local TTFs survive flaky-network builds (no Google Fonts dependency).
+
+### 5.3 Type scale
+
+#### Headings — use `font-display` (Outfit)
+
+| Level | Weight        | Size (responsive)                                    | Tracking | Line-height |
+| ----- | ------------- | ---------------------------------------------------- | -------- | ----------- |
+| H1    | 600 (semi)    | `text-[2.3rem] sm:text-[3rem] lg:text-[3.45rem]`     | -0.032em | 1.04        |
+| H2    | 600 (semi)    | `text-3xl sm:text-4xl`                               | -0.026em | 1.12        |
+| H3    | 600 (semi)    | `text-base` / `text-lg` (context-dependent)          | -0.018em | 1.25        |
+
+H1/H2/H3 get `text-wrap: balance` automatically (set in globals.css).
+
+#### Body & UI — use `font-sans` (Inter)
+
+| Role            | Weight | Size                  | Colour token                 |
+| --------------- | ------ | --------------------- | ---------------------------- |
+| Body            | 400    | `text-[15px]` / `text-base` | `text-slate` or `text-foreground` |
+| Description     | 400    | `text-sm`             | `text-slate`                 |
+| UI label        | 500    | `text-sm`             | `text-foreground`            |
+| Nav link        | 500    | `text-[14px]`         | `text-muted-foreground`      |
+| Button          | 600    | `text-[13px]` → `text-[15px]` by size | white or `text-foreground` |
+
+Paragraphs get `text-wrap: pretty` automatically.
+
+#### Eyebrow / micro-label — use `font-mono` (JetBrains Mono)
+
+```html
+<span class="eyebrow text-secondary">Our work</span>
+```
+
+The `.eyebrow` utility (defined in globals.css):
+
+```css
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+```
+
+### 5.4 Rules
 
 ✅ **Do:**
-- Maintain clear hierarchy (H1 > H2 > H3 > body)
-- Use generous line spacing for body text (1.75)
-- Use tighter line height for headings (1.06–1.15)
-- Use negative letter-spacing on headings for a refined feel
-- Use uppercase + tracking-wider for section labels/badges
+- Use `font-display` on every H1/H2/H3.
+- Use `font-mono` for eyebrows, metadata, dates, URLs, code, axis labels.
+- Use negative letter-spacing on headings (the global rules already apply this).
+- Reach for tabular-nums (`tabular-nums`) for any counter/stat.
 
 ❌ **Don't:**
-- Use more than one font family
-- Use decorative or script fonts
-- Use font weights below 400 or above 700
-- Skip heading levels (H1 → H3)
+- Mix more than these three families.
+- Use Outfit for body text — it's too geometric for long reading.
+- Use Inter for the wordmark — the SVG already bakes Outfit.
 
 ---
 
-## 5. Spacing & Layout
+## 6. Spacing & Layout
 
-### 5.1 Content Container
+### 6.1 Content container
 
-All page content is constrained to a maximum width with consistent horizontal padding:
-
-```
-max-width: 80rem (1280px) — Tailwind: max-w-7xl
-padding-x: 20px → 24px → 32px (responsive)
-Tailwind: px-5 sm:px-6 lg:px-8
-```
-
-### 5.2 Section Spacing
-
-| Context                  | Spacing                        | Tailwind Class                 |
-| ------------------------ | ------------------------------ | ------------------------------ |
-| Section vertical padding | 80px → 96px → 112px           | `py-20 md:py-24 lg:py-28`     |
-| Section header to content| 56px → 80px                    | `mb-14 lg:mb-20`              |
-| Hero vertical padding    | 128px top, 160px on desktop    | `py-32 lg:py-40`              |
-| Page header (inner pages)| 128px top / 64px bottom → 160px/80px | `pt-32 pb-16 lg:pt-40 lg:pb-20` |
-
-### 5.3 Grid Gaps
-
-| Context          | Gap               | Tailwind               |
-| ---------------- | ----------------- | ----------------------- |
-| Card grids       | 24px → 28px       | `gap-6 lg:gap-7`        |
-| Two-column layout| 48px → 80px       | `gap-12 lg:gap-20`      |
-| Form fields      | 20px              | `gap-5`                 |
-| Internal stacks  | 16px–24px         | `space-y-4` to `space-y-6` |
-
-### 5.4 Section Alternation Pattern
-
-Sections alternate between white and muted backgrounds for visual rhythm:
+Every page constrains content to:
 
 ```
-[Hero] → dark (primary gradient)
-[Section 1] → white (#ffffff)
-[Section 2] → muted (#f8f9fb)
-[Section 3] → white
-[CTA] → dark (primary solid #1F3C88)
-[Footer] → dark footer (#141f45)
+max-width: 80rem  (1280px, Tailwind: max-w-7xl)
+padding-x: px-5 sm:px-6 lg:px-8
 ```
 
-### 5.5 Common Spacing Tokens
+### 6.2 Section spacing (vertical rhythm)
 
-| Token   | Value  | Usage                                |
-| ------- | ------ | ------------------------------------ |
-| `1`     | 4px    | Minimal gaps, icon offsets           |
-| `2`     | 8px    | Tight element spacing                |
-| `3`     | 12px   | Label spacing, icon gaps             |
-| `4`     | 16px   | Component internal padding           |
-| `5`     | 20px   | Container padding (mobile)           |
-| `6`     | 24px   | Grid gaps, card padding              |
-| `7`     | 28px   | Card inner padding (desktop)         |
-| `8`     | 32px   | Large component padding              |
-| `10`    | 40px   | Section sub-spacing                  |
-| `14`    | 56px   | Section header margin bottom         |
-| `20`    | 80px   | Section padding (base)               |
+| Context                          | Value                       | Tailwind                          |
+| -------------------------------- | --------------------------- | --------------------------------- |
+| Standard section                 | 80 → 96 → 112 px            | `py-20 md:py-24 lg:py-28`         |
+| Section header → content         | 56 → 80 px                  | `mb-14 lg:mb-20`                  |
+| Hero                             | 128 / 160 px top-bottom     | `py-32 lg:py-40`                  |
+| Inner page header                | 128/64 → 160/80             | `pt-32 pb-16 lg:pt-40 lg:pb-20`   |
+| Blog post header                 | 128/48 → 160/64             | `pt-32 pb-12 lg:pt-40 lg:pb-16`   |
+
+Reusable via `<SectionWrapper>` (`components/sections/SectionWrapper.tsx`) — pass `muted` to alternate the background.
+
+### 6.3 Grid gaps
+
+| Context              | Gap         | Tailwind                |
+| -------------------- | ----------- | ----------------------- |
+| Card grid            | 20–28 px    | `gap-5` / `gap-6 lg:gap-7` |
+| Two-column layout    | 48–80 px    | `gap-12 lg:gap-16`      |
+| Form fields          | 20 px       | `gap-5`                 |
+| Internal stack       | 16–24 px    | `space-y-4` / `space-y-6` |
+
+### 6.4 Section alternation
+
+```
+[Page Header]   → bg-background + .bg-grid radial mask
+[Section 1]     → bg-background
+[Section 2]     → bg-paper (via SectionWrapper muted)
+[Section 3]     → bg-background
+[CtaBand]       → bg-primary (or bg-card with strong border)
+[Footer]        → bg-indigo-darker (forced dark)
+```
+
+### 6.5 Spacing tokens
+
+| Token | px   | Common use                                      |
+| ----- | ---- | ----------------------------------------------- |
+| 1     | 4    | Hairline gaps                                   |
+| 2     | 8    | Icon/text gaps                                  |
+| 3     | 12   | Label spacing                                   |
+| 4     | 16   | Internal padding                                |
+| 5     | 20   | Container padding (mobile)                      |
+| 6     | 24   | Card padding, grid gap                          |
+| 7     | 28   | Card padding (desktop)                          |
+| 8     | 32   | Large padding                                   |
+| 10    | 40   | Sub-section spacing                             |
+| 14    | 56   | Section header bottom                           |
+| 20    | 80   | Section padding base                            |
 
 ---
 
-## 6. Border Radius & Shapes
+## 7. Border Radius & Shapes
 
-### 6.1 Radius Scale
+| Token            | Value  | Use                                            |
+| ---------------- | ------ | ---------------------------------------------- |
+| `rounded-md`     | 6 px   | Small inline pills, code chips                 |
+| `rounded-lg`     | 8 px   | Icon containers, inputs (small), nav items     |
+| `rounded-xl`     | 12 px  | Buttons, inputs, icon boxes, tags              |
+| `rounded-2xl`    | 16 px  | Cards, panels, modals, mockup frames           |
+| `rounded-full`   | ∞      | Pills, dots, badges, avatars                   |
 
-| Token        | Value  | Usage                                      |
-| ------------ | ------ | ------------------------------------------ |
-| `rounded-lg` | 8px    | Logo icon container, small UI elements     |
-| `rounded-xl` | 12px   | Buttons, inputs, icon boxes, tags          |
-| `rounded-2xl`| 16px   | Cards, modals, panels, images              |
-| `rounded-full`| 9999px| Pills, badges, dots, avatars, nav pills    |
+The PhoneMock and the dashboard cards inside mockups use **container-query units** (`rounded-[15cqw]`, `rounded-[8cqw]`, etc.) so the corners scale with the mock — see §13.
 
-### 6.2 Shape Principles
-
-- Cards and containers: `rounded-2xl` (16px)
-- Interactive elements (buttons, inputs): `rounded-xl` (12px)
-- Tags and badges: `rounded-full` (pill shape)
-- Icon backgrounds: `rounded-xl` (12px) for square, `rounded-full` for circular
-- No sharp corners (no `rounded-none`) except for full-bleed sections
+Shape principles:
+- Cards: `rounded-2xl` (16 px).
+- Interactive elements: `rounded-xl` (12 px).
+- Tags/badges: `rounded-full`.
+- **Never** `rounded-none` except for full-bleed sections.
 
 ---
 
-## 7. Shadows & Elevation
+## 8. Shadows & Elevation
 
-### 7.1 Shadow Scale
+| Level             | CSS value                                          | Use                                       |
+| ----------------- | -------------------------------------------------- | ----------------------------------------- |
+| `shadow-none`     | —                                                  | Default                                   |
+| `shadow-sm`       | `0 1px 2px rgba(0,0,0,0.05)`                       | Resting cards                             |
+| `shadow-md`       | `0 4px 6px rgba(0,0,0,0.07)`                       | Buttons at rest                           |
+| `shadow-lg`       | `0 10px 15px rgba(0,0,0,0.1)`                      | Card hover                                |
+| `shadow-xl`       | `0 20px 25px rgba(0,0,0,0.1)`                      | Strong hover                              |
+| `shadow-2xl`      | `0 25px 50px rgba(0,0,0,0.25)`                     | Modals                                    |
 
-| Level            | CSS Value (Tailwind)              | Usage                              |
-| ---------------- | --------------------------------- | ---------------------------------- |
-| `shadow-none`    | none                              | Default state of most elements     |
-| `shadow-sm`      | `0 1px 2px rgba(0,0,0,0.05)`     | Cards at rest, subtle depth        |
-| `shadow-md`      | `0 4px 6px rgba(0,0,0,0.07)`     | Buttons at rest, elevated elements |
-| `shadow-lg`      | `0 10px 15px rgba(0,0,0,0.1)`    | Hover state for cards              |
-| `shadow-xl`      | `0 20px 25px rgba(0,0,0,0.1)`    | Strong hover on cards              |
-| `shadow-2xl`     | `0 25px 50px rgba(0,0,0,0.25)`   | Modals, popovers                   |
+### Branded shadows (custom)
 
-### 7.2 CTA Button Shadow
-
-Primary buttons use a branded shadow:
-```css
-box-shadow: 0 2px 8px rgba(31, 60, 136, 0.25);
-/* On hover: */
-box-shadow: 0 4px 16px rgba(31, 60, 136, 0.35);
-```
-
-### 7.3 Elevation Patterns
-
-| Element          | Rest State    | Hover State                         |
-| ---------------- | ------------- | ----------------------------------- |
-| Cards            | `shadow-sm`   | `shadow-xl` + `translateY(-4px)`    |
-| Buttons (primary)| `shadow-md`   | `shadow-lg` + `translateY(-2px)`    |
-| Modals           | `shadow-2xl`  | N/A                                 |
-| Navbar (scrolled)| Custom subtle | N/A                                 |
-| Feature cards    | none          | `shadow-lg` + bg change             |
-
-### 7.4 Navbar Shadow (Scrolled State)
+Mockups use deeper, indigo-tinted shadows:
 
 ```css
-box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+shadow-[0_32px_64px_-26px_rgba(20,22,46,0.4)]   /* BrowserMock */
+shadow-[0_28px_52px_-16px_rgba(20,22,46,0.5)]   /* PhoneMock  */
 ```
+
+CTA buttons use shadow tinted with the brand:
+
+```
+shadow-sm shadow-primary/25     (resting)
+shadow-md shadow-primary/35     (hover)
+```
+
+### Elevation patterns
+
+| Element          | Rest         | Hover                                  |
+| ---------------- | ------------ | -------------------------------------- |
+| Card             | `shadow-sm`  | `shadow-xl` + `-translate-y-1`         |
+| Primary button   | `shadow-sm`  | `shadow-md` + slight bg darken         |
+| Modal            | `shadow-2xl` | —                                      |
+| Mockup frame     | custom xl    | optional `-translate-y-1` on container |
 
 ---
 
-## 8. Iconography
+## 9. Iconography
 
-### 8.1 Icon Library
+### 9.1 Library
 
-**Primary:** [Lucide React](https://lucide.dev/) (web) — a fork of Feather Icons
+- **Web:** [`lucide-react`](https://lucide.dev/) — already imported across the codebase.
+- **Mobile (Flutter):** `lucide_icons` package, fallback to Material Symbols Outlined.
+- **React Native:** `lucide-react-native`.
 
-For mobile/native: Use equivalent line-based icon sets:
-- Flutter: `lucide_icons` package or Material Symbols (outlined)
-- React Native: `lucide-react-native`
+### 9.2 Rules
 
-### 8.2 Icon Style Rules
+✅ Line-based, geometric, 2 px stroke, consistent across the product.
 
-✅ **Do:**
-- Use simple, line-based icons
-- Use rounded or geometric shapes
-- Maintain consistent stroke width (default 2px for Lucide)
-- Use icons at consistent sizes
+❌ Never: cartoon, 3D, filled (except for active/selected states), emoji as icons, mixed libraries.
 
-❌ **Never:**
-- Cartoon icons
-- 3D emoji
-- Filled/solid icons (unless absolutely necessary for a selected/active state)
-- Mixing icon libraries in a single product
+### 9.3 Sizes
 
-### 8.3 Icon Sizes
+| Context              | Tailwind                  |
+| -------------------- | ------------------------- |
+| Inline with text     | `h-3.5 w-3.5` / `h-4 w-4` |
+| Button icon          | `h-4 w-4`                 |
+| Nav / footer icon    | `h-4 w-4`                 |
+| Card icon            | `h-5 w-5`                 |
+| Feature icon         | `h-5 w-5` to `h-6 w-6`    |
+| Hero / modal icon    | `h-7 w-7`                 |
 
-| Context              | Size          | Tailwind           |
-| -------------------- | ------------- | ------------------- |
-| Inline with text     | 14–16px       | `w-3.5 h-3.5` or `w-4 h-4` |
-| Button icon          | 16px          | `w-4 h-4`           |
-| Nav/footer icon      | 16px          | `w-4 h-4`           |
-| Card icon            | 20px          | `w-5 h-5`           |
-| Feature icon         | 24px          | `w-6 h-6`           |
-| Process step icon    | 28px          | `w-7 h-7`           |
-| Hero/modal icon      | 28–32px       | `w-7 h-7`           |
-
-### 8.4 Icon Container Patterns
-
-#### Square container with light background
-```html
-<div class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-light">
-  <Icon class="w-5 h-5 text-primary" />
-</div>
-```
-
-#### Circular container with light background
-```html
-<div class="w-16 h-16 rounded-full flex items-center justify-center bg-secondary-light">
-  <Icon class="w-6 h-6 text-secondary" />
-</div>
-```
-
-#### Gradient container (elevated)
-```html
-<div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm"
-     style="background: linear-gradient(135deg, #1F3C88, #253f80)">
-  <Icon class="w-5 h-5 text-white" />
-</div>
-```
-
----
-
-## 9. Motion & Animation
-
-### 9.1 Animation Library
-
-**Web:** [Framer Motion](https://www.framer.com/motion/)  
-**Mobile (Flutter):** Built-in `AnimationController` / `AnimatedContainer` / `Hero`  
-**React Native:** `react-native-reanimated`
-
-### 9.2 Animation Philosophy
-
-Animations must be:
-- **Smooth** — no jank or stutter
-- **Subtle** — enhance, not distract
-- **Professional** — convey quality and precision
-- **Purposeful** — every animation should have a reason
-
-### 9.3 Core Animation Values
-
-#### Easing Curve (Standard)
-
-```
-[0.22, 1, 0.36, 1]
-```
-
-This is a custom ease-out curve used consistently across all animations. It feels:
-- Fast start
-- Gentle deceleration
-- No bounce
-
-#### Duration Scale
-
-| Context                   | Duration | Usage                            |
-| ------------------------- | -------- | -------------------------------- |
-| Micro-interactions        | 200ms    | Modal open/close, tooltip        |
-| UI transitions            | 300ms    | Button hover, color changes      |
-| Element reveal            | 350ms    | Carousel slides, menu            |
-| Section entrance          | 500ms    | Cards, features on scroll        |
-| Hero text                 | 600ms    | Primary headline reveal          |
-| Complex sequences         | 700ms    | SectionWrapper fade-in           |
-
-### 9.4 Allowed Animation Patterns
-
-| Pattern                | Implementation                                      |
-| ---------------------- | --------------------------------------------------- |
-| **Fade-in on scroll**  | `opacity: 0 → 1`, `y: 32 → 0`, triggered by viewport intersection |
-| **Staggered reveal**   | Children animate sequentially with 80–150ms delay   |
-| **Hero word reveal**   | Each word animates individually: `opacity: 0, y: 24 → opacity: 1, y: 0` |
-| **Button hover lift**  | `translateY(-2px)` + shadow increase                |
-| **Card hover lift**    | `translateY(-4px)` + shadow increase                |
-| **Button press**       | `scale(0.97)` on active                             |
-| **Mobile menu**        | Height 0→auto + opacity, items stagger from left    |
-| **Carousel slide**     | `opacity + x-axis` slide with AnimatePresence        |
-| **Modal**              | Fade + scale(0.95→1) + translateY(20→0)             |
-
-### 9.5 Scroll Animation Defaults
-
-```typescript
-// Standard section entrance
-{
-  initial: { opacity: 0, y: 32 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
-}
-
-// Card/element entrance (staggered)
-{
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.5, delay: index * 0.1, ease: "easeOut" },
-}
-```
-
-### 9.6 Forbidden Animations
-
-❌ **Never use:**
-- Bouncy/spring effects with visible overshoot
-- Parallax scrolling
-- Auto-playing video backgrounds
-- Spinning/rotating elements
-- Fade-in delays longer than 1.5s
-- Animations that block user interaction
-- 3D flip/rotate transitions
-- Confetti or particle effects
-
----
-
-## 10. Component Library
-
-### 10.1 Button
-
-#### Variants
-
-| Variant     | Background          | Text Color | Border              | Hover Effect                    |
-| ----------- | ------------------- | ---------- | -------------------- | ------------------------------- |
-| `primary`   | `#1F3C88`           | white      | none                 | Darken + lift + shadow increase |
-| `secondary` | `#1BA6A6`           | white      | none                 | Darken + lift + shadow increase |
-| `outline`   | transparent         | `#1F3C88`  | 2px solid `#1F3C88`  | Fill with primary, text → white |
-| `ghost`     | transparent         | foreground | none                 | Muted background on hover      |
-
-#### Sizes
-
-| Size      | Height | Padding-X | Font Size |
-| --------- | ------ | --------- | --------- |
-| `sm`      | 36px   | 16px      | 14px      |
-| `default` | 44px   | 24px      | 14px      |
-| `lg`      | 52px   | 32px      | 16px      |
-
-#### Common Properties
-- Border radius: `rounded-xl` (12px)
-- Font weight: 600 (semibold)
-- Transition: `all 300ms ease-out`
-- Active state: `scale(0.97)`
-- Focus: 2px ring, primary color, 2px offset
-- Disabled: `opacity: 0.5`, no pointer events
-
-### 10.2 Card (Service Card / Feature Card / Project Card)
-
-#### Service Card
-```
-┌─────────────────────────────┐
-│ [3px gradient accent - hidden, shows on hover]
-│                             │
-│  [Icon in light bg box]     │
-│                             │
-│  Title (text-lg, semibold)  │
-│  Description (text-sm, muted) │
-│                             │
-└─────────────────────────────┘
-```
-
-- Background: white
-- Border: 1px solid `border`
-- Radius: `rounded-2xl` (16px)
-- Padding: `p-7 lg:p-8`
-- Shadow: `shadow-sm` → `shadow-xl` on hover
-- Hover: lift `-translate-y-1`, accent line appears
-
-#### Feature Card
-```
-┌─────────────────────────────┐
-│      [Circular icon]        │
-│    centered, ringed bg      │
-│                             │
-│     Title (centered)        │
-│   Description (centered)    │
-└─────────────────────────────┘
-```
-
-- No border by default
-- Padding: `p-6 lg:p-8`
-- Radius: `rounded-2xl`
-- Hover: white bg + `shadow-lg`
-- Text alignment: center
-
-#### Project Card
-```
-┌─────────────────────────────┐
-│     [Image / Placeholder]   │
-│      aspect-ratio: 16/10    │
-├─────────────────────────────┤
-│  Title                      │
-│  Description (3 lines max)  │
-│  [tags] [tags] [tags]       │
-│  👁 View Details            │
-└─────────────────────────────┘
-```
-
-- Same shadow/border/radius as Service Card
-- Image uses `object-contain` with gradient bg
-- Tags: pill shape, primary color, muted bg
-- Clickable → opens modal
-
-### 10.3 Section Wrapper
-
-A reusable wrapper for all content sections:
-
-```typescript
-interface SectionWrapperProps {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-  dark?: boolean;   // Primary blue background
-  muted?: boolean;  // Soft gray background
-}
-```
-
-- Padding: `py-20 md:py-24 lg:py-28`
-- Inner container: `max-w-7xl mx-auto px-5 sm:px-6 lg:px-8`
-- Includes scroll-triggered fade-in animation
-
-### 10.4 Page Header (Inner Pages)
-
-Every inner page (About, Services, Portfolio, Contact) starts with a consistent hero header:
-
-```
-┌─────────────────────────────────────────┐
-│  [Dark gradient background]             │
-│  [Dot pattern overlay at 6% opacity]    │
-│                                         │
-│  H1 Title (white, bold)                 │
-│  Subtitle (white 75% opacity)           │
-│                                         │
-│  pt-32 pb-16 lg:pt-40 lg:pb-20         │
-└─────────────────────────────────────────┘
-```
-
-Background: `linear-gradient(135deg, #1F3C88 0%, #162d6b 50%, #1F3C88 100%)`
-
-Dot pattern overlay:
-```css
-background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
-background-size: 40px 40px;
-opacity: 0.06;
-```
-
-### 10.5 Navbar
-
-- **Fixed** at top, z-50
-- **Transparent** on hero → **white glass** on scroll
-- Glass effect: `rgba(255,255,255,0.92)` + `blur(20px) saturate(180%)`
-- Height: `h-16 lg:h-20`
-- Text color transitions between white (on hero) and dark (on scroll)
-- Mobile: hamburger menu with slide-down drawer
-- Language switcher (Globe icon + locale code) always visible on mobile
-
-### 10.6 Footer
-
-- Background: `#141f45` (darker than primary)
-- Top accent line: gradient `transparent → #1BA6A6 → #1F3C88 → transparent`
-- 4-column grid on desktop (brand, company links, services, contact)
-- 2-column + centered on mobile
-- Text: white at various opacity levels (0.9, 0.7, 0.6, 0.5, 0.4)
-- Signature: "Built by {brand}" in bottom bar
-
-### 10.7 Form Inputs
-
-```css
-/* Base input styling */
-w-full px-4 py-3.5 rounded-xl border bg-white text-foreground text-sm
-placeholder:text-muted-foreground/60
-focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary
-transition-all duration-300
-```
-
-- Error state: `border-red-400`, `focus:ring-red-100`
-- Labels: `text-sm font-medium text-foreground mb-2`
-- Required indicator: red asterisk `*`
-- Optional indicator: small muted text `(optional)`
-
-### 10.8 Tags / Badges
+### 9.4 Icon containers
 
 ```html
-<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border"
-      style="color: #1F3C88; border-color: #e8eaef; background-color: #f8f9fb;">
-  Tag Name
+<!-- Square, light tint -->
+<span class="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-light text-brand">
+  <Icon class="h-5 w-5" />
+</span>
+
+<!-- Square, secondary tint -->
+<span class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-secondary">
+  <Icon class="h-5 w-5" />
+</span>
+
+<!-- Filled CTA-style -->
+<span class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white">
+  <Icon class="h-5 w-5" />
 </span>
 ```
 
-### 10.9 Accent Line Pattern
+---
 
-A thin gradient line used as a visual accent on cards, forms, and sections:
+## 10. Motion & Animation
 
-```html
-<!-- Top accent on cards -->
-<div class="absolute top-0 left-0 right-0 h-[3px]"
-     style="background: linear-gradient(90deg, #1F3C88, #1BA6A6)" />
+### 10.1 Tooling
+
+- **Web:** `framer-motion` (already a dependency).
+- **Mobile (Flutter):** `AnimationController`, `Hero`, `AnimatedContainer`.
+- **React Native:** `react-native-reanimated`.
+
+### 10.2 Easing — `EASE`
+
+One curve, used everywhere:
+
+```ts
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 ```
 
-### 10.10 Mobile Carousel
+It's defined inline in any component that needs it. Search the repo: every animation references this same tuple. **Don't introduce new curves casually** — pick this one unless there's a real reason.
 
-For mobile-only horizontal card browsing:
-- Auto-advances with configurable interval (default 4500ms)
-- Touch swipe support (50px threshold)
-- Progress indicator dots with animated fill
-- Navigation arrows on sides
-- Visible only below `sm` breakpoint (640px)
+### 10.3 Duration scale
+
+| Context                  | Duration      | Notes                                       |
+| ------------------------ | ------------- | ------------------------------------------- |
+| Hover micro-interaction  | 200 ms        | Button bg/colour, badge tint                |
+| UI transition            | 300 ms        | Theme toggle, modal open                    |
+| Page transition          | 420 ms        | `template.tsx` fade + slide                 |
+| Section reveal           | 500–700 ms    | `whileInView` patterns                      |
+| CountUp                  | 1.4 s         | Stats on the about page                     |
+| Hero word-by-word        | 600 ms        | Per-word stagger                            |
+
+### 10.4 Common patterns
+
+| Pattern               | Implementation summary                                                   |
+| --------------------- | ------------------------------------------------------------------------ |
+| Fade-in on scroll     | `initial: {opacity:0, y:24-32}` → `whileInView` with `viewport.once`     |
+| Staggered reveal      | Parent `transition.staggerChildren: 0.06-0.12`                           |
+| Hero word reveal      | Each word `motion.span` with `delay: i * 0.05`                           |
+| Page transition       | See §15                                                                  |
+| Button press          | `active:scale-[0.985]`                                                   |
+| Mobile drawer         | Height `0 → auto` + opacity, items stagger from left (Navbar.tsx)        |
+| Chart bar reveal      | `scaleY: 0 → 1`, `transformOrigin: bottom`, staggered                    |
+
+### 10.5 Reduced-motion
+
+`globals.css` already includes the standard `@media (prefers-reduced-motion: reduce)` override. **All non-essential animations must respect it** — usually that just means using framer-motion's built-in respect for the media query, or capping durations.
+
+### 10.6 Forbidden
+
+- Bouncy / overshoot springs.
+- Parallax scrolling at section level (the hero mockup has a *very* subtle scroll-tied y-transform; do not extend that pattern further).
+- Auto-playing video.
+- Spinning / rotating decorations.
+- 3D flips.
+- Confetti / particles.
+- Animations longer than 1.5s for entrances.
 
 ---
 
-## 11. Page Structure Patterns
+## 11. Dark Mode Token Pattern
 
-### 11.1 Standard Page Layout
+### 11.1 How it works
 
-```
-[Navbar - fixed]
-[Page Header - dark gradient + dot pattern]
-[Content Sections - alternating white/muted]
-[CTA Section - dark primary background]
-[Footer - dark footer background]
-```
+Two CSS variable blocks in `app/globals.css`:
 
-### 11.2 Home Page Structure
-
-```
-Hero (full viewport, dark gradient)
-├── Headline (word-by-word reveal)
-├── Subtitle
-└── Two CTAs (primary + outline)
-
-Services Overview (white)
-├── Centered title + subtitle
-└── 4-column card grid (carousel on mobile)
-
-Why Choose Us (muted)
-├── Centered title + subtitle
-└── 4-column feature cards (carousel on mobile)
-
-Our Process (white)
-├── Centered title + subtitle
-└── 4-column step cards with connecting lines
-
-CTA (dark primary)
-├── Centered title + subtitle
-└── Single CTA button
+```css
+:root  { --c-bg: #ffffff;  --c-fg: #14162e; ... }   /* light */
+.dark  { --c-bg: #0f1020;  --c-fg: #e8eaf4; ... }   /* dark  */
 ```
 
-### 11.3 Inner Page Structure
+A `@custom-variant dark (&:where(.dark, .dark *));` declaration enables Tailwind's `dark:` modifier without media-query coupling. Toggling dark is just **adding `.dark` to `<html>`**.
 
-```
-Page Header (dark gradient, shorter than hero)
-├── H1 Title
-└── Subtitle
+### 11.2 No-FOUC bootstrap
 
-Content Sections (alternating, page-specific)
-
-CTA Section (dark primary)
-├── Centered title + subtitle
-└── Single CTA button
-```
-
-### 11.4 Section Title Pattern
+`app/layout.tsx` injects a tiny synchronous script before React mounts:
 
 ```html
-<!-- Standard section header (centered) -->
-<div class="text-center mb-14 lg:mb-20">
-  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-5">
-    Section Title
-  </h2>
-  <p class="text-muted-foreground max-w-2xl mx-auto text-base lg:text-lg">
-    Section description text.
-  </p>
+<script>
+  (function(){try{if(localStorage.getItem('zekora-theme')==='dark'){
+    document.documentElement.classList.add('dark');
+  }}catch(e){}})();
+</script>
+```
+
+This **only checks localStorage** — never `prefers-color-scheme`. Default is always light unless the user explicitly toggled.
+
+### 11.3 Toggle
+
+`components/ui/ThemeToggle.tsx` writes `localStorage.zekora-theme` and adds/removes the `.dark` class. It guards against hydration mismatch with a `mounted` state.
+
+### 11.4 Rules
+
+- Build with `--c-*` tokens, not raw hex.
+- For text that should always be white on a dark surface (footer, hero badges): hard-code `text-white` / `text-white/65`. This is fine — those surfaces are dark in both modes.
+- For text that should swap (e.g. headings on `bg-background`): use `text-ink` or `text-foreground`.
+- For overlays / scrims: hard-code `bg-black/70` rather than `bg-ink/70` — `--c-ink` flips and would invert the scrim.
+
+### 11.5 Testing
+
+Toggle, navigate every page, scan for:
+- Forced-light surfaces (white panels inside dark pages).
+- Invisible icons (white on white).
+- Missing borders (the `--c-border` tone is different in dark — sometimes a `dark:border-border` reminder is needed).
+
+---
+
+## 12. Component Library
+
+> All component source lives under `components/`. Open the file to see the canonical implementation. Patterns below are summaries.
+
+### 12.1 Button — `components/ui/Button.tsx`
+
+Four variants × three sizes, sharing one base class. Export both `<Button>` and `buttonClass(variant, size, extra)` (for use on `<a>` / `<Link>`).
+
+```tsx
+import { Button } from "@/components/ui/Button";
+<Button variant="primary" size="lg">Get a quote</Button>
+
+// or on a Link:
+<Link href="/contact" className={cn(buttonClass("primary", "lg"))}>...</Link>
+```
+
+| Variant       | Surface                                            | Hover                              |
+| ------------- | -------------------------------------------------- | ---------------------------------- |
+| `primary`     | `bg-primary text-white shadow-sm shadow-primary/25` | `hover:bg-primary-hover`           |
+| `secondary`   | `bg-secondary text-white shadow-sm shadow-secondary/25` | `hover:bg-secondary-hover`     |
+| `outline`     | `border border-border bg-card text-foreground`     | `hover:border-primary/45 hover:bg-primary-light/60` |
+| `ghost`       | transparent                                        | `hover:bg-muted`                   |
+
+| Size      | Height | Padding-X | Font size       |
+| --------- | ------ | --------- | --------------- |
+| `sm`      | 36 px  | 16 px     | 13 px           |
+| `default` | 44 px  | 20 px     | 14 px           |
+| `lg`      | 48 px  | 24 px     | 15 px           |
+
+Shared: `rounded-xl`, semibold, focus ring, `active:scale-[0.985]`, `disabled:opacity-50`.
+
+### 12.2 Card
+
+There is no `<Card>` component — cards are composed inline from utility classes. The canonical card:
+
+```html
+<div class="rounded-2xl border border-border bg-card p-7 transition-colors duration-300 hover:border-primary/30">
+  <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary-light text-secondary">
+    <Icon class="h-5 w-5" />
+  </span>
+  <h3 class="mt-4 font-display text-base font-semibold text-ink">Title</h3>
+  <p class="mt-2 text-sm leading-relaxed text-slate">Description</p>
 </div>
 ```
 
-### 11.5 Section Label Pattern (with icon)
+Hover lift (optional, used on Selected Work):
 
-Used when a section needs a contextual label above the title:
+```
+hover:shadow-xl hover:-translate-y-1 transition-[transform,box-shadow] duration-300
+```
+
+### 12.3 SectionWrapper — `components/sections/SectionWrapper.tsx`
+
+```tsx
+<SectionWrapper muted id="our-work">
+  ...
+</SectionWrapper>
+```
+
+Props: `muted?: boolean`, `dark?: boolean`, `id?: string`, `className?: string`.
+
+Provides padding, max-width container, and the alternating background (`bg-background` vs `bg-paper`).
+
+### 12.4 PageHeader — `components/sections/PageHeader.tsx`
+
+The dark-on-light header used by inner pages. Includes the radial-masked `.bg-grid` overlay.
+
+```tsx
+<PageHeader title="Services" subtitle="What we build." />
+```
+
+### 12.5 CtaBand — `components/sections/CtaBand.tsx`
+
+The page-closing CTA strip with title, subtitle, and a single CTA button. Used on About, Services, Portfolio.
+
+### 12.6 Navbar — `components/layout/Navbar.tsx`
+
+- `position: fixed`, `inset-x-0 top-0 z-50`.
+- Transparent at top; gains `bg-background/85 backdrop-blur-xl` once `window.scrollY > 12`.
+- Wordmark swaps (`/logos/zekora-logo.svg` light, `/logos/zekora-logo-white.svg` dark).
+- Desktop nav with active-link underline.
+- Mobile: hamburger drawer with framer-motion stagger; language switcher and theme toggle always visible.
+
+Rendered **inside `app/[locale]/layout.tsx`**, outside the `template.tsx` transform — so `position: fixed` works correctly.
+
+### 12.7 Footer — `components/layout/Footer.tsx`
+
+- `bg-indigo-darker` (forced dark in both themes).
+- Mobile grid: 2 columns. Brand spans full row; Company + Services side-by-side; Contact full row.
+- Desktop: 12-column grid (Brand 4 / Company 2 / Services 3 / Contact 3).
+- Bottom bar shrinks to `text-[11px]` on mobile.
+
+### 12.8 ThemeToggle — `components/ui/ThemeToggle.tsx`
+
+Light/dark toggle with `mounted` guard. Single source of truth for `localStorage.zekora-theme`.
+
+### 12.9 JsonLd — `components/seo/JsonLd.tsx`
+
+Renders structured data. Accepts a single object or an array. Used in `app/[locale]/layout.tsx` for the Organization + WebSite schemas, and in the blog post page for Article schema. See §20.
+
+### 12.10 Form inputs
+
+Defined inline (no input component yet). Standard pattern:
+
+```html
+<input
+  class="w-full px-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm
+         placeholder:text-muted-foreground/60
+         focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary
+         transition-all duration-300"
+/>
+```
+
+Error state: `border-red-400 focus:ring-red-100`.
+
+### 12.11 Tags / badges
+
+```html
+<span class="rounded-md border border-border bg-paper px-2 py-0.5 font-mono text-[11px] text-slate">
+  Tag name
+</span>
+```
+
+For pill-shaped:
+
+```html
+<span class="rounded-full bg-primary-light px-2.5 py-1 text-xs font-medium text-brand">Pill</span>
+```
+
+---
+
+## 13. Mockup Library
+
+`components/mockups/Mockups.tsx` is the canonical mockup source. Everything is **rendered as DOM** — no screenshots, no images. This makes mocks:
+
+- Theme-aware (they swap in dark mode).
+- Internationalisable (any future label can come from the dictionary).
+- Animatable (framer-motion driving real elements).
+- Crisp at any DPR — no Retina blurring.
+
+### 13.1 Exports
+
+```ts
+export function BrowserMock({ screen, url, className }): JSX.Element
+export function PhoneMock({ className }): JSX.Element
+export function FloatingChip({ label, className }): JSX.Element
+export function PulseDot({ className }): JSX.Element
+```
+
+### 13.2 `BrowserMock` screens
+
+Pass `screen` to switch the inner view:
+
+| `screen`      | Looks like                                              | Used on                       |
+| ------------- | ------------------------------------------------------- | ----------------------------- |
+| `"dashboard"` | Stats + bar chart + "Live" pulse (animated)             | Hero, SaaS service section    |
+| `"site"`      | Marketing site (hero + 3 staggered feature cards)       | About / mission visual        |
+| `"board"`     | Kanban with 3 staggered columns                         | Digitalisation service        |
+| `"code"`      | IDE: file tree + tabs + line numbers + animated typing  | Web Dev service               |
+
+Each screen has its own micro-animation (chart bars, stat tick-up, card stagger, line-by-line typing reveal with a blinking caret on the code screen). Animations fire **once on view** and respect reduced-motion.
+
+```tsx
+import { BrowserMock } from "@/components/mockups/Mockups";
+
+<BrowserMock screen="code" url="zekora.dev / src/app/page.tsx" />
+```
+
+### 13.3 `PhoneMock`
+
+Container-query-sized. Wrap in any width container:
+
+```tsx
+<div className="w-[62%] max-w-[248px] mx-auto">
+  <PhoneMock />
+</div>
+```
+
+Internally uses `@container` + `cqw` units (`rounded-[15cqw]`, `border-[3cqw]`, `text-[12cqw]`, etc.) so the phone always keeps its true aspect ratio — no fixed-pixel stretching when the container narrows on mobile.
+
+Includes a balance card with an animated counter (`useCountTo` hook) and a list with staggered row reveal.
+
+### 13.4 `PulseDot` and `FloatingChip`
+
+```tsx
+<PulseDot />                       // a teal dot with ping animation
+<FloatingChip label="+128 leads" /> // a floating card to layer over a mock
+```
+
+### 13.5 Service ↔ mock mapping
+
+`app/[locale]/services/ServicesContent.tsx` decides which mock pairs with which service. The current mapping:
+
+| Service          | Mockup                                          |
+| ---------------- | ----------------------------------------------- |
+| Web development  | `BrowserMock screen="code"`                     |
+| Mobile apps      | `PhoneMock` (wrapped to 62% width)              |
+| Digitalisation   | `BrowserMock screen="board"`                    |
+| SaaS             | `BrowserMock screen="dashboard"`                |
+
+Add a new service? Either reuse an existing screen or add a new one to `BrowserMock` and grow the `Screen` union.
+
+### 13.6 Rules
+
+- Never replace a Mockup with a real screenshot. The whole point is brand-controlled, themable visuals.
+- Keep mockup content abstract — fake "text" via `<Bar>` (a rounded `bg-mist` div). Real-looking numbers ("84,250", "94%") are fine; real client names are not.
+- Animations are subtle and **once on view**. No infinite loops except the `PulseDot` ping.
+
+---
+
+## 14. Page Structure Patterns
+
+### 14.1 Inner page
+
+```
+<Navbar>                          (in [locale]/layout.tsx)
+<template.tsx>                    (transition wrapper)
+  <PageHeader>
+  <SectionWrapper>...</SectionWrapper>      ← bg-background
+  <SectionWrapper muted>...</SectionWrapper> ← bg-paper
+  ...
+  <CtaBand>
+</template.tsx>
+<Footer>
+```
+
+### 14.2 Home page
+
+```
+<Hero>                       ← Scroll parallax + mouse-tilt visual
+<Selected Work>              ← Project cards
+<Tech strip>                 ← Small tech-logo row
+<Services overview>          ← 4 cards (carousel on mobile)
+<Why choose us>              ← 4 feature cards
+<Process>                    ← 4 connected steps
+<CtaBand>
+```
+
+### 14.3 Section header pattern (centered)
+
+```html
+<div class="text-center mb-14 lg:mb-20">
+  <div class="eyebrow text-secondary mb-4">Section eyebrow</div>
+  <h2 class="font-display text-3xl font-semibold text-ink sm:text-4xl">Title</h2>
+  <p class="mt-4 max-w-2xl mx-auto text-[15px] leading-relaxed text-slate">Description.</p>
+</div>
+```
+
+### 14.4 Section header pattern (left-aligned with icon)
 
 ```html
 <div class="flex items-center gap-3 mb-4">
-  <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-light">
-    <Icon class="w-5 h-5 text-primary" />
-  </div>
-  <span class="text-sm font-semibold uppercase tracking-wider text-secondary">
-    Section Label
+  <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light text-brand">
+    <Icon class="h-5 w-5" />
   </span>
+  <span class="eyebrow text-secondary">Section label</span>
 </div>
-<h2 class="text-3xl sm:text-4xl font-bold text-primary mb-6">Section Title</h2>
+<h2 class="font-display text-3xl font-semibold text-ink sm:text-4xl">Title</h2>
 ```
 
 ---
 
-## 12. Imagery & Illustrations
+## 15. Page Transitions
 
-### 12.1 Photography Rules
+`app/[locale]/template.tsx`:
 
-If images are used:
-- **Realistic** — no AI-generated looking stock photos
-- **Professional** — well-lit, high quality
-- **Neutral backgrounds** — clean, uncluttered
-- **Business or technology-related** — relevant to context
-- **Object-fit:** `cover` for background images, `contain` for project screenshots
+```tsx
+"use client";
+import { motion } from "framer-motion";
 
-### 12.2 Illustration Rules
-
-If illustrations are used:
-- **Flat** design style
-- **Minimal** detail
-- **Consistent** with brand color palette only
-- No cartoon or playful illustrations
-
-### 12.3 Image Loading
-
-- Always use framework image optimization (Next.js `<Image>`, Flutter cached network)
-- Implement lazy loading for below-fold images
-- Provide proper `sizes` attributes for responsive images
-- Use `priority` for above-fold critical images
-
-### 12.4 Placeholder Pattern
-
-When real images aren't available:
+export default function Template({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 ```
-Gradient background: linear-gradient(135deg, #f0f2f8, #e6f5f5, #f3f5fa)
-Centered icon (Layers) in gradient container
-Subtle decorative shapes (circles, rounded rects) at low opacity
+
+### Why `template.tsx` and not `layout.tsx`?
+
+`template.tsx` **remounts on every navigation** (Next.js convention). `layout.tsx` does not. We want the transition to play fresh on each route.
+
+### Implications
+
+- Anything inside the template lives inside a transformed ancestor. This breaks naive `position: fixed` and confuses some `IntersectionObserver` calculations.
+- **Navbar lives outside** the template (in `[locale]/layout.tsx`) so its `fixed` positioning works.
+- Modals must use `createPortal` to `document.body` to escape the transform context.
+- `useInView` inside the template should not rely on negative `rootMargin`. Prefer plain `IntersectionObserver` + an at-mount viewport check (see `CountUp.tsx`).
+
+---
+
+## 16. Blog & Long-Form Content
+
+### 16.1 Data shape — `lib/blog.ts`
+
+```ts
+type BlogPost = {
+  slug: string;
+  locale: "en" | "fr";
+  title: string;
+  description: string;
+  date: string;        // ISO YYYY-MM-DD
+  author: string;
+  tags: string[];
+  readingTime: number;
+  content: string;     // HTML
+};
+```
+
+Same `slug` for EN + FR ⇒ hreflang alternates are wired automatically by `sitemap.ts` and the blog page's `alternatesFor()` call.
+
+### 16.2 Prose styling — `.prose-zekora` (in globals.css)
+
+The blog post body is wrapped in:
+
+```html
+<article class="prose-zekora mx-auto max-w-prose px-5 sm:px-6 lg:px-8"
+         dangerouslySetInnerHTML={{ __html: post.content }} />
+```
+
+`.prose-zekora` styles:
+
+- `h2`, `h3` → `font-display`, calmer spacing than article H1.
+- `p`, `em`, `strong` → readable body (17 px, line-height 1.75).
+- `a` → indigo with soft underline, full colour on hover.
+- `ul`, `ol`, `li` → standard.
+- `code` → mono, soft background.
+- `blockquote` → teal left border, slate text, italic.
+- `figure` → margin top/bottom, centered figcaption.
+- `figure > img`, `> img` → full-width, rounded, paper bg.
+- `figure > svg`, `> svg` → bordered box, padded, rounded 14 px, paper bg — so inline SVG diagrams sit cleanly.
+- `figcaption` → mono, small, steel, centered.
+- `table` / `th` / `td` → comparison tables get sensible defaults.
+
+### 16.3 Adding images / diagrams to a post
+
+Three options inside `content` (HTML):
+
+```html
+<!-- 1. A real image in /public -->
+<figure>
+  <img src="/blog/your-post/diagram.png" alt="…" />
+  <figcaption>Caption text.</figcaption>
+</figure>
+
+<!-- 2. An inline SVG diagram (theme-aware via CSS vars) -->
+<figure>
+  <svg viewBox="0 0 600 240" role="img" aria-label="…">
+    <style>
+      .node { fill: var(--c-primary-light); stroke: var(--c-primary); }
+      .text { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; }
+    </style>
+    ...
+  </svg>
+  <figcaption>Caption text.</figcaption>
+</figure>
+
+<!-- 3. A comparison table -->
+<table>
+  <thead><tr><th>Criterion</th><th>Web</th><th>Mobile</th></tr></thead>
+  <tbody>
+    <tr><td>Reach</td><td>…</td><td>…</td></tr>
+  </tbody>
+</table>
+```
+
+### 16.4 Rules for inline SVG diagrams
+
+- Use `var(--c-*)` for colours, never hex — auto-theming is free.
+- Use `var(--font-sans)`, `var(--font-mono)` for text — type stays on-brand.
+- Always set `viewBox` and **never** `width` / `height` attributes — the prose CSS handles sizing.
+- Always set `role="img"` and `aria-label="..."`.
+- Use a `<style>` block inside the SVG; CSS variables cascade in.
+- Keep diagrams readable at 320 px wide (mobile prose container is narrow). Avoid text smaller than `font-size: 10px`.
+
+### 16.5 Article schema (SEO)
+
+`articleSchema()` in `lib/seo.ts` builds the `BlogPosting` JSON-LD. The blog post page (`app/[locale]/blog/[slug]/page.tsx`) renders it via `<JsonLd>` at the top of the page.
+
+---
+
+## 17. Imagery & Illustrations
+
+### 17.1 Photography
+
+If used:
+- Realistic, well-lit, not AI-stock-looking.
+- Clean neutral backgrounds.
+- Business / technology relevant.
+- `object-cover` for backgrounds, `object-contain` for screenshots.
+
+### 17.2 Illustrations
+
+- Flat, minimal detail.
+- Brand-colour palette only.
+- Never cartoon, never playful, never gradients-on-shapes-for-effect.
+- For technical concepts, **prefer inline SVG diagrams** (see §16.3) over illustration libraries.
+
+### 17.3 Image loading
+
+- Use `next/image` for any non-decorative raster.
+- `priority` on above-the-fold critical images.
+- Lazy load below the fold (default for `next/image`).
+- Set `sizes` for responsive images.
+- Wordmark / icon logos: use plain `<img>` (SVG, tiny, no need for `next/image` optimisation).
+
+### 17.4 Placeholder pattern (no real image yet)
+
+```html
+<div class="aspect-[16/10] rounded-2xl border border-border bg-paper flex items-center justify-center">
+  <Layers class="h-10 w-10 text-steel/50" />
+</div>
 ```
 
 ---
 
-## 13. Dark & Light Surfaces
+## 18. Responsive Design
 
-### 13.1 Light Surface (Default)
+### 18.1 Breakpoints
 
-- Background: white or muted gray
-- Text: `foreground` (#1a1a2e) for primary, `muted-foreground` (#5a6577) for secondary
-- Headings: `primary` (#1F3C88)
-- Borders: `border` (#e8eaef)
+| Breakpoint | Min-width | Tailwind prefix | Target                       |
+| ---------- | --------- | --------------- | ---------------------------- |
+| base       | 0         | —               | Phones                       |
+| `sm`       | 640 px    | `sm:`           | Large phones / small tablets |
+| `md`       | 768 px    | `md:`           | Tablets                      |
+| `lg`       | 1024 px   | `lg:`           | Desktop                      |
+| `xl`       | 1280 px   | `xl:`           | Large desktop                |
 
-### 13.2 Dark Surface (Hero, CTA, Footer)
+### 18.2 Mobile-first
 
-| Element           | Color                           |
-| ----------------- | ------------------------------- |
-| Background        | Primary gradient or solid #1F3C88 or #141f45 |
-| Primary text      | `#ffffff`                       |
-| Secondary text    | `rgba(255,255,255,0.75)`        |
-| Muted text        | `rgba(255,255,255,0.6-0.7)`     |
-| Faint text        | `rgba(255,255,255,0.4-0.5)`     |
-| Borders           | `rgba(255,255,255,0.1)`         |
-| Interactive hover | Full white or slightly brighter |
+Always write mobile styles first, layer up:
 
-### 13.3 Glass Morphism (Navbar)
+```
+text-[2.3rem] sm:text-[3rem] lg:text-[3.45rem]
+```
+
+### 18.3 Responsive patterns
+
+| Pattern              | Mobile          | Tablet         | Desktop          |
+| -------------------- | --------------- | -------------- | ---------------- |
+| Card grid            | 1 col / carousel| 2 col          | 3–4 col          |
+| Two-column section   | Stacked         | Stacked        | Side-by-side     |
+| Nav                  | Hamburger       | Hamburger / full | Full           |
+| Footer               | Brand / 2-col / Contact | 2 col   | 4 col            |
+| Hero CTAs            | Single row, mobile-shrunk text | side-by-side | side-by-side |
+| Section padding      | `py-20`         | `md:py-24`     | `lg:py-28`       |
+| H1 size              | `text-[2.3rem]` | `sm:text-[3rem]` | `lg:text-[3.45rem]` |
+| Language switcher    | Always visible  | In nav         | In nav           |
+
+### 18.4 Test viewports
+
+- 375 × 812 (iPhone SE / 13 mini)
+- 414 × 896 (iPhone 11)
+- 768 × 1024 (iPad portrait)
+- 1024 × 768 (iPad landscape / small laptop)
+- 1440 × 900 (desktop)
+
+Always toggle EN and FR — French strings are ~20% longer and often expose layout bugs that English hides.
+
+---
+
+## 19. Accessibility
+
+### 19.1 Focus
+
+Global rule in `globals.css`:
 
 ```css
-background: rgba(255, 255, 255, 0.92);
-backdrop-filter: blur(20px) saturate(180%);
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 ```
 
-Used only for the navbar scrolled state. Do not overuse glass effects.
+Use `focus-visible`, not `focus` — we don't want a ring on click.
 
-### 13.4 Decorative Overlay (Dot Pattern)
+### 19.2 Contrast
 
-Used exclusively on dark hero/header sections:
-```css
-background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
-background-size: 40px 40px;
-opacity: 0.06;
-```
+- Text on `bg-background`: minimum 4.5:1 (AA). The `--c-fg` token meets this on both palettes.
+- White on `--c-primary`: ~7.5:1 in light, similar in dark. Safe.
+- White on `--c-secondary`: ~3.5:1 — only use for large text (≥18 px) or as a background for icons, not body text.
+
+### 19.3 Semantics
+
+- One `<h1>` per page.
+- `<nav>`, `<main>`, `<section>`, `<footer>`, `<article>` landmarks.
+- Icon-only buttons: `aria-label`.
+- Decorative images: empty `alt=""`.
+- Inline SVGs: `role="img"` + `aria-label`.
+
+### 19.4 Motion
+
+`prefers-reduced-motion: reduce` is honoured globally (see globals.css). Framer-motion respects the media query when you use its built-in patterns.
+
+### 19.5 Forms
+
+- Every input has a visible `<label>` (or `aria-label`).
+- Required fields marked with a red `*`.
+- Error messages associated via `aria-describedby`.
+- Submit buttons disabled during in-flight submission, not before.
 
 ---
 
-## 14. Responsive Design
+## 20. SEO & Structured Data
 
-### 14.1 Breakpoints
+### 20.1 Metadata
 
-| Breakpoint | Width    | Tailwind Prefix | Target                   |
-| ---------- | -------- | --------------- | ------------------------ |
-| Base       | 0px      | (none)          | Mobile phones            |
-| `sm`       | 640px    | `sm:`           | Large phones / small tablets |
-| `md`       | 768px    | `md:`           | Tablets                  |
-| `lg`       | 1024px   | `lg:`           | Desktop                  |
-| `xl`       | 1280px   | `xl:`           | Large desktop            |
+Every page returns Next.js `Metadata` with:
+- Unique `title` + `description`.
+- `alternates.canonical` + `alternates.languages` (built by `alternatesFor()` in `lib/seo.ts`).
+- OpenGraph + Twitter card.
+- `robots` with kebab-case `googleBot` keys (`"max-image-preview"`, `"max-snippet"`, `"max-video-preview"`).
 
-### 14.2 Mobile-First Approach
+### 20.2 Structured data
 
-All styles are written mobile-first. Desktop is the override:
+`lib/seo.ts` exports:
 
-```css
-/* Mobile default */
-text-4xl
+| Builder              | Used in                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `organizationSchema()` | `app/[locale]/layout.tsx`                               |
+| `websiteSchema()`    | `app/[locale]/layout.tsx`                                 |
+| `servicesSchema()`   | Services page (if used)                                   |
+| `articleSchema()`    | `app/[locale]/blog/[slug]/page.tsx`                       |
+| `breadcrumbSchema()` | Use when adding visible breadcrumbs                       |
 
-/* Tablet override */
-sm:text-5xl
+Rendered via `<JsonLd data={...} />`.
 
-/* Desktop override */
-lg:text-6xl xl:text-7xl
-```
+### 20.3 Sitemap & robots
 
-### 14.3 Responsive Patterns
+- `app/sitemap.ts` — one entry per locale per page, plus blog posts; full `alternates.languages` for hreflang.
+- `app/robots.ts` — allow all, point to sitemap.
+- `app/manifest.ts` — PWA-ready manifest.
 
-| Pattern                | Mobile         | Tablet        | Desktop         |
-| ---------------------- | -------------- | ------------- | --------------- |
-| Card grid              | Carousel       | 2 columns     | 3–4 columns     |
-| Two-column layout      | Stack          | Stack         | Side-by-side    |
-| Navigation             | Hamburger      | Full nav      | Full nav        |
-| Footer                 | Centered stack | 2 columns     | 4 columns       |
-| Section padding        | `py-20`        | `py-24`       | `py-28`         |
-| Typography (H1)        | `text-4xl`     | `text-5xl`    | `text-6xl+`     |
-| Hero CTA buttons       | Stacked        | Side-by-side  | Side-by-side    |
-| Lang switcher          | Always visible | In nav bar    | In nav bar      |
+### 20.4 Performance budget
 
-### 14.4 Test Breakpoints
+Lighthouse targets (mobile, throttled):
+- Performance ≥ 90
+- Accessibility ≥ 95
+- Best Practices ≥ 95
+- SEO ≥ 95
 
-Always test at these widths:
-- **375px** — iPhone SE
-- **768px** — iPad portrait
-- **1024px** — iPad landscape / small laptop
-- **1440px** — Standard desktop
-
-### 14.5 Mobile Carousel Pattern
-
-Cards that appear in a grid on desktop should be shown as an auto-scrolling carousel on mobile (`< sm` breakpoint):
-- One card visible at a time
-- Swipe left/right to navigate
-- Auto-advances every ~4.5 seconds
-- Progress dots with animated fill
-- Chevron arrows for manual navigation
+Locked-in optimisations:
+- `next/font/local` (no external font requests).
+- `optimizePackageImports: ["framer-motion", "lucide-react"]` in `next.config.ts`.
+- `public/_headers` for Cloudflare cache control.
+- `optimizeCss` left default — turning it on currently regresses CLS on hero.
+- No client-side images larger than 200 KB.
 
 ---
 
-## 15. Accessibility
+## 21. Code Standards
 
-### 15.1 Focus Management
+### 21.1 General
 
-- All interactive elements must have visible focus indicators
-- Default: `2px solid #1F3C88` outline with `2px` offset
-- Use `focus-visible` (not `focus`) to avoid showing on click
+- TypeScript strict mode for everything web.
+- `"use client"` only when the file actually needs hooks / browser APIs.
+- One responsibility per component file.
+- No `any`. No `// @ts-ignore`. Use proper types or `unknown`.
+- No commented-out code in commits.
 
-### 15.2 Color Contrast
+### 21.2 File layout (Next.js)
 
-- Text on white backgrounds: minimum 4.5:1 ratio (AA)
-- Text on dark backgrounds: white (#ffffff) on #1F3C88 meets AA
-- Never use color alone to convey information
+See §2 File Map — that is the layout. Don't introduce new top-level directories without updating this doc.
 
-### 15.3 Semantic HTML
+### 21.3 Naming
 
-- Use proper heading hierarchy (H1 → H2 → H3)
-- Use `<nav>`, `<main>`, `<section>`, `<footer>` landmarks
-- All images must have descriptive `alt` text
-- All buttons must have accessible labels (`aria-label` for icon-only buttons)
+| Thing            | Convention                                  |
+| ---------------- | ------------------------------------------- |
+| Component file   | `PascalCase.tsx` (e.g. `SectionWrapper.tsx`) |
+| Hook             | `useThing.ts` (camelCase, `use` prefix)     |
+| Util             | `utils.ts`, function `camelCase`            |
+| CSS variable     | `--c-thing` for colour, `--font-thing` for font, `--grid-line` for special |
+| Tailwind utility | Tailwind's own names                        |
+| Constant         | `SCREAMING_SNAKE_CASE` only for true constants (`EASE`, `BRAND`) |
 
-### 15.4 Motion
+### 21.4 `cn()` helper — `lib/utils.ts`
 
-- Respect `prefers-reduced-motion` — disable non-essential animations
-- No auto-playing animations that can't be paused (except subtle carousels)
-
-### 15.5 Forms
-
-- Every input must have a visible `<label>`
-- Error messages must be associated with their input
-- Required fields must be clearly marked
-- Success/error feedback must be visually distinct (color + icon)
-
----
-
-## 16. SEO & Performance
-
-### 16.1 Metadata Requirements
-
-Every page must have:
-- Unique `<title>` (format: `Page Title | Brand Name`)
-- Unique `meta description` (< 160 characters)
-- Proper Open Graph tags (title, description, type, locale, siteName)
-- Canonical URL
-- Language/locale declaration
-
-### 16.2 Performance Targets
-
-- Lighthouse Performance: **90+**
-- Lighthouse Accessibility: **90+**
-- Lighthouse SEO: **90+**
-- First Contentful Paint: **< 1.5s**
-- Largest Contentful Paint: **< 2.5s**
-- Cumulative Layout Shift: **< 0.1**
-
-### 16.3 Optimization Techniques
-
-- Use framework-optimized image components (Next.js `<Image>`, etc.)
-- Lazy load below-fold images
-- Use `display: swap` for web fonts
-- Minimize JavaScript bundle size
-- Preconnect to external origins
-- Use proper caching headers
-- Generate sitemap.xml
-
----
-
-## 17. Code Standards
-
-### 17.1 General Rules
-
-- **TypeScript** with strict mode enabled for all web projects
-- **Dart** with strong analysis options for Flutter projects
-- Clean, organized, commented where necessary
-- Production-ready — no TODO hacks in production
-- No messy inline styling (use design tokens and utility classes)
-
-### 17.2 File Organization (Web / Next.js)
-
-```
-/app
-  /[locale]         — Localized routes
-    /about
-    /services
-    /contact
-    /portfolio
-    layout.tsx      — Locale layout (navbar, footer, providers)
-    page.tsx        — Home page
-  layout.tsx        — Root layout (fonts, metadata)
-  globals.css       — Global styles + design tokens
-/components
-  /ui               — Atomic components (Button, Input, etc.)
-  /layout           — Structural (Navbar, Footer)
-  /sections         — Page sections (Cards, Wrappers, etc.)
-/lib
-  config.ts         — Brand configuration constants
-  utils.ts          — Utility functions (cn, etc.)
-  i18n.ts           — i18n configuration
-  /dictionaries     — Translation JSON files
-/public
-  /images
-  /logos
-  /icons
-/styles             — Additional styles if needed
-```
-
-### 17.3 Component Patterns
-
-- Use `"use client"` directive only when needed (interactivity, hooks)
-- Extract reusable components — DRY principle
-- Type all props with interfaces
-- Use `forwardRef` for components that wrap native elements
-- Consistent naming: PascalCase for components, camelCase for functions
-
-### 17.4 Utility: `cn()` for Class Merging
-
-```typescript
+```ts
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 ```
 
+Use it whenever conditional classes touch Tailwind: it dedupes and merges correctly.
+
+### 21.5 Component patterns
+
+- Type all props with an `interface` or `type`.
+- Use `forwardRef` when the component wraps a native element that callers might need to ref.
+- Prefer composition over giant prop unions.
+
 ---
 
-## 18. Brand Configuration Pattern
+## 22. Brand Configuration Pattern
 
-### 18.1 Central Configuration
+### 22.1 Single source — `lib/config.ts`
 
-All brand-related constants must be defined in a single configuration file. **No hardcoded brand names scattered across files.**
-
-```typescript
-// lib/config.ts
+```ts
 export const BRAND = {
   name: "Zekora",
   nameUpper: "ZEKORA",
+  altName: "Zekora Tech",
   tagline: "Digital Solutions That Structure & Grow Your Business",
-  description: "Zekora builds digital solutions that structure, modernize, and grow businesses.",
+  description: "Zekora builds digital solutions that ...",
   email: "zekora237@gmail.com",
-  domain: "zekora.com",
-  url: "https://zekora.com",
+  domain: "zekoratech.com",
+  url: "https://zekoratech.com",      // canonical, non-www
   location: "Global — Remote First",
+  founded: "2024",
 } as const;
 ```
 
-### 18.2 Template Replacement
+### 22.2 Template placeholders — `t()`
 
-Use `{brand}` and `{year}` placeholders in translation strings, replaced at runtime:
+For copy that references the brand or year inside translation strings:
 
-```typescript
+```ts
 export function t(str: string): string {
   return str
     .replace(/\{brand\}/g, BRAND.name)
@@ -1188,212 +1291,270 @@ export function t(str: string): string {
 }
 ```
 
-### 18.3 Why This Matters
+Usage in dictionaries:
 
-If the company name changes:
-1. Update **one file** (`lib/config.ts`)
-2. Update translation files (search `{brand}` references)
-3. Everything updates everywhere
+```json
+{ "footer": { "copyright": "© {year} {brand}. All rights reserved." } }
+```
+
+```tsx
+<p>{t(dict.footer.copyright)}</p>
+```
+
+### 22.3 Why this matters
+
+If the company name or domain changes:
+1. Update `lib/config.ts` (one file).
+2. Search dictionaries for `{brand}` references (no edits needed if they all use placeholders).
+3. Everything propagates.
+
+**Never hardcode** "Zekora" or "zekoratech.com" inside a component.
 
 ---
 
-## 19. Internationalization (i18n)
+## 23. Internationalization (i18n)
 
-### 19.1 Architecture
+### 23.1 Architecture
 
-- URL-based routing: `/en/about`, `/fr/about`
-- Browser language detection via `Accept-Language` header (middleware)
-- Fallback to English for unsupported locales
-- Translation dictionaries as JSON files
+- URL-based routing: `/en/about`, `/fr/about`.
+- Locale detected by middleware via `Accept-Language`; fallback to English.
+- Dictionaries are typed JSON files under `lib/dictionaries/`.
 
-### 19.2 Supported Locales
+### 23.2 Supported locales
 
-| Code | Language | Status    |
-| ---- | -------- | --------- |
-| `en` | English  | Default   |
-| `fr` | French   | Supported |
+| Code | Language | Status     |
+| ---- | -------- | ---------- |
+| `en` | English  | Default    |
+| `fr` | French   | Full parity |
 
-### 19.3 Translation Structure
-
-All user-visible strings must be in dictionaries — never hardcoded:
+### 23.3 Dictionary shape
 
 ```json
 {
   "nav": { "home": "Home", "about": "About", ... },
   "home": { "hero": { ... }, "services": { ... } },
-  "about": { "header": { ... }, "mission": { ... } },
-  ...
+  "about": { ... },
+  "services": { ... },
+  "portfolio": { ... },
+  "contact": { ... },
+  "footer": { ... },
+  "blog": { "header": { ... }, "back": "...", "readingTime": "{n} min read" }
 }
 ```
 
-### 19.4 Context Providers
+### 23.4 Context providers
 
-Translation dictionaries and locale are provided via React Context:
-- `DictionaryProvider` — provides the translation dictionary
-- `LocaleProvider` — provides the current locale string
-- Client components consume via `useDictionary()` and `useLocale()`
+- `lib/dictionary-context.tsx` → `useDictionary()`
+- `lib/locale-context.tsx` → `useLocale()`
 
----
+### 23.5 Rules
 
-## 20. Platform-Specific Guidelines
-
-### 20.1 Web (Next.js + Tailwind + Framer Motion)
-
-- Use Tailwind CSS utility classes with design tokens in `globals.css`
-- Use Framer Motion for animations
-- Use Lucide React for icons
-- Use Next.js `<Image>` for optimized images
-- Use Next.js `<Link>` for internal navigation
-- Deploy on Vercel (optimized for it)
-
-### 20.2 Mobile (Flutter)
-
-- Use Inter font (add via `google_fonts` package or bundle)
-- Match color system exactly (see Section 3.5)
-- Use Material Design 3 as base, customize to match brand
-- Radius, spacing, and shadow patterns should match (convert px to dp)
-- Use `Hero` animations and `AnimatedContainer` for subtle transitions
-- Icon set: `lucide_icons` package or Material Symbols (outlined weight 300–400)
-- Bottom navigation instead of hamburger menu (mobile-native pattern)
-
-### 20.3 React Native
-
-- Same principles as web
-- Use `react-native-reanimated` for animations
-- Use `lucide-react-native` for icons
-- Match spacing/color/typography systems exactly
-
-### 20.4 SaaS Dashboards
-
-- Use the same color system and typography
-- Sidebar navigation instead of top navbar
-- More compact spacing (reduce section padding)
-- Cards are the primary content container
-- Use the accent line pattern for card category distinction
-- Keep the same button and input styling
-
-### 20.5 Emails & Documents
-
-- Same color palette
-- Inter or system sans-serif fallback
-- Clean, structured layout
-- Header: brand gradient (#1F3C88 → #1BA6A6)
-- Footer: "Built by Zekora" in muted text
+- No hardcoded user-visible strings in components — ever.
+- When adding a key, add it to **both** `en.json` and `fr.json` in the same commit.
+- Use placeholders for interpolation (`"readingTime": "{n} min read"`) and replace at render.
+- French strings run ~20% longer — test layouts in FR.
 
 ---
 
-## 21. Anti-Patterns — What to Avoid
+## 24. Platform-Specific Guidelines
 
-### Design Anti-Patterns
+### 24.1 Web (Next.js + Tailwind v4 + framer-motion)
 
-| ❌ Avoid                        | ✅ Instead                             |
-| ------------------------------- | -------------------------------------- |
-| Template-looking design         | Custom, purpose-built layouts          |
-| Overuse of gradients            | Gradients only for accents (3px lines, text, icons) |
-| Too many colors                 | Max 3 colors per layout                |
-| Cartoon illustrations           | Flat, minimal, on-brand illustrations  |
-| Generic Bootstrap feel          | Custom component styling               |
-| Bouncy/spring animations        | Smooth ease-out curves                 |
-| Parallax scrolling              | Simple fade-in on scroll               |
-| Auto-playing video backgrounds  | Static or subtle pattern backgrounds   |
-| Blur/frosted overlays on content| Glass effect only on navbar            |
-| Decorative notes/labels above titles | Only use section labels when contextually needed |
-| Neon/bright accent colors       | Muted, professional tones              |
-| Crowded layouts                 | Generous white space                   |
-| Overly complex card designs     | Clean cards with subtle hover effects  |
-| Multiple font families          | Inter only                             |
-| Inline styles scattered everywhere | Design tokens + utility classes      |
+The reference implementation. Everything in this doc applies first-class here.
 
-### Code Anti-Patterns
+- Tailwind v4 with `@theme inline` mapping to `--c-*` vars.
+- Local fonts via `next/font/local`.
+- framer-motion for animation.
+- Lucide React for icons.
+- Cloudflare Workers deployment via `@opennextjs/cloudflare`.
 
-| ❌ Avoid                           | ✅ Instead                            |
-| ---------------------------------- | ------------------------------------- |
-| Hardcoded brand name in components | Use `BRAND.name` from config          |
-| Hardcoded color values             | Use design tokens / CSS variables     |
-| Hardcoded strings in UI            | Use translation dictionaries          |
-| Mixing icon libraries              | One library per project               |
-| No TypeScript types                | Type everything                       |
-| Giant monolithic components        | Small, reusable, composable           |
-| `window` access in SSR code        | Guard with `typeof window !== 'undefined'` or use hooks |
+### 24.2 Mobile — Flutter
+
+When porting to Flutter:
+
+```dart
+class ZekoraColors {
+  // Light
+  static const bg            = Color(0xFFFFFFFF);
+  static const fg            = Color(0xFF14162E);
+  static const primary       = Color(0xFF2E3A9E);
+  static const primaryHover  = Color(0xFF222A75);
+  static const primaryLight  = Color(0xFFEEF0FB);
+  static const secondary     = Color(0xFF1E9E86);
+  static const secondaryLight = Color(0xFFE4F4F0);
+  static const muted         = Color(0xFFF6F7FB);
+  static const mutedFg       = Color(0xFF565C73);
+  static const border        = Color(0xFFE7E9F2);
+  static const card          = Color(0xFFFFFFFF);
+  static const ink           = Color(0xFF14162E);
+  static const slate         = Color(0xFF565C73);
+  static const steel         = Color(0xFF8A8FA3);
+  static const mist          = Color(0xFFD8DBE7);
+  static const indigoDarker  = Color(0xFF1A1F4A);
+}
+```
+
+- Font: bundle Outfit + Inter + JetBrains Mono via `pubspec.yaml` (do not depend on `google_fonts` at runtime).
+- Use `lucide_icons` for parity.
+- Bottom navigation, not hamburger.
+- `Hero` and `AnimatedContainer` for transitions.
+- Radius/spacing convert px to dp 1:1.
+
+### 24.3 React Native
+
+Same colour map. Use `react-native-reanimated` for animations and `lucide-react-native` for icons. Set `text-rendering` / antialiasing manually.
+
+### 24.4 SaaS dashboards (web)
+
+- Same tokens.
+- Sidebar nav instead of top nav.
+- More compact `py-` on sections.
+- Cards are the default container.
+- Tabular data: use `tabular-nums` and right-align numeric columns.
+
+### 24.5 Email & PDF documents
+
+- Same colours (inline hex for email — CSS vars don't survive most clients).
+- Inter (with system-sans fallback).
+- Header: brand wordmark on `#2e3a9e`.
+- Footer: small "Built by Zekora" in muted text.
 
 ---
 
-## 22. Checklist for New Projects
+## 25. Anti-Patterns — What to Avoid
 
-Use this checklist when starting any new Zekora product:
+### Design
+
+| ❌ Avoid                                | ✅ Instead                                      |
+| --------------------------------------- | ----------------------------------------------- |
+| Template-looking page layouts           | Compose from existing components + section patterns |
+| More than 3 colours per layout          | Indigo + teal + neutral                         |
+| Cartoon / playful illustrations         | Flat, minimal, brand-coloured                   |
+| Bouncy / overshoot animations           | `EASE = [0.22, 1, 0.36, 1]`                     |
+| Multiple font families                  | Outfit + Inter + JetBrains Mono — that's it     |
+| Glass effects everywhere                | Only the Navbar scrolled state                  |
+| Dark-mode-follows-system                | Default light; only explicit toggle persists    |
+| Real screenshots in mockups             | Use `BrowserMock` / `PhoneMock` DOM mocks       |
+| Stock photos of "diverse business team" | Real product UI mocks or simple type-driven hero |
+| Decorative text labels above titles     | Only use eyebrows when they add context         |
+| Section padding less than `py-20`       | Trust the rhythm                                |
+
+### Code
+
+| ❌ Avoid                                  | ✅ Instead                                      |
+| ----------------------------------------- | ----------------------------------------------- |
+| Hardcoded "Zekora" / "zekoratech.com"     | `BRAND.name`, `BRAND.url`                       |
+| Hardcoded hex colours                     | `bg-primary`, `text-slate`, `--c-*` vars        |
+| Hardcoded user-facing strings             | Dictionary keys (`dict.about.mission.p1`)       |
+| Inline `style={{ background: "#..." }}`   | Tailwind utility or token reference             |
+| Mixing icon libraries                     | Lucide everywhere                               |
+| `window` access in server components      | Move to client, or guard with `typeof window !== "undefined"` |
+| `useInView` with negative `margin` inside template.tsx | Plain IntersectionObserver with mount-time viewport check (see `CountUp.tsx`) |
+| `position: fixed` inside the template     | Move to `[locale]/layout.tsx` or portal out     |
+| Modal `position: fixed` inside template   | `createPortal` to `document.body`               |
+| Hardcoded brand name in JSON-LD           | Use `BRAND.*` in `lib/seo.ts`                   |
+
+---
+
+## 26. Checklist for New Projects
 
 ### Setup
-- [ ] Install Inter font
-- [ ] Configure color tokens/variables matching Section 3
-- [ ] Set up `BRAND` configuration (Section 18)
-- [ ] Set up i18n structure if needed (Section 19)
-- [ ] Configure icon library (Lucide or equivalent)
+- [ ] Add `app/globals.css` token blocks (`:root` + `.dark`) + `@theme inline` mapping.
+- [ ] Bundle Outfit, Inter, JetBrains Mono into `app/fonts/`.
+- [ ] Configure `localFont` in `app/layout.tsx` with the three CSS variables.
+- [ ] Drop in the no-FOUC theme script in the root layout.
+- [ ] Create `lib/config.ts` with the `BRAND` constants for the new project.
+- [ ] Set up i18n: middleware + dictionaries + contexts (mirror this repo if needed).
+- [ ] Install `framer-motion` + `lucide-react` and add to `optimizePackageImports`.
 
-### Visual Identity
-- [ ] Logo placed correctly (icon + text, proper sizing)
-- [ ] Color palette matches exactly (primary, secondary, neutrals)
-- [ ] Typography uses Inter exclusively
-- [ ] Heading hierarchy is clear and consistent
-- [ ] Spacing follows the scale (Section 5)
-- [ ] Border radius matches the scale (Section 6)
+### Visual
+- [ ] Wordmark + icon placed in `public/logos/` (4 variants).
+- [ ] Palette tokens match this doc exactly.
+- [ ] Typography uses Outfit / Inter / JetBrains Mono with `font-display` / `font-sans` / `font-mono`.
+- [ ] H1/H2/H3 use Outfit + negative letter-spacing + `text-wrap: balance`.
+- [ ] Spacing follows the scale (§6).
+- [ ] Border radius follows the scale (§7).
 
 ### Components
-- [ ] Buttons follow variant system (primary, secondary, outline, ghost)
-- [ ] Cards use correct radius, shadow, and hover patterns
-- [ ] Inputs follow the form input pattern
-- [ ] Navigation matches the established pattern
-- [ ] Footer includes brand signature
+- [ ] Button has the 4 variants × 3 sizes (`Button.tsx`).
+- [ ] Cards use `rounded-2xl border border-border bg-card`.
+- [ ] Form inputs follow the §12.10 pattern.
+- [ ] Navbar fixed, scroll-aware, language switcher always visible.
+- [ ] Footer uses `bg-indigo-darker`.
+- [ ] ThemeToggle wired to `localStorage.<brand>-theme` (rename the key per project).
+- [ ] SectionWrapper, PageHeader, CtaBand reused — not re-implemented per page.
 
-### Animations
-- [ ] Using correct easing curve `[0.22, 1, 0.36, 1]`
-- [ ] Animations are subtle and professional
-- [ ] Scroll-triggered animations use `viewport: { once: true }`
-- [ ] No forbidden animation patterns
+### Mockups
+- [ ] If product visuals are needed, port `BrowserMock` / `PhoneMock` patterns. Don't use screenshots.
+
+### Motion
+- [ ] One `EASE` curve used across the project.
+- [ ] Scroll reveals use `viewport: { once: true }`.
+- [ ] Reduced-motion respected.
+
+### SEO
+- [ ] `metadataBase`, OG, Twitter card, hreflang alternates configured.
+- [ ] JSON-LD Organization + WebSite injected in the locale layout.
+- [ ] Sitemap + robots + manifest in place.
+- [ ] `public/_headers` for cache + security (if Cloudflare).
 
 ### Quality
-- [ ] Mobile-first responsive design
-- [ ] Tested at 375px, 768px, 1024px, 1440px
-- [ ] All interactive elements have focus indicators
-- [ ] All images have alt text
-- [ ] No hardcoded brand names
-- [ ] No hardcoded user-facing strings (use translations)
-- [ ] TypeScript strict mode enabled
-- [ ] Lighthouse scores above 90
+- [ ] Mobile-first, tested at 375 / 768 / 1024 / 1440.
+- [ ] All interactive elements show focus rings.
+- [ ] All images have alt text.
+- [ ] No hardcoded brand strings, hex colours, or user-facing English / French.
+- [ ] TypeScript strict on.
+- [ ] Lighthouse ≥ 90 on each target.
 
-### Brand Consistency
-- [ ] Feels clean, structured, modern, trustworthy, calm
-- [ ] No flashy/trendy elements
-- [ ] White space is generous
-- [ ] Maximum 3 colors visible per layout
-- [ ] Overall impression: _professional tech company, not a startup template_
+### Brand consistency
+- [ ] Reads as clean / structured / modern / trustworthy / calm.
+- [ ] Max 3 colours visible per layout.
+- [ ] Generous white space.
+- [ ] Final impression: *a professional technology company, not a template.*
 
 ---
 
-## Quick Reference Card
+## 27. Quick Reference Card
 
 ```
-BRAND:      Zekora / ZEKORA
-FONT:       Inter (400, 500, 600, 700)
-PRIMARY:    #1F3C88  (Deep Blue)
-SECONDARY:  #1BA6A6  (Teal)
-BACKGROUND: #ffffff
-FOREGROUND: #1a1a2e
-MUTED:      #f8f9fb
-BORDER:     #e8eaef
-FOOTER BG:  #141f45
-GRADIENT:   linear-gradient(135deg, #1F3C88, #1BA6A6)
-RADIUS:     12px (buttons) / 16px (cards) / 9999px (pills)
-EASING:     [0.22, 1, 0.36, 1]
-ICONS:      Lucide (line-based, 2px stroke)
-MAX-WIDTH:  1280px (80rem)
-CONTAINER:  px-5 sm:px-6 lg:px-8
+BRAND        Zekora  /  zekoratech.com  (canonical, non-www)
+EMAIL        zekora237@gmail.com
+WORDMARK     /logos/zekora-logo.svg  +  -white  +  -icon  +  -icon-white
+
+FONTS        Outfit  (--font-outfit / font-display)
+             Inter   (--font-inter  / font-sans)
+             JBMono  (--font-jbmono / font-mono)
+
+LIGHT        --c-bg #ffffff   --c-fg #14162e
+DARK         --c-bg #0f1020   --c-fg #e8eaf4
+PRIMARY      #2e3a9e (indigo) — same in both modes
+SECONDARY    #1e9e86 (teal) light · #2ab89d dark
+BRAND TEXT   --c-brand: #2e3a9e light · #8e98f2 dark
+FOOTER       --c-indigo-darker: #1a1f4a light · #090a14 dark
+
+RADIUS       6  →  rounded-md
+             8  →  rounded-lg
+             12 →  rounded-xl  (buttons, inputs)
+             16 →  rounded-2xl (cards, mockups)
+             ∞  →  rounded-full (pills, dots)
+
+EASE         [0.22, 1, 0.36, 1]
+DURATION     200ms  micro  /  300ms  ui  /  420ms  page  /  500-700ms  reveal
+
+CONTAINER    max-w-7xl  +  px-5 sm:px-6 lg:px-8
+SECTION PAD  py-20 md:py-24 lg:py-28
+
+ICONS        Lucide (2px stroke, line-based)
+DARK TOGGLE  document.documentElement.classList.toggle('dark')
+             localStorage.setItem('zekora-theme', 'dark' | 'light')
+
+MOCKUPS      BrowserMock screen="dashboard" | "site" | "board" | "code"
+             PhoneMock (container-query sized)
+             FloatingChip, PulseDot
 ```
 
 ---
 
-> **This document is alive.** It will be reviewed periodically and updated as Zekora grows. Any changes must be intentional, documented, and applied consistently across all products.
+> **This document is alive.** When the code changes, this doc should be updated in the same PR. The repo at `D:/Zekora/website/zekora/` is the canonical implementation — if a pattern below contradicts the code, the code is right and this doc needs a fix.
 
----
-
-*Zekora — One system, all platforms.*
-
+*Zekora — one system, all platforms.*
