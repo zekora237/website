@@ -84,6 +84,36 @@ export function servicesSchema(
   };
 }
 
+/** BlogPosting schema for an article page. */
+export function articleSchema(post: {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  locale: string;
+}) {
+  const url = `${BRAND.url}/${post.locale}/blog/${post.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Organization",
+      name: post.author,
+      url: BRAND.url,
+    },
+    publisher: { "@id": `${BRAND.url}/#organization` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    image: `${BRAND.url}/og-image.png`,
+    inLanguage: post.locale,
+  };
+}
+
 /** BreadcrumbList for an inner page. */
 export function breadcrumbSchema(
   locale: string,

@@ -23,6 +23,7 @@ export function Navbar() {
     { href: `/${locale}/about`, label: dict.nav.about },
     { href: `/${locale}/services`, label: dict.nav.services },
     { href: `/${locale}/portfolio`, label: dict.nav.portfolio },
+    { href: `/${locale}/blog`, label: dict.nav.blog },
     { href: `/${locale}/contact`, label: dict.nav.contact },
   ];
   const otherLocale = locale === "en" ? "fr" : "en";

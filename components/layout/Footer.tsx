@@ -15,6 +15,7 @@ export function Footer() {
     { href: `/${locale}/about`, label: dict.nav.about },
     { href: `/${locale}/services`, label: dict.nav.services },
     { href: `/${locale}/portfolio`, label: dict.nav.portfolio },
+    { href: `/${locale}/blog`, label: dict.nav.blog },
     { href: `/${locale}/contact`, label: dict.nav.contact },
   ];
   const serviceLinks = [
@@ -27,9 +28,9 @@ export function Footer() {
   return (
     <footer className="bg-indigo-darker text-white">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:py-16">
-          {/* Brand */}
-          <div className="sm:col-span-2 lg:col-span-4">
+        <div className="grid gap-x-8 gap-y-10 py-12 grid-cols-2 lg:grid-cols-12 lg:gap-10 lg:py-16">
+          {/* Brand — full row on mobile, 4 cols on lg */}
+          <div className="col-span-2 lg:col-span-4">
             <Link
               href={`/${locale}`}
               className="inline-block rounded-sm transition-opacity hover:opacity-80"
@@ -47,7 +48,7 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Company */}
+          {/* Company — half row on mobile, 2 cols on lg */}
           <nav className="lg:col-span-2" aria-label={f.company}>
             <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-white/45">
               {f.company}
@@ -66,7 +67,7 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Services */}
+          {/* Services — half row on mobile, 3 cols on lg */}
           <nav className="lg:col-span-3" aria-label={f.services}>
             <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-white/45">
               {f.services}
@@ -85,8 +86,8 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
+          {/* Contact — full row on mobile, 3 cols on lg */}
+          <div className="col-span-2 lg:col-span-3">
             <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-white/45">
               {f.contact}
             </h4>
@@ -96,13 +97,13 @@ export function Footer() {
                   href={`mailto:${BRAND.email}`}
                   className="group inline-flex items-center gap-2 text-sm text-white/65 transition-colors hover:text-white"
                 >
-                  <Mail className="h-4 w-4 text-white/40 transition-colors group-hover:text-secondary" />
-                  {BRAND.email}
-                  <ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
+                  <Mail className="h-4 w-4 shrink-0 text-white/40 transition-colors group-hover:text-secondary" />
+                  <span className="break-all">{BRAND.email}</span>
+                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-sm text-white/65">
-                <MapPin className="h-4 w-4 text-white/40" />
+                <MapPin className="h-4 w-4 shrink-0 text-white/40" />
                 {BRAND.location}
               </li>
             </ul>
@@ -110,7 +111,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col gap-2 border-t border-white/10 py-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2 border-t border-white/10 py-6 text-[11px] text-white/40 sm:flex-row sm:items-center sm:justify-between sm:text-xs">
           <p>{t(f.copyright)}</p>
           <p className="flex items-center gap-1.5">
             <span className="h-1 w-1 rounded-full bg-secondary" />

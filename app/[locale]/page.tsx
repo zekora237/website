@@ -101,25 +101,25 @@ export default function HomePage() {
               </motion.p>
               <motion.div
                 variants={heroItem}
-                className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-2"
+                className="mt-8 flex flex-row flex-nowrap items-center gap-1.5 sm:gap-x-2"
               >
                 <Link
                   href={`/${locale}/contact`}
                   className={buttonClass(
                     "primary",
                     "lg",
-                    "w-full justify-center sm:w-auto"
+                    "h-11 shrink-0 gap-1.5 px-3.5 text-[13px] sm:h-12 sm:gap-2 sm:px-6 sm:text-[15px]"
                   )}
                 >
                   {h.hero.ctaPrimary}
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 </Link>
                 <Link
                   href={`/${locale}/services`}
-                  className="group inline-flex h-12 w-full items-center justify-center gap-1.5 px-3 text-[15px] font-semibold text-foreground sm:w-auto sm:justify-start"
+                  className="group inline-flex h-11 shrink-0 items-center gap-1 px-2 text-[13px] font-semibold text-foreground sm:h-12 sm:gap-1.5 sm:px-3 sm:text-[15px]"
                 >
                   {h.hero.ctaSecondary}
-                  <ArrowRight className="h-4 w-4 text-brand transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-3.5 w-3.5 text-brand transition-transform group-hover:translate-x-1 sm:h-4 sm:w-4" />
                 </Link>
               </motion.div>
             </motion.div>

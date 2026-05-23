@@ -21,8 +21,8 @@ export const BRAND = {
   email: "zekora237@gmail.com",
   /** Website domain (no protocol) */
   domain: "zekoratech.com",
-  /** Full site URL — canonical (www) */
-  url: "https://www.zekoratech.com",
+  /** Full site URL — canonical (non-www; www redirects here) */
+  url: "https://zekoratech.com",
   /** Location */
   location: "Global — Remote First",
   /** Year the company was established */

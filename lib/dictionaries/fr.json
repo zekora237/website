@@ -4,6 +4,7 @@
     "about": "À propos",
     "services": "Services",
     "portfolio": "Portfolio",
+    "blog": "Blog",
     "contact": "Contact",
     "getQuote": "Demander un devis"
   },
@@ -338,6 +339,21 @@
       "expect3": "Nous fournissons une proposition claire avec périmètre et calendrier",
       "expect4": "Aucun engagement requis — juste une conversation"
     }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog",
+      "description": "Articles, idées et conseils pratiques de Zekora sur la stratégie digitale, le développement web et mobile."
+    },
+    "header": {
+      "title": "Idées & analyses",
+      "subtitle": "Articles sur la stratégie digitale, la construction et la croissance — pour les fondateurs et PME."
+    },
+    "readMore": "Lire l'article",
+    "readingTime": "{n} min de lecture",
+    "back": "Retour au blog",
+    "by": "Par",
+    "noPosts": "Aucun article pour le moment. Revenez bientôt."
   },
   "tagline": "Des Solutions Numériques Qui Structurent & Font Croître Votre Entreprise",
   "footer": {

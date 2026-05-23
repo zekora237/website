@@ -4,6 +4,7 @@
     "about": "About",
     "services": "Services",
     "portfolio": "Portfolio",
+    "blog": "Blog",
     "contact": "Contact",
     "getQuote": "Get a Quote"
   },
@@ -338,6 +339,21 @@
       "expect3": "We provide a clear proposal with scope and timeline",
       "expect4": "No commitment required — just a conversation"
     }
+  },
+  "blog": {
+    "meta": {
+      "title": "Blog",
+      "description": "Articles, ideas, and practical insights from Zekora on digital strategy, web and mobile development."
+    },
+    "header": {
+      "title": "Insights & ideas",
+      "subtitle": "Articles on digital strategy, building, and growing — for founders and small businesses."
+    },
+    "readMore": "Read article",
+    "readingTime": "{n} min read",
+    "back": "Back to blog",
+    "by": "By",
+    "noPosts": "No articles yet. Check back soon."
   },
   "tagline": "Digital Solutions That Structure & Grow Your Business",
   "footer": {
