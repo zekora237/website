@@ -31,9 +31,10 @@ const SERVICE_AREAS = [
 /**
  * Organization schema — the primary identity card for the company.
  *
- * We declare it as both an `Organization` and (via additionalType) a
- * `ProfessionalService` so it's eligible for both the Knowledge Graph
- * panel AND local-business rich results in Google.
+ * Typed as `ProfessionalService` (a subtype of LocalBusiness, which is
+ * a subtype of Organization). Single-type @type is more reliably
+ * recognised by Google's Rich Results Test than the multi-type array
+ * form — same semantic, fewer parser edge cases.
  *
  * The `address`, `geo` and `areaServed` block is what makes us
  * eligible for "agence web Cameroun" / "best software agency in
@@ -44,7 +45,7 @@ export function organizationSchema() {
   const hq = BRAND.headquarters;
   return {
     "@context": "https://schema.org",
-    "@type": ["Organization", "ProfessionalService"],
+    "@type": "ProfessionalService",
     "@id": `${BRAND.url}/#organization`,
     name: BRAND.name,
     alternateName: [BRAND.altName, ...BRAND.altNames],
@@ -59,6 +60,10 @@ export function organizationSchema() {
     slogan: BRAND.tagline,
     knowsAbout: SERVICE_AREAS,
     keywords: SERVICE_AREAS.join(", "),
+    // Optional LocalBusiness field — Google flags its absence as a
+    // non-critical warning. Freeform "$$" + bilingual hint is what
+    // most professional-service Knowledge Graph entries use.
+    priceRange: "$$ — Sur devis / On request",
     sameAs: Object.values(BRAND.social),
     address: {
       "@type": "PostalAddress",

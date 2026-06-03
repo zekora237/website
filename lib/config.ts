@@ -21,8 +21,8 @@ export const BRAND = {
     "Zekora is a Cameroon-based digital agency building web platforms, mobile apps, SaaS products and business digitalization for African and global clients. Serving Yaoundé, Douala and all of Cameroon — remote-first, worldwide.",
   /** Contact email */
   email: "zekora237@gmail.com",
-  /** Local Cameroon phone in E.164. Update with the real line. */
-  phone: "+237657000000",
+  /** Local Cameroon phone in E.164 format. */
+  phone: "+237657675194",
   /** Domain (no protocol) */
   domain: "zekoratech.com",
   /** Full site URL — canonical (non-www; www redirects here) */
