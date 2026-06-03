@@ -49,15 +49,48 @@ export const metadata: Metadata = {
   authors: [{ name: BRAND.name, url: BRAND.url }],
   creator: BRAND.name,
   publisher: BRAND.name,
+  // Keyword strategy: the brand variants come first (so "zekora" alone
+  // ranks, not just "zekoratech"), then the geo-anchored phrases that
+  // we want to win in both languages, then the categorical terms. We
+  // include each major Cameroonian city by name so they have a chance
+  // to surface for hyper-local queries like "agence web Douala".
   keywords: [
+    // Brand variants — ensure plain "zekora" also matches.
+    "Zekora",
+    "ZekoraTech",
+    "Zekora Tech",
+    "zekoratech.com",
+    // Local Cameroon SEO — English
+    "best software agency in Cameroon",
+    "software development Cameroon",
+    "web development Cameroon",
+    "mobile app developer Cameroon",
+    "digital agency Cameroon",
+    "Yaoundé software company",
+    "Douala web agency",
+    "Cameroon SaaS development",
+    "best tech company in Cameroon",
+    // Local Cameroon SEO — Français
+    "agence web Cameroun",
+    "création site web Cameroun",
+    "développement web Cameroun",
+    "développeur application mobile Cameroun",
+    "agence digitale Cameroun",
+    "agence web Yaoundé",
+    "création site web Douala",
+    "développement logiciel Cameroun",
+    "digitalisation entreprise Cameroun",
+    "transformation digitale Afrique",
+    // Categorical
     "web development",
     "mobile app development",
     "business digitalization",
     "SaaS development",
     "custom software",
     "digital agency",
-    "Zekora",
-    "Zekora Tech",
+    "Next.js agency",
+    "Flutter agency",
+    "PWA development",
   ],
   formatDetection: { telephone: false, address: false, email: false },
   robots: {
