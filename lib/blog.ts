@@ -267,10 +267,965 @@ function timelineSvg(locale: "en" | "fr"): string {
 }
 
 /* ──────────────────────────────────────────────────────────────
+ * Pricing-article SVGs — used by the
+ * "How much does a website cost in Cameroon" post.
+ *
+ * Design notes:
+ *  - All five SVGs share the same viewBox width (600) so they sit
+ *    cleanly inside the prose container at any breakpoint.
+ *  - Colours reference brand CSS vars so dark mode auto-adapts.
+ *  - Locale-aware: labels accept (en, fr) tuples.
+ * ──────────────────────────────────────────────────────────── */
+
+/** Horizontal price ladder — five tiers on a piecewise-linear scale.
+ *
+ * Why piecewise: the actual range goes from 0 FCFA to 25 000 000+ FCFA.
+ * A pure linear scale crushes the first three tiers (0–2M) into 8% of
+ * the chart width, making their bars invisible pills. A pure log scale
+ * does the opposite — it crushes the agency / enterprise tiers.
+ *
+ * The piecewise scale gives each "decade" of price meaningful width:
+ * 0–100K, 100K–500K, 500K–2M, 2M–6M, 6M–25M each occupy a roughly
+ * comparable visual slice, so every tier reads at a glance while the
+ * tick marks above the bars keep the absolute scale honest.
+ */
+function priceLadderSvg(locale: "en" | "fr"): string {
+  const t = (en: string, fr: string) => (locale === "fr" ? fr : en);
+
+  const tiers: Array<{
+    name: string;
+    sub: string;
+    min: number;
+    max: number;
+    highlight?: boolean;
+  }> = [
+    {
+      name: t("DIY (no-code)", "Bricolage (no-code)"),
+      sub: t("Wix · WordPress.com · Carrd", "Wix · WordPress.com · Carrd"),
+      min: 0,
+      max: 100_000,
+    },
+    {
+      name: t("Junior freelancer", "Freelanceur débutant"),
+      sub: t("Student or self-taught", "Étudiant ou autodidacte"),
+      min: 100_000,
+      max: 500_000,
+    },
+    {
+      name: t("Senior freelancer / micro-agency", "Freelanceur senior / micro-agence"),
+      sub: t("Solo expert or 2–5 people", "Expert solo ou équipe 2–5 pers."),
+      min: 500_000,
+      max: 2_000_000,
+    },
+    {
+      name: t("Professional agency", "Agence professionnelle"),
+      sub: t("Design + dev + SEO + support", "Design + dev + SEO + support"),
+      min: 2_000_000,
+      max: 6_000_000,
+      highlight: true,
+    },
+    {
+      name: t("Enterprise / SaaS", "Projet entreprise / SaaS"),
+      sub: t(
+        "Dashboards, integrations, MoMo",
+        "Dashboards, intégrations, MoMo"
+      ),
+      min: 6_000_000,
+      max: 25_000_000,
+    },
+  ];
+
+  /** Piecewise stops — (value, x-coordinate). xFor() interpolates linearly between adjacent stops. */
+  const stops: Array<{ v: number; x: number }> = [
+    { v: 0, x: 240 },
+    { v: 100_000, x: 282 },
+    { v: 500_000, x: 332 },
+    { v: 2_000_000, x: 396 },
+    { v: 6_000_000, x: 472 },
+    { v: 25_000_000, x: 580 },
+  ];
+  const xFor = (v: number): number => {
+    if (v <= stops[0].v) return stops[0].x;
+    if (v >= stops[stops.length - 1].v) return stops[stops.length - 1].x;
+    for (let i = 0; i < stops.length - 1; i++) {
+      const a = stops[i];
+      const b = stops[i + 1];
+      if (v >= a.v && v <= b.v) {
+        const t = (v - a.v) / (b.v - a.v);
+        return a.x + t * (b.x - a.x);
+      }
+    }
+    return stops[0].x;
+  };
+
+  const fmt = (v: number) => {
+    if (v >= 1_000_000) {
+      const m = v / 1_000_000;
+      return Number.isInteger(m) ? `${m}M` : `${m.toFixed(1)}M`;
+    }
+    if (v >= 1_000) return `${v / 1_000}K`;
+    return String(v);
+  };
+
+  const rowH = 62;
+  const rowY = (i: number) => 70 + i * rowH;
+
+  const ariaLabel = t(
+    "Price ladder for website projects in Cameroon, in FCFA",
+    "Échelle de prix d'un site web au Cameroun, en FCFA"
+  );
+
+  const rows = tiers
+    .map((tier, i) => {
+      const y = rowY(i);
+      const x1 = xFor(tier.min);
+      const x2 = xFor(tier.max);
+      const w = Math.max(x2 - x1, 10);
+      const fill = tier.highlight ? "url(#barHi)" : "url(#barRest)";
+      const stroke = tier.highlight
+        ? "var(--c-secondary)"
+        : "var(--c-primary)";
+      const labelColor = tier.highlight ? "var(--c-secondary)" : "var(--c-slate)";
+      const rangeLabel =
+        tier.max >= 25_000_000
+          ? `${fmt(tier.min)} FCFA+`
+          : `${fmt(tier.min)} → ${fmt(tier.max)} FCFA`;
+      // Range labels always sit BELOW the bar so they never collide with
+      // it, regardless of bar width. That eliminated the "0 → 100K" text
+      // overlapping the first bar in the previous version.
+      const labelX = x1;
+      return `
+      <text class="tier-name" x="14" y="${y - 6}">${tier.name}</text>
+      <text class="tier-sub"  x="14" y="${y + 12}">${tier.sub}</text>
+      <rect class="bar" x="${x1.toFixed(0)}" y="${y - 16}" width="${w.toFixed(0)}" height="26" rx="6" fill="${fill}" stroke="${stroke}" />
+      <text class="range" x="${labelX.toFixed(0)}" y="${y + 24}" fill="${labelColor}">${rangeLabel}</text>`;
+    })
+    .join("");
+
+  // Axis ticks line up with the piecewise stops so they read as
+  // "where each tier boundary sits on the scale".
+  const tickValues = [100_000, 500_000, 2_000_000, 6_000_000, 25_000_000];
+  const ticks = tickValues
+    .map((v) => {
+      const x = xFor(v);
+      return `
+      <line class="tick" x1="${x.toFixed(0)}" y1="50" x2="${x.toFixed(0)}" y2="${rowY(4) + 6}" />
+      <text class="tick-text" x="${x.toFixed(0)}" y="42" text-anchor="middle">${fmt(v)}</text>`;
+    })
+    .join("");
+
+  return `
+<svg viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ariaLabel}">
+  <style>
+    .title { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+    .tier-name { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; font-size: 14px; font-weight: 600; }
+    .tier-sub  { fill: var(--c-steel); font-family: var(--font-sans), sans-serif; font-size: 11.5px; font-weight: 500; }
+    .bar { stroke-width: 1.2; }
+    .range { font-family: var(--font-mono), monospace; font-size: 11.5px; font-weight: 700; }
+    .tick { stroke: var(--c-border); stroke-width: 1; stroke-dasharray: 2 3; }
+    .tick-text { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 600; }
+  </style>
+  <defs>
+    <linearGradient id="barRest" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="var(--c-primary-light)" />
+      <stop offset="100%" stop-color="var(--c-primary)" stop-opacity="0.65" />
+    </linearGradient>
+    <linearGradient id="barHi" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="var(--c-secondary)" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="var(--c-secondary)" />
+    </linearGradient>
+  </defs>
+  <text class="title" x="14" y="22">${t(
+    "WEBSITE BUDGET RANGE — CAMEROON, 2026 (FCFA)",
+    "FOURCHETTE DE BUDGET — CAMEROUN, 2026 (FCFA)"
+  )}</text>
+  ${ticks}
+  ${rows}
+</svg>
+`.trim();
+}
+
+/** Cost-breakdown donut — what makes up the price tag. */
+function costBreakdownSvg(locale: "en" | "fr"): string {
+  const t = (en: string, fr: string) => (locale === "fr" ? fr : en);
+  // Sum must equal 100
+  const slices = [
+    {
+      label: t("Design & UX", "Design & UX"),
+      pct: 25,
+      color: "var(--c-primary)",
+    },
+    {
+      label: t("Development", "Développement"),
+      pct: 40,
+      color: "var(--c-primary-hover)",
+    },
+    {
+      label: t("Project management", "Gestion de projet"),
+      pct: 10,
+      color: "var(--c-secondary)",
+    },
+    {
+      label: t("QA & testing", "QA & tests"),
+      pct: 10,
+      color: "var(--c-secondary-hover)",
+    },
+    {
+      label: t("Launch & training", "Lancement & formation"),
+      pct: 15,
+      color: "var(--c-steel)",
+    },
+  ];
+
+  // Donut geometry
+  const cx = 180;
+  const cy = 200;
+  const r = 110;
+  const rInner = 66;
+  let startAngle = -Math.PI / 2; // start at 12 o'clock
+  const arcPath = (sa: number, ea: number) => {
+    const x1 = cx + r * Math.cos(sa);
+    const y1 = cy + r * Math.sin(sa);
+    const x2 = cx + r * Math.cos(ea);
+    const y2 = cy + r * Math.sin(ea);
+    const xi1 = cx + rInner * Math.cos(ea);
+    const yi1 = cy + rInner * Math.sin(ea);
+    const xi2 = cx + rInner * Math.cos(sa);
+    const yi2 = cy + rInner * Math.sin(sa);
+    const large = ea - sa > Math.PI ? 1 : 0;
+    return `M ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} L ${xi1.toFixed(2)} ${yi1.toFixed(2)} A ${rInner} ${rInner} 0 ${large} 0 ${xi2.toFixed(2)} ${yi2.toFixed(2)} Z`;
+  };
+  const arcs = slices
+    .map((s) => {
+      const sweep = (s.pct / 100) * 2 * Math.PI;
+      const ea = startAngle + sweep;
+      const d = arcPath(startAngle, ea);
+      startAngle = ea;
+      return `<path d="${d}" fill="${s.color}" />`;
+    })
+    .join("");
+
+  // Legend on the right
+  const legend = slices
+    .map((s, i) => {
+      const y = 80 + i * 36;
+      return `
+      <rect x="330" y="${y}" width="14" height="14" rx="3" fill="${s.color}" />
+      <text class="lg-label" x="354" y="${y + 11}">${s.label}</text>
+      <text class="lg-pct"   x="588" y="${y + 11}" text-anchor="end">${s.pct}%</text>`;
+    })
+    .join("");
+
+  const ariaLabel = t(
+    "Cost breakdown of a professional website project",
+    "Répartition du coût d'un site web professionnel"
+  );
+
+  return `
+<svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ariaLabel}">
+  <style>
+    .title  { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+    .center-num { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; font-size: 22px; font-weight: 700; }
+    .center-sub { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; }
+    .lg-label { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; font-size: 13.5px; font-weight: 500; }
+    .lg-pct { fill: var(--c-slate); font-family: var(--font-mono), monospace; font-size: 13.5px; font-weight: 700; }
+  </style>
+  <text class="title" x="14" y="22">${t(
+    "WHERE THE BUDGET GOES",
+    "OÙ VA LE BUDGET"
+  )}</text>
+  ${arcs}
+  <text class="center-num" x="${cx}" y="${cy - 4}" text-anchor="middle">100%</text>
+  <text class="center-sub" x="${cx}" y="${cy + 16}" text-anchor="middle">${t("OF BUDGET", "DU BUDGET")}</text>
+  ${legend}
+</svg>
+`.trim();
+}
+
+/** TCO — 3-year stacked bars showing year-1 spike vs recurring costs. */
+function tcoTimelineSvg(locale: "en" | "fr"): string {
+  const t = (en: string, fr: string) => (locale === "fr" ? fr : en);
+  // Heights in viewBox units — relative not absolute FCFA
+  const years = [
+    {
+      label: t("Year 1", "Année 1"),
+      total: t("4 000 000 FCFA", "4 000 000 FCFA"),
+      segs: [
+        { label: t("Build", "Création"), h: 200, color: "var(--c-primary)" },
+        { label: t("Hosting", "Hébergement"), h: 18, color: "var(--c-secondary)" },
+        { label: t("Maintenance", "Maintenance"), h: 32, color: "var(--c-steel)" },
+      ],
+    },
+    {
+      label: t("Year 2", "Année 2"),
+      total: t("700 000 FCFA", "700 000 FCFA"),
+      segs: [
+        { label: t("Hosting", "Hébergement"), h: 20, color: "var(--c-secondary)" },
+        { label: t("Maintenance", "Maintenance"), h: 40, color: "var(--c-steel)" },
+        { label: t("Small updates", "Petites évolutions"), h: 24, color: "var(--c-primary-hover)" },
+      ],
+    },
+    {
+      label: t("Year 3", "Année 3"),
+      total: t("1 200 000 FCFA", "1 200 000 FCFA"),
+      segs: [
+        { label: t("Hosting", "Hébergement"), h: 22, color: "var(--c-secondary)" },
+        { label: t("Maintenance", "Maintenance"), h: 44, color: "var(--c-steel)" },
+        { label: t("New features", "Nouvelles fonctions"), h: 60, color: "var(--c-primary-hover)" },
+      ],
+    },
+  ];
+
+  const colW = 100;
+  const colGap = 70;
+  const colsStartX = 90;
+  const baseY = 280; // bottom of bars
+
+  const cols = years
+    .map((yr, i) => {
+      const x = colsStartX + i * (colW + colGap);
+      let cursor = baseY;
+      const segs = yr.segs
+        .map((seg) => {
+          cursor -= seg.h;
+          return `<rect x="${x}" y="${cursor}" width="${colW}" height="${seg.h}" rx="2" fill="${seg.color}" />`;
+        })
+        .join("");
+      return `
+      ${segs}
+      <text class="year-label" x="${x + colW / 2}" y="${baseY + 22}" text-anchor="middle">${yr.label}</text>
+      <text class="year-total" x="${x + colW / 2}" y="${baseY + 40}" text-anchor="middle">${yr.total}</text>`;
+    })
+    .join("");
+
+  // Static legend matching first-year segments. Labels are kept short
+  // and similar in length so the four items read with a visually
+  // uniform spacing along the row — the previous "Création (one-off)"
+  // was twice as wide as "Évolutions", which broke the rhythm.
+  const legendItems = [
+    { label: t("Build", "Création"), color: "var(--c-primary)" },
+    { label: t("Hosting", "Hébergement"), color: "var(--c-secondary)" },
+    { label: t("Maintenance", "Maintenance"), color: "var(--c-steel)" },
+    { label: t("Updates", "Évolutions"), color: "var(--c-primary-hover)" },
+  ];
+  const legend = legendItems
+    .map((it, i) => {
+      // 4 items × 144 units = 576, fits inside the 14..590 work area.
+      const x = 14 + i * 144;
+      return `<rect x="${x}" y="350" width="12" height="12" rx="2" fill="${it.color}" />
+              <text class="lg" x="${x + 18}" y="361">${it.label}</text>`;
+    })
+    .join("");
+
+  const ariaLabel = t(
+    "Three-year total cost of ownership for a website project",
+    "Coût total de possession d'un site web sur trois ans"
+  );
+
+  return `
+<svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ariaLabel}">
+  <style>
+    .title { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+    .year-label { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; font-size: 13px; font-weight: 600; }
+    .year-total { fill: var(--c-slate); font-family: var(--font-mono), monospace; font-size: 12px; font-weight: 700; }
+    .lg { fill: var(--c-slate); font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+    .axis { stroke: var(--c-mist); stroke-width: 1; }
+  </style>
+  <text class="title" x="14" y="22">${t(
+    "3-YEAR COST — BUILD vs LIVING",
+    "COÛT SUR 3 ANS — CRÉATION vs VIE COURANTE"
+  )}</text>
+  <line class="axis" x1="60" y1="280" x2="580" y2="280" />
+  ${cols}
+  ${legend}
+</svg>
+`.trim();
+}
+
+/**
+ * Decision matrix — budget × complexity, with the recommended tier in
+ * each quadrant.
+ *
+ * Layout changes from the previous version:
+ *  - Axis labels are horizontal (no rotated text) and sit on
+ *    dedicated header / footer / side rows so they can't be clipped.
+ *  - Cards are wider (qW = 248) with a real 16 px gap, so two-line
+ *    bodies actually fit without clipping at the right edge.
+ *  - Body text is hand-split as a tuple `[line1, line2]` per locale
+ *    rather than auto-split at word index 7 — the previous heuristic
+ *    pushed long words off the card. Now every line fits the width.
+ */
+function decisionMatrixSvg(locale: "en" | "fr"): string {
+  const t = (en: string, fr: string) => (locale === "fr" ? fr : en);
+  // Tuple-aware companion of t(): picks between two [line1, line2] pairs
+  // without losing the tuple type. Keeps card body splits type-safe.
+  const tt = (
+    en: [string, string],
+    fr: [string, string]
+  ): [string, string] => (locale === "fr" ? fr : en);
+
+  // 2 × 2 layout — sized so the left-side row labels ("Complexe",
+  // "Plus simple") have enough breathing room that they can't crash
+  // into the cards. colXLeft = 84 reserves 70 px of usable label
+  // space on the left (from x=14 to x=72, with a 12 px gap before
+  // the first card). The cards themselves stay 240 px wide with a
+  // 12 px column gap and fit comfortably inside the 600-unit viewBox.
+  const qW = 240;
+  const qH = 110;
+  const colXLeft = 84;
+  const colXRight = colXLeft + qW + 12; // 336
+  const rowYTop = 90;
+  const rowYBot = rowYTop + qH + 14; // 214
+
+  type Tone = "warning" | "primary" | "neutral";
+  type Quad = {
+    x: number;
+    y: number;
+    tone: Tone;
+    title: string;
+    lines: [string, string];
+  };
+
+  const quadrants: Quad[] = [
+    // TOP-LEFT — Low budget × Complex need = risk
+    {
+      x: colXLeft,
+      y: rowYTop,
+      tone: "warning",
+      title: t("Risk zone", "Zone à risque"),
+      lines: tt(
+        ["Underfunded scope. Expect", "abandon or rebuild within a year."],
+        ["Cadrage sous-financé. Abandon", "ou refonte en moins d'un an."]
+      ),
+    },
+    // TOP-RIGHT — High budget × Complex = bespoke agency build
+    {
+      x: colXRight,
+      y: rowYTop,
+      tone: "primary",
+      title: t("Custom agency build", "Projet sur mesure (agence)"),
+      lines: tt(
+        ["Multi-team build, real ownership,", "scales over 3 – 5 years."],
+        ["Équipe pluri-disciplinaire, vraie", "propriété, échelle 3 – 5 ans."]
+      ),
+    },
+    // BOTTOM-LEFT — Low budget × Simple = DIY / junior
+    //
+    // FR title kept to 24 characters (same as the EN one) so it
+    // fits the ~25-char inner card width at 14 px bold. "Débutant"
+    // is implied by the bottom-left position of the quadrant and by
+    // the body line ("landing pages, sites vitrine, MVP").
+    {
+      x: colXLeft,
+      y: rowYBot,
+      tone: "neutral",
+      title: t(
+        "DIY or junior freelancer",
+        "Bricolage ou freelanceur"
+      ),
+      lines: tt(
+        ["Fine for landing pages, hobby", "sites and validation MVPs."],
+        ["OK pour landing pages, sites", "vitrine et MVP de validation."]
+      ),
+    },
+    // BOTTOM-RIGHT — High budget × Simple = overspend
+    {
+      x: colXRight,
+      y: rowYBot,
+      tone: "warning",
+      title: t("Overinvestment", "Sur-investissement"),
+      lines: tt(
+        ["Paying agency rates for brochure", "pages. Resize the brief."],
+        ["Tarif d'agence pour un site", "vitrine. Revoir le périmètre."]
+      ),
+    },
+  ];
+
+  const fillFor = (tone: Tone) =>
+    tone === "primary"
+      ? "var(--c-primary-light)"
+      : tone === "warning"
+        ? "rgba(200, 110, 40, 0.10)"
+        : "var(--c-bg)";
+  const strokeFor = (tone: Tone) =>
+    tone === "primary"
+      ? "var(--c-primary)"
+      : tone === "warning"
+        ? "rgba(200, 110, 40, 0.55)"
+        : "var(--c-mist)";
+  const titleColorFor = (tone: Tone) =>
+    tone === "primary"
+      ? "var(--c-primary)"
+      : tone === "warning"
+        ? "rgba(150, 75, 25, 1)"
+        : "var(--c-ink)";
+
+  const cards = quadrants
+    .map((q) => {
+      const fill = fillFor(q.tone);
+      const stroke = strokeFor(q.tone);
+      const titleColor = titleColorFor(q.tone);
+      return `
+        <rect x="${q.x}" y="${q.y}" width="${qW}" height="${qH}" rx="12" fill="${fill}" stroke="${stroke}" stroke-width="1.2" />
+        <text class="q-title" x="${q.x + 18}" y="${q.y + 30}" fill="${titleColor}">${q.title}</text>
+        <text class="q-body" x="${q.x + 18}" y="${q.y + 56}" fill="var(--c-slate)">
+          <tspan x="${q.x + 18}" dy="0">${q.lines[0]}</tspan>
+          <tspan x="${q.x + 18}" dy="20">${q.lines[1]}</tspan>
+        </text>`;
+    })
+    .join("");
+
+  // Side / header axis labels — plain horizontal text so they can never
+  // get clipped by an SVG rotation transform.
+  const colHeaderLow = t("LOWER BUDGET", "BUDGET RÉDUIT");
+  const colHeaderHigh = t("HIGHER BUDGET", "BUDGET ÉLEVÉ");
+  // Short, single-word axis labels in both languages so they fit the
+  // ~70 px gutter to the left of the cards. The earlier FR label
+  // "Plus simple" was ~72 px wide and bled into the bottom-left card.
+  const rowLabelSimple = t("Simple", "Simple");
+  const rowLabelComplex = t("Complex", "Complexe");
+
+  const ariaLabel = t(
+    "Decision matrix mapping project complexity against available budget",
+    "Matrice de décision croisant complexité du projet et budget"
+  );
+
+  return `
+<svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ariaLabel}">
+  <style>
+    .axis-title { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; }
+    .axis-side  { fill: var(--c-steel); font-family: var(--font-mono), monospace; font-size: 10.5px; font-weight: 700; letter-spacing: 0.10em; }
+    .q-title { font-family: var(--font-sans), sans-serif; font-size: 14px; font-weight: 700; }
+    .q-body  { font-family: var(--font-sans), sans-serif; font-size: 12.5px; font-weight: 500; }
+    .axis-rule { stroke: var(--c-mist); stroke-width: 1; stroke-dasharray: 3 4; }
+  </style>
+
+  <!-- TOP — column headers -->
+  <text class="axis-title" x="${(colXLeft + qW / 2).toFixed(0)}" y="74" text-anchor="middle">${colHeaderLow}</text>
+  <text class="axis-title" x="${(colXRight + qW / 2).toFixed(0)}" y="74" text-anchor="middle">${colHeaderHigh}</text>
+
+  <!-- LEFT — row labels (horizontal, set wide of the cards) -->
+  <text class="axis-side" x="14" y="${(rowYTop + qH / 2 + 4).toFixed(0)}">${rowLabelComplex}</text>
+  <text class="axis-side" x="14" y="${(rowYBot + qH / 2 + 4).toFixed(0)}">${rowLabelSimple}</text>
+
+  <!-- soft divider between the two columns / rows so the matrix reads as a 2×2 grid -->
+  <line class="axis-rule" x1="${(colXRight - 8).toFixed(0)}" y1="${(rowYTop - 4).toFixed(0)}" x2="${(colXRight - 8).toFixed(0)}" y2="${(rowYBot + qH + 4).toFixed(0)}" />
+  <line class="axis-rule" x1="${colXLeft}" y1="${(rowYBot - 7).toFixed(0)}" x2="${(colXRight + qW).toFixed(0)}" y2="${(rowYBot - 7).toFixed(0)}" />
+
+  ${cards}
+
+  <!-- BOTTOM — single axis caption -->
+  <text class="axis-title" x="300" y="348" text-anchor="middle">${t(
+    "BUDGET AVAILABLE  →    PROJECT COMPLEXITY  ↑",
+    "BUDGET DISPONIBLE  →    COMPLEXITÉ DU PROJET  ↑"
+  )}</text>
+</svg>
+`.trim();
+}
+
+/* ──────────────────────────────────────────────────────────────
  * Posts
  * ──────────────────────────────────────────────────────────── */
 
 const POSTS: BlogPost[] = [
+  /* ─── EN — Website cost in Cameroon 2026 (pricing pillar) ── */
+  {
+    slug: "website-cost-cameroon-2026",
+    locale: "en",
+    title:
+      "How much does a professional website cost in Cameroon in 2026? Complete pricing guide",
+    description:
+      "Real FCFA price ranges, what each tier includes, hidden costs, and how to choose the right partner — a transparent guide for businesses in Cameroon.",
+    date: "2026-06-04",
+    author: "Zekora",
+    tags: [
+      "Pricing",
+      "Cameroon",
+      "Web Development",
+      "Digital Agency",
+      "Small Business",
+    ],
+    readingTime: 11,
+    content: `
+<p>“How much does a website cost?” is the question every business in Cameroon asks before they start a digital project — and the one almost nobody answers honestly. Quotes range from <strong>50 000 FCFA</strong> to <strong>25 million FCFA</strong> for what sounds like the same thing. Most of the time, the people asking walk away more confused than they were before.</p>
+
+<p>This guide cuts through the confusion. Real FCFA ranges from the Cameroonian market in 2026. What each price level actually buys you. What hidden costs hit you in year two. And, at the end, how to tell whether a quote is fair or you’re being overcharged.</p>
+
+<p>If you’re budgeting a website for a business in <strong>Yaoundé, Douala, Bafoussam, Bamenda, Garoua, Buea, Kribi, Limbé</strong> or anywhere else in Cameroon, this is the article we wish someone had handed us before our first project.</p>
+
+<h2>Why prices vary by 500× for “the same website”</h2>
+
+<p>A 100 000 FCFA WordPress.com page and a 12 000 000 FCFA agency build are both technically “websites”. They’re also as different as a moped and a delivery truck. The price gap reflects five concrete differences:</p>
+
+<ul>
+<li><strong>Who builds it</strong> — a student doing it part-time vs. a five-person agency with designers, developers, project managers and QA.</li>
+<li><strong>What’s under the hood</strong> — a template anyone can use vs. custom code written for your business.</li>
+<li><strong>How findable it is</strong> — zero SEO vs. structured data + bilingual indexing + Google Business Profile linkage.</li>
+<li><strong>How fast it loads</strong> — a generic shared host vs. a modern edge-deployed stack like Next.js + Cloudflare.</li>
+<li><strong>Who fixes it when it breaks</strong> — nobody, the freelancer who disappeared three months in, vs. an agency you can still reach in 2027.</li>
+</ul>
+
+<p>Below, we map every realistic price level the Cameroonian market offers in 2026, what you get, and what you risk.</p>
+
+<h2>The five tiers of website pricing in Cameroon (2026)</h2>
+
+<figure>
+${priceLadderSvg("en")}
+<figcaption>Realistic 2026 budget ranges by provider type, in FCFA. Most professional business projects sit between 2 000 000 and 6 000 000.</figcaption>
+</figure>
+
+<h3>Tier 1 — DIY / no-code (0–100 000 FCFA)</h3>
+<p>You build it yourself on a no-code platform like Wix, WordPress.com or Carrd. Subscription is roughly <strong>5 000–10 000 FCFA per month</strong>. No designer, no developer, no SEO.</p>
+<p><strong>Best fit:</strong> a personal page, a one-page portfolio, a temporary landing page while you finalise your scope.</p>
+<p><em>If you need more</em>: the next tier adds a real human who can give you a proper layout and a custom domain that doesn't read "made-on-Wix" to your customers.</p>
+
+<h3>Tier 2 — Junior freelancer (100 000–500 000 FCFA)</h3>
+<p>A student or self-taught developer puts a WordPress (or sometimes a custom) theme online with your logo and 5–6 pages. This is the price point you'll see most often on Facebook and WhatsApp — many Cameroonian freelancers settle around <strong>250 000–400 000 FCFA</strong> for a basic 5-page showcase site.</p>
+<p>The risk isn't the price — it's what happens six months later: the freelancer is busy, the password is lost, the host has stopped renewing.</p>
+<p><strong>Best fit:</strong> a sole trader or new business testing whether a web presence converts, or anyone whose customers will <em>not</em> Google them before deciding to buy.</p>
+<p><em>If you need more</em>: structured SEO, a non-template design, and someone you can call in 18 months when the site needs a refresh.</p>
+
+<h3>Tier 3 — Senior freelancer or micro-agency (500 000–2 000 000 FCFA)</h3>
+<p>An experienced solo developer or a 2–5 person micro-agency. You get a real design pass, decent quality, basic SEO, and usually three months of post-launch support. Build time is typically 3–8 weeks depending on scope — a tight showcase site can ship in 2–3 weeks when everyone is responsive.</p>
+<p><strong>Best fit:</strong> a small business that wants a serious online presence and isn't planning to add custom dashboards, Mobile Money payments or a bilingual interface from day one.</p>
+<p><em>If you need more</em>: a full team (UX + dev + QA + PM), structured-data SEO, multilingual rollout, or integrations with MTN MoMo / Orange Money. That's the next tier.</p>
+
+<h3>Tier 4 — Professional agency (2 000 000–6 000 000 FCFA) — <em>the sweet spot for serious businesses</em></h3>
+<p>This is where the price-to-quality ratio peaks for most Cameroonian businesses that take their digital presence seriously. A real team — designers, developers, project managers, QA — builds you a modern, fast, multilingual website with structured data, real SEO, Google Business Profile linkage, and an optional 6–12 month maintenance contract.</p>
+<p>Build time ranges from <strong>4 to 14 weeks</strong> depending on scope: a focused agency-quality showcase site can ship in 4–6 weeks; a content-rich multilingual site with custom interactions sits at 8–14 weeks. The site is yours, the source is yours, and the team is reachable when you need a change next year.</p>
+<p><strong>Best fit:</strong> SMEs, NGOs, professional services, schools, real-estate companies, agencies, restaurants with delivery, microfinances with a customer-facing site — anyone who needs the site to actively help win business rather than just exist online.</p>
+
+<h3>Tier 5 — Enterprise / SaaS platform (6 000 000 FCFA+)</h3>
+<p>Custom dashboards, multi-tenant systems, Mobile Money (MTN MoMo, Orange Money) integration, e-commerce with stock and logistics, multilingual customer portals, role-based access, audit logs. Build time is typically 4–10 months and the same team handles the ongoing platform.</p>
+<p><strong>Best fit:</strong> FinTech, large e-commerce, B2B SaaS, hospitals, microfinance institutions, multi-branch businesses — projects where the website is a working operational system, not a marketing surface.</p>
+
+<p style="margin-top: 1.5em;"><em>Whatever your project size — from a one-page launch to a complex multi-tenant platform — the right tier is the one that matches your needs honestly. We're equally happy to scope an ambitious Tier 4 build or a focused Tier 2 quick-launch.</em></p>
+
+<h2>What the budget actually buys</h2>
+
+<p>The single biggest reason quotes feel arbitrary is that the line items aren’t broken down. Here’s the real composition of a professional website project — roughly the same across mid-tier projects everywhere on the continent.</p>
+
+<figure>
+${costBreakdownSvg("en")}
+<figcaption>Where the budget for a Tier 4 project goes. Development is less than half — most of the work happens before and after the code is written.</figcaption>
+</figure>
+
+<p>A few things stand out:</p>
+<ul>
+<li><strong>Design and UX are 25%</strong> — not optional. The reason agency sites look better isn’t mystery; it’s that a quarter of the budget paid for someone to think about it.</li>
+<li><strong>Development is only 40%</strong> — the rest is scoping, project management, testing, content, launch and training. Quotes that are “only development” are usually missing half the work.</li>
+<li><strong>Launch and training is 15%</strong> — the part most freelancers skip. It’s also the part that determines whether the website actually gets used.</li>
+</ul>
+
+<h2>What the years AFTER the build actually cost</h2>
+
+<p>The initial build is one cheque. The years after are where most pricing conversations turn into surprises. The honest answer is that <em>it depends on what you choose to pay for</em> — there's a minimum scenario, and a maintenance scenario, and they're very different numbers.</p>
+
+<figure>
+${tcoTimelineSvg("en")}
+<figcaption>The total cost of ownership for a Tier 4 website over three years. The build is the spike. Years 2 and 3 are usually small unless you actively commission new features.</figcaption>
+</figure>
+
+<h3>The mandatory ongoing items (everyone pays these)</h3>
+
+<table>
+<thead>
+<tr><th>Item</th><th>Yearly cost (FCFA)</th><th>What you get</th></tr>
+</thead>
+<tbody>
+<tr><td>Domain name (.com)</td><td>6 000 – 12 000</td><td>The address (yourbrand.com)</td></tr>
+<tr><td>Hosting — basic shared</td><td>25 000 – 70 000</td><td>Hostinger / Namecheap / OVH starter, fine for a showcase site</td></tr>
+<tr><td>Hosting — performance / VPS</td><td>60 000 – 200 000</td><td>Modern stack (Cloudflare Pages, Hetzner, DigitalOcean) for traffic + fast load</td></tr>
+<tr><td>SSL certificate</td><td>0</td><td>Free via Let's Encrypt or Cloudflare</td></tr>
+<tr><td>Email at your domain</td><td>0 – 50 000</td><td>Free via Cloudflare Email Routing, or Zoho Mail (~7 500/year/user), or Google Workspace (~45 000/year/user)</td></tr>
+</tbody>
+</table>
+
+<p>So the realistic <strong>minimum</strong> after the build is just <strong>30 000 – 100 000 FCFA per year</strong> if you stay on basic shared hosting with a forwarded email. That's it. You don't <em>have</em> to spend more.</p>
+
+<h3>The optional items (only when you want them)</h3>
+
+<table>
+<thead>
+<tr><th>Item</th><th>Cost</th><th>When you need it</th></tr>
+</thead>
+<tbody>
+<tr><td>Maintenance contract</td><td>5–10% of build cost / year, or à la carte</td><td>If you want guaranteed response time, security patches managed, monthly check-ins</td></tr>
+<tr><td>New module or feature</td><td>200 000 – 1 500 000 / module</td><td>When you decide to add a blog, a booking system, a payment gateway, etc. — billed when you commission it, not yearly</td></tr>
+<tr><td>Content updates by us</td><td>~20 000 / hour or bundled</td><td>If you'd rather not learn the admin yourself</td></tr>
+<tr><td>Redesign / major refresh</td><td>30–60% of original build</td><td>Typically every 3–5 years — only when the brand or strategy changes</td></tr>
+</tbody>
+</table>
+
+<p>This is the part that often gets misrepresented. Many clients do exactly this: <strong>pay only the hosting + domain</strong> after launch, and only call us back when there's something specific to build — a new module, a redesign, an integration. Updates are not a yearly bill; they're project-based, when you actually need them.</p>
+
+<p>For a Tier 4 build at 3 000 000 FCFA, year-one out-of-pocket is around <strong>3 050 000 – 3 100 000 FCFA</strong>. Years 2 and 3 can be as low as <strong>30 000 – 100 000 FCFA</strong> each if you don't commission anything new. The big number you see in the chart above is the <em>maximum</em> realistic scenario with a full maintenance contract and an occasional new feature — not the floor.</p>
+
+<h2>How to choose the right tier — without overspending or underspending</h2>
+
+<p>The right tier isn’t about picking the cheapest or the fanciest — it’s about matching project complexity to budget honestly. Two quadrants on this map produce 90% of the disappointed clients we meet:</p>
+
+<figure>
+${decisionMatrixSvg("en")}
+<figcaption>If you land in the top-left, the project will collapse before launch. If you land in the bottom-right, you’re overpaying for what you actually need.</figcaption>
+</figure>
+
+<p>Practical rule of thumb:</p>
+<ul>
+<li><strong>If your business sells anything &gt; 100 000 FCFA per transaction</strong> — invest at Tier 3 or 4. The credibility uplift pays for itself in 3–6 closed deals.</li>
+<li><strong>If your customers Google before they call</strong> — Tier 3 minimum, ideally Tier 4 with real SEO.</li>
+<li><strong>If you accept Mobile Money payments online</strong> — Tier 4 or 5 only. Junior tiers don’t safely integrate MTN MoMo or Orange Money APIs.</li>
+<li><strong>If you’re bilingual (FR + EN)</strong> — Tier 4 or 5. Anything cheaper usually means one language at a time.</li>
+</ul>
+
+<h2>How to spot a fair quote (and a red-flag one)</h2>
+
+<p>Bring this checklist to your next meeting with any provider. Quotes that don’t address these items are almost always priced wrong — either too low (something’s missing) or too high (someone’s padding).</p>
+
+<ul>
+<li><strong>A written scope.</strong> A real provider gives you pages, features, integrations and out-of-scope items in writing.</li>
+<li><strong>A milestone-based timeline.</strong> Discovery → design → build → QA → launch, with dates.</li>
+<li><strong>Itemised pricing.</strong> Design, development, content integration, SEO, launch, training. Lump-sum quotes hide trade-offs.</li>
+<li><strong>Ownership clause.</strong> Source code, content, accounts and domains belong to <em>you</em>, not the provider.</li>
+<li><strong>Maintenance terms.</strong> What’s included for the first three months, what’s extra, what’s the hourly rate after.</li>
+<li><strong>A real portfolio of live sites.</strong> Not screenshots, not “redacted for confidentiality”. Real URLs that load today.</li>
+<li><strong>Stack transparency.</strong> What technology will the site be built on, and why? “Modern stack” is not an answer.</li>
+</ul>
+
+<p>Red flags: a single-line quote with no breakdown, a price that’s 70% below the market, “we’ll talk about ownership later”, no written scope, no examples of live work, refusing to put a timeline in writing.</p>
+
+<h2>The honest answer for a typical business in Cameroon in 2026</h2>
+
+<p>If you're a small or medium-sized business — a clinic in Yaoundé, a real-estate agency in Douala, an NGO operating across Adamaoua, a school in Bafoussam, a restaurant chain in Buea — the realistic number is between <strong>1 500 000 and 3 500 000 FCFA</strong> for an agency-quality initial build (Tier 3 to lower Tier 4).</p>
+
+<p>After launch, your minimum ongoing cost is just <strong>30 000–100 000 FCFA per year</strong> for hosting + domain. Anything beyond that — maintenance, new features, redesigns — is commissioned only when you decide it's time, not on a recurring bill.</p>
+
+<p>That gets you a real team, real ownership, real SEO, and a site you can keep growing for 3–5 years before a redesign becomes necessary. It is not the cheapest option on the market. It is — by a wide margin — the cheapest option that actually keeps working.</p>
+
+<h2>Frequently asked questions</h2>
+
+<h3>How much does a professional website cost in Cameroon in 2026?</h3>
+<p>Realistic 2026 ranges for the initial build: junior freelancers on Facebook / WhatsApp sit around <strong>250 000–500 000 FCFA</strong>, senior freelancers or micro-agencies between <strong>500 000–2 000 000 FCFA</strong>, and professional agencies between <strong>1 500 000 and 6 000 000 FCFA</strong> depending on scope (multilingual, integrations, custom design). Full enterprise SaaS platforms with MoMo + dashboards + multi-tenant features start at 6 000 000 FCFA and can run to 20 000 000+. Always confirm what's included before comparing two quotes.</p>
+
+<h3>What’s the difference between a WordPress site and a custom-built site?</h3>
+<p>A WordPress site uses a theme — fast to set up, but the design isn’t yours and the performance, SEO and security depend on plugins you don’t control. A custom build (Next.js, React, or similar) is written for your business: faster, more secure, owned by you, and more flexible to evolve. For a brochure site, WordPress is fine. For anything with logged-in users, payments, multilingualism or data, custom is almost always the right call within 18 months.</p>
+
+<h3>What annual costs should I expect after the initial build?</h3>
+<p>The mandatory minimum is small: <strong>30 000 to 100 000 FCFA per year</strong> for a .com domain (~6 000–12 000) + basic hosting (~25 000–70 000) + free email forwarding. That's it. Everything else — maintenance contracts, new features, redesigns — is optional and commissioned only when you decide you want them, not on a recurring bill. Most clients pay just hosting + domain after launch and call us back when they have a specific need: a new module, an integration, a refresh. Updates are project-based, not yearly.</p>
+
+<h3>How can I avoid overpaying — or underpaying?</h3>
+<p>Get <strong>three written quotes</strong> from providers at the same tier (don’t compare a junior freelancer to an agency — they’re different services). Compare them on scope, ownership, timeline and maintenance, not just the headline number. The middle quote is usually the most realistic. A quote that’s 70% below the others is hiding work that will resurface as “extras” later.</p>
+
+<h3>How long does it take to build a professional website?</h3>
+<p>It depends entirely on scope. A focused, well-briefed showcase site can ship in <strong>2 to 3 weeks</strong> when both sides are responsive. A typical Tier 4 multilingual site lands at <strong>4 to 14 weeks</strong>: 1–2 weeks of discovery and design, 2–8 weeks of build, 1 week of QA + launch. A complex SaaS or e-commerce platform with custom dashboards, Mobile Money and admin tools is closer to <strong>4 to 10 months</strong>. The single biggest factor is the size of the scope, not the size of the team — anything with a "1 week to launch" promise is either reusing a template or skipping testing.</p>
+
+<h2>Ready to talk numbers for your project?</h2>
+
+<p>At <strong>Zekora</strong>, we work mostly at the Tier 4 level — agency-grade builds for serious Cameroonian businesses, with real ownership, real SEO, and the long-term support that turns a website into a working asset rather than an expense. Yaoundé, Douala, and every other city in Cameroon, remote-first.</p>
+
+<p>Get a free, no-pressure quote that itemises the work and locks down ownership before the first line of code is written. <a href="/en/contact">Start the conversation here</a> — or read our <a href="/en/services">services overview</a> to see exactly what each tier looks like.</p>
+`.trim(),
+  },
+
+  /* ─── FR — Coût d'un site web au Cameroun 2026 (pilier prix) ─ */
+  {
+    slug: "website-cost-cameroon-2026",
+    locale: "fr",
+    title:
+      "Combien coûte un site web professionnel au Cameroun en 2026 ? Guide complet des prix",
+    description:
+      "Fourchettes réelles en FCFA, ce que chaque niveau inclut vraiment, les coûts cachés, et comment choisir le bon prestataire — guide transparent pour les entreprises au Cameroun.",
+    date: "2026-06-04",
+    author: "Zekora",
+    tags: [
+      "Tarifs",
+      "Cameroun",
+      "Création de site web",
+      "Agence digitale",
+      "PME",
+    ],
+    readingTime: 11,
+    content: `
+<p>«&nbsp;Combien coûte un site web&nbsp;?&nbsp;» — c&rsquo;est la question que se pose toute entreprise au Cameroun avant de lancer un projet digital, et c&rsquo;est aussi celle à laquelle presque personne ne répond honnêtement. Les devis vont de <strong>50&nbsp;000 FCFA</strong> à <strong>25&nbsp;millions de FCFA</strong> pour ce qui ressemble au même produit. Le plus souvent, les personnes qui demandent repartent plus perdues qu&rsquo;avant.</p>
+
+<p>Ce guide tranche dans le flou. Des fourchettes réelles, en FCFA, sur le marché camerounais en 2026. Ce que chaque niveau de prix vous achète vraiment. Les coûts cachés qui tombent en année 2. Et, à la fin, comment savoir si un devis est juste ou si on vous surfacture.</p>
+
+<p>Si vous préparez un budget site web pour une entreprise à <strong>Yaoundé, Douala, Bafoussam, Bamenda, Garoua, Buea, Kribi, Limbé</strong> ou ailleurs au Cameroun, voici l&rsquo;article qu&rsquo;on aurait aimé lire avant notre premier projet.</p>
+
+<h2>Pourquoi les prix varient de 1 à 500 pour «&nbsp;le même site&nbsp;»</h2>
+
+<p>Un site WordPress.com à 100&nbsp;000 FCFA et un projet d&rsquo;agence à 12&nbsp;000&nbsp;000 FCFA sont tous deux techniquement des «&nbsp;sites web&nbsp;». Ils sont aussi aussi différents qu&rsquo;une moto et un camion de livraison. L&rsquo;écart de prix reflète cinq différences concrètes&nbsp;:</p>
+
+<ul>
+<li><strong>Qui le construit</strong> — un étudiant à temps partiel vs. une agence de cinq personnes avec designers, développeurs, chefs de projet et QA.</li>
+<li><strong>Ce qu&rsquo;il y a sous le capot</strong> — un template que tout le monde peut utiliser vs. du code écrit pour votre entreprise.</li>
+<li><strong>La capacité à être trouvé</strong> — zéro SEO vs. données structurées + indexation bilingue + liaison avec votre Google Business Profile.</li>
+<li><strong>La vitesse de chargement</strong> — un hébergement mutualisé générique vs. une stack moderne déployée à la périphérie (Next.js + Cloudflare).</li>
+<li><strong>Qui le répare quand ça casse</strong> — personne, le freelanceur qui a disparu trois mois plus tard, vs. une agence qu&rsquo;on peut encore joindre en 2027.</li>
+</ul>
+
+<p>Ci-dessous, nous cartographions chaque niveau de prix réaliste du marché camerounais en 2026, ce que vous obtenez et ce que vous risquez.</p>
+
+<h2>Les cinq niveaux de prix au Cameroun (2026)</h2>
+
+<figure>
+${priceLadderSvg("fr")}
+<figcaption>Fourchettes de budget réalistes 2026 selon le type de prestataire, en FCFA. La plupart des projets sérieux pour une entreprise se situent entre 2&nbsp;000&nbsp;000 et 6&nbsp;000&nbsp;000.</figcaption>
+</figure>
+
+<h3>Niveau 1 — Bricolage / no-code (0–100&nbsp;000 FCFA)</h3>
+<p>Vous le construisez vous-même sur une plateforme no-code comme Wix, WordPress.com ou Carrd. L&rsquo;abonnement tourne autour de <strong>5&nbsp;000 à 10&nbsp;000 FCFA par mois</strong>. Pas de designer, pas de développeur, pas de SEO.</p>
+<p><strong>Le bon choix si&nbsp;:</strong> vous voulez une page perso, un portfolio d&rsquo;une page, ou une landing page temporaire pendant que vous affinez votre périmètre.</p>
+<p><em>Si vous avez besoin de plus&nbsp;:</em> le niveau suivant ajoute une vraie personne pour concevoir la mise en page et un nom de domaine propre qui ne crie pas «&nbsp;fait sur Wix&nbsp;» à vos clients.</p>
+
+<h3>Niveau 2 — Freelanceur débutant (100&nbsp;000–500&nbsp;000 FCFA)</h3>
+<p>Un étudiant ou un autodidacte met en ligne un thème WordPress (ou parfois un site sur mesure) avec votre logo et 5–6 pages. C&rsquo;est le tarif qu&rsquo;on voit le plus souvent sur Facebook et WhatsApp&nbsp;: beaucoup de freelanceurs camerounais se positionnent autour de <strong>250&nbsp;000 à 400&nbsp;000 FCFA</strong> pour un site vitrine de 5 pages.</p>
+<p>Le risque n&rsquo;est pas le prix — c&rsquo;est ce qui se passe six mois plus tard&nbsp;: le freelanceur est occupé, le mot de passe est perdu, l&rsquo;hébergeur n&rsquo;a pas été renouvelé.</p>
+<p><strong>Le bon choix si&nbsp;:</strong> vous êtes auto-entrepreneur ou nouvelle entreprise, et vous voulez tester si une présence web convertit&nbsp;; ou vos clients ne Googleront pas avant d&rsquo;acheter.</p>
+<p><em>Si vous avez besoin de plus&nbsp;:</em> un SEO structuré, un design non-template, et quelqu&rsquo;un que vous pouvez rappeler dans 18 mois quand le site a besoin d&rsquo;un rafraîchissement.</p>
+
+<h3>Niveau 3 — Freelanceur senior ou micro-agence (500&nbsp;000–2&nbsp;000&nbsp;000 FCFA)</h3>
+<p>Un développeur solo expérimenté ou une micro-agence de 2 à 5 personnes. Vous obtenez un vrai travail de design, une qualité correcte, un SEO de base, et généralement trois mois de support après lancement. Délai typique&nbsp;: 3 à 8 semaines selon le périmètre — un site vitrine bien cadré peut sortir en 2 à 3 semaines quand les deux parties sont réactives.</p>
+<p><strong>Le bon choix si&nbsp;:</strong> vous êtes une PME qui veut une présence en ligne sérieuse et vous n&rsquo;avez pas besoin de tableaux de bord sur mesure, de Mobile Money ou d&rsquo;interface bilingue dès le départ.</p>
+<p><em>Si vous avez besoin de plus&nbsp;:</em> une équipe complète (UX + dev + QA + chef de projet), un SEO avec données structurées, le déploiement bilingue ou les intégrations MTN MoMo / Orange Money. C&rsquo;est le niveau suivant.</p>
+
+<h3>Niveau 4 — Agence professionnelle (2&nbsp;000&nbsp;000–6&nbsp;000&nbsp;000 FCFA) — <em>le rapport qualité-prix optimal pour les entreprises sérieuses</em></h3>
+<p>C&rsquo;est ici que le ratio prix-qualité atteint son maximum pour la majorité des entreprises camerounaises qui prennent leur présence digitale au sérieux. Une vraie équipe — designers, développeurs, chefs de projet, QA — vous construit un site moderne, rapide, multilingue, avec données structurées, SEO réel, liaison Google Business Profile et un contrat de maintenance optionnel de 6 à 12 mois.</p>
+<p>Le délai va de <strong>4 à 14 semaines</strong> selon le périmètre&nbsp;: un site vitrine de qualité agence se livre en 4 à 6 semaines, un site multilingue riche en contenu avec interactions sur mesure se situe entre 8 et 14 semaines. Le site est à vous, le code est à vous, et l&rsquo;équipe reste joignable l&rsquo;année suivante.</p>
+<p><strong>Le bon choix si&nbsp;:</strong> vous êtes une PME, ONG, service professionnel, école, agence immobilière, agence digitale, restaurant avec livraison, microfinance avec site client — bref, quiconque a besoin d&rsquo;un site qui aide activement à gagner des contrats, pas seulement à exister en ligne.</p>
+
+<h3>Niveau 5 — Plateforme entreprise / SaaS (6&nbsp;000&nbsp;000 FCFA et plus)</h3>
+<p>Tableaux de bord sur mesure, systèmes multi-tenants, intégration Mobile Money (MTN MoMo, Orange Money), e-commerce avec stock et logistique, portails clients multilingues, gestion des rôles, journaux d&rsquo;audit. Délai typique&nbsp;: 4 à 10 mois, et la même équipe gère ensuite la plateforme.</p>
+<p><strong>Le bon choix si&nbsp;:</strong> vous êtes une FinTech, un e-commerce d&rsquo;envergure, un SaaS B2B, un hôpital, une microfinance, une entreprise multi-agences — bref, des projets où le site est un système opérationnel actif, pas une surface marketing.</p>
+
+<p style="margin-top: 1.5em;"><em>Quelle que soit la taille de votre projet — d&rsquo;une page d&rsquo;atterrissage simple à une plateforme multi-tenants complexe — le bon niveau est celui qui correspond honnêtement à votre besoin. Nous sommes tout aussi heureux de cadrer un projet Tier 4 ambitieux qu&rsquo;un lancement Tier 2 rapide.</em></p>
+
+<h2>Ce que le budget achète vraiment</h2>
+
+<p>La principale raison pour laquelle les devis paraissent arbitraires, c&rsquo;est que les postes ne sont pas détaillés. Voici la vraie composition d&rsquo;un projet de site web professionnel — à peu près la même pour les projets de niveau intermédiaire partout en Afrique francophone.</p>
+
+<figure>
+${costBreakdownSvg("fr")}
+<figcaption>Répartition du budget d&rsquo;un projet de niveau 4. Le développement représente moins de la moitié — la majorité du travail se fait avant et après le code.</figcaption>
+</figure>
+
+<p>Quelques points à retenir&nbsp;:</p>
+<ul>
+<li><strong>Design et UX, c&rsquo;est 25&nbsp;%</strong> — pas optionnel. La raison pour laquelle les sites d&rsquo;agence sont plus beaux n&rsquo;est pas un mystère&nbsp;: un quart du budget a payé quelqu&rsquo;un pour y réfléchir.</li>
+<li><strong>Le développement, c&rsquo;est seulement 40&nbsp;%</strong> — le reste, c&rsquo;est cadrage, gestion de projet, tests, contenu, lancement et formation. Les devis «&nbsp;uniquement développement&nbsp;» oublient la moitié du travail.</li>
+<li><strong>Lancement et formation, c&rsquo;est 15&nbsp;%</strong> — la partie que la plupart des freelances sautent. C&rsquo;est aussi celle qui détermine si le site sera réellement utilisé.</li>
+</ul>
+
+<h2>Ce que coûtent vraiment les années APRÈS la création</h2>
+
+<p>La création initiale, c&rsquo;est un chèque. Les années suivantes, c&rsquo;est là que la plupart des conversations sur les prix tournent à la surprise. La réponse honnête est que <em>ça dépend de ce que vous décidez de payer</em> — il y a un scénario minimum, et un scénario avec maintenance, et ce sont des montants très différents.</p>
+
+<figure>
+${tcoTimelineSvg("fr")}
+<figcaption>Coût total de possession d&rsquo;un site de niveau 4 sur trois ans. La création est la pointe. Les années 2 et 3 sont en général petites — sauf si vous décidez activement de commander de nouvelles fonctionnalités.</figcaption>
+</figure>
+
+<h3>Les postes obligatoires (tout le monde les paye)</h3>
+
+<table>
+<thead>
+<tr><th>Poste</th><th>Coût annuel (FCFA)</th><th>Ce que vous obtenez</th></tr>
+</thead>
+<tbody>
+<tr><td>Nom de domaine (.com)</td><td>6&nbsp;000 – 12&nbsp;000</td><td>L&rsquo;adresse (votremarque.com)</td></tr>
+<tr><td>Hébergement — mutualisé basique</td><td>25&nbsp;000 – 70&nbsp;000</td><td>Hostinger / Namecheap / OVH starter, suffisant pour un site vitrine</td></tr>
+<tr><td>Hébergement — performance / VPS</td><td>60&nbsp;000 – 200&nbsp;000</td><td>Stack moderne (Cloudflare Pages, Hetzner, DigitalOcean) pour le trafic + la rapidité</td></tr>
+<tr><td>Certificat SSL</td><td>0</td><td>Gratuit via Let&rsquo;s Encrypt ou Cloudflare</td></tr>
+<tr><td>Email à votre domaine</td><td>0 – 50&nbsp;000</td><td>Gratuit via Cloudflare Email Routing, ou Zoho Mail (~7&nbsp;500/an/utilisateur), ou Google Workspace (~45&nbsp;000/an/utilisateur)</td></tr>
+</tbody>
+</table>
+
+<p>Le <strong>minimum</strong> réaliste après la création se résume donc à <strong>30&nbsp;000 – 100&nbsp;000 FCFA par an</strong> si vous restez sur un hébergement mutualisé basique avec un email redirigé gratuit. C&rsquo;est tout. Vous n&rsquo;êtes <em>pas obligé</em> de dépenser plus.</p>
+
+<h3>Les postes optionnels (uniquement si vous les voulez)</h3>
+
+<table>
+<thead>
+<tr><th>Poste</th><th>Coût</th><th>Quand c&rsquo;est utile</th></tr>
+</thead>
+<tbody>
+<tr><td>Contrat de maintenance</td><td>5–10&nbsp;% du coût initial / an, ou à la carte</td><td>Si vous voulez un temps de réponse garanti, les patchs de sécurité gérés, un point régulier</td></tr>
+<tr><td>Nouveau module ou fonctionnalité</td><td>200&nbsp;000 – 1&nbsp;500&nbsp;000 / module</td><td>Quand vous décidez d&rsquo;ajouter un blog, un système de réservation, une passerelle de paiement, etc. — facturé à la commande, pas chaque année</td></tr>
+<tr><td>Mises à jour de contenu par nous</td><td>~20&nbsp;000 / heure ou en forfait</td><td>Si vous préférez ne pas apprendre l&rsquo;admin vous-même</td></tr>
+<tr><td>Refonte / rafraîchissement majeur</td><td>30–60&nbsp;% du coût initial</td><td>En général tous les 3 à 5 ans — uniquement quand la marque ou la stratégie change</td></tr>
+</tbody>
+</table>
+
+<p>C&rsquo;est la partie souvent mal présentée. Beaucoup de clients font exactement ceci&nbsp;: <strong>ils ne paient que l&rsquo;hébergement + le domaine</strong> après le lancement, et nous rappellent uniquement quand il y a quelque chose de précis à construire — un nouveau module, une refonte, une intégration. Les évolutions ne sont pas une facture annuelle&nbsp;: elles sont à la demande, quand vous en avez réellement besoin.</p>
+
+<p>Pour un projet de niveau 4 à 3&nbsp;000&nbsp;000 FCFA, la première année tourne autour de <strong>3&nbsp;050&nbsp;000 – 3&nbsp;100&nbsp;000 FCFA</strong> tout compris. Les années 2 et 3 peuvent descendre jusqu&rsquo;à <strong>30&nbsp;000 – 100&nbsp;000 FCFA</strong> chacune si vous ne commandez rien de nouveau. Le grand chiffre du graphique au-dessus, c&rsquo;est le <em>scénario maximum</em> avec contrat de maintenance complet et une évolution occasionnelle — pas le plancher.</p>
+
+<h2>Comment choisir le bon niveau — sans surpayer ni sous-payer</h2>
+
+<p>Le bon niveau n&rsquo;est pas le moins cher ni le plus haut de gamme — c&rsquo;est celui qui aligne honnêtement la complexité du projet et le budget. Deux quadrants de cette matrice produisent 90&nbsp;% des clients déçus que nous rencontrons&nbsp;:</p>
+
+<figure>
+${decisionMatrixSvg("fr")}
+<figcaption>Si vous tombez en haut à gauche, le projet va s&rsquo;effondrer avant le lancement. En bas à droite, vous surpayez pour ce dont vous avez réellement besoin.</figcaption>
+</figure>
+
+<p>Règles pratiques&nbsp;:</p>
+<ul>
+<li><strong>Si votre activité vend des biens ou services à plus de 100&nbsp;000 FCFA la transaction</strong> — investissez au niveau 3 ou 4. Le gain de crédibilité se rembourse en 3 à 6 deals signés.</li>
+<li><strong>Si vos clients Googlent avant d&rsquo;appeler</strong> — niveau 3 minimum, idéalement niveau 4 avec un vrai SEO.</li>
+<li><strong>Si vous acceptez Mobile Money en ligne</strong> — niveau 4 ou 5 uniquement. Les niveaux juniors n&rsquo;intègrent pas les API MTN MoMo ou Orange Money en toute sécurité.</li>
+<li><strong>Si vous êtes bilingue (FR + EN)</strong> — niveau 4 ou 5. En dessous, c&rsquo;est généralement une langue à la fois.</li>
+</ul>
+
+<h2>Comment reconnaître un devis juste (et un devis suspect)</h2>
+
+<p>Apportez cette checklist à votre prochain rendez-vous avec un prestataire. Les devis qui n&rsquo;abordent pas ces points sont presque toujours mal tarifés — soit trop bas (il manque quelque chose) soit trop hauts (on vous surcharge).</p>
+
+<ul>
+<li><strong>Un périmètre écrit.</strong> Un vrai prestataire vous remet par écrit les pages, fonctionnalités, intégrations et exclusions.</li>
+<li><strong>Un planning par jalons.</strong> Cadrage → design → développement → QA → lancement, avec des dates.</li>
+<li><strong>Une tarification détaillée.</strong> Design, développement, intégration de contenu, SEO, lancement, formation. Les forfaits cachent les arbitrages.</li>
+<li><strong>Clause de propriété.</strong> Le code, le contenu, les comptes et les domaines vous appartiennent, pas au prestataire.</li>
+<li><strong>Conditions de maintenance.</strong> Ce qui est inclus pendant les trois premiers mois, ce qui ne l&rsquo;est pas, le tarif horaire après.</li>
+<li><strong>Un vrai portfolio de sites en ligne.</strong> Pas de captures d&rsquo;écran, pas de «&nbsp;masqué pour confidentialité&nbsp;». De vraies URL qui chargent aujourd&rsquo;hui.</li>
+<li><strong>Transparence sur la stack.</strong> Quelle technologie, et pourquoi&nbsp;? «&nbsp;Stack moderne&nbsp;» n&rsquo;est pas une réponse.</li>
+</ul>
+
+<p>Signaux d&rsquo;alerte&nbsp;: un devis en une seule ligne sans détail, un prix 70&nbsp;% sous le marché, «&nbsp;on parlera de la propriété plus tard&nbsp;», pas de périmètre écrit, pas d&rsquo;exemples en ligne, refus de mettre un planning par écrit.</p>
+
+<h2>La réponse honnête pour une entreprise typique au Cameroun en 2026</h2>
+
+<p>Si vous êtes une PME — une clinique à Yaoundé, une agence immobilière à Douala, une ONG opérant dans l&rsquo;Adamaoua, une école à Bafoussam, une chaîne de restaurants à Buea — le chiffre réaliste se situe entre <strong>1&nbsp;500&nbsp;000 et 3&nbsp;500&nbsp;000 FCFA</strong> pour une création initiale de qualité agence (haut du Niveau 3 ou bas du Niveau 4).</p>
+
+<p>Après le lancement, votre minimum est juste <strong>30&nbsp;000 – 100&nbsp;000 FCFA par an</strong> pour l&rsquo;hébergement et le domaine. Tout le reste — maintenance, nouvelles fonctionnalités, refontes — n&rsquo;est commandé que lorsque vous décidez qu&rsquo;il est temps, pas sur une facture récurrente.</p>
+
+<p>Vous obtenez alors une vraie équipe, une vraie propriété, un vrai SEO, et un site que vous pouvez faire évoluer pendant 3 à 5 ans avant qu&rsquo;une refonte ne devienne nécessaire. Ce n&rsquo;est pas l&rsquo;option la moins chère du marché. C&rsquo;est, de loin, l&rsquo;option la moins chère qui continue de fonctionner.</p>
+
+<h2>Questions fréquentes</h2>
+
+<h3>Combien coûte un site web professionnel au Cameroun en 2026 ?</h3>
+<p>Fourchettes réalistes 2026 pour la création initiale&nbsp;: les freelanceurs débutants sur Facebook et WhatsApp se positionnent autour de <strong>250&nbsp;000 – 500&nbsp;000 FCFA</strong>, les freelanceurs seniors ou micro-agences entre <strong>500&nbsp;000 et 2&nbsp;000&nbsp;000 FCFA</strong>, et les agences professionnelles entre <strong>1&nbsp;500&nbsp;000 et 6&nbsp;000&nbsp;000 FCFA</strong> selon le périmètre (multilingue, intégrations, design sur mesure). Les plateformes SaaS d&rsquo;entreprise avec MoMo + tableaux de bord + fonctions multi-tenants démarrent à 6&nbsp;000&nbsp;000 FCFA et peuvent monter à 20&nbsp;000&nbsp;000+. Vérifiez toujours ce qui est inclus avant de comparer deux devis.</p>
+
+<h3>Quelle est la différence entre un site WordPress et un site sur mesure ?</h3>
+<p>Un site WordPress utilise un thème — rapide à mettre en place, mais le design n&rsquo;est pas le vôtre, et la performance, le SEO et la sécurité dépendent de plugins que vous ne contrôlez pas. Un site sur mesure (Next.js, React ou similaire) est écrit pour votre entreprise&nbsp;: plus rapide, plus sécurisé, votre propriété, et plus souple à faire évoluer. Pour un site vitrine, WordPress convient. Pour tout ce qui implique utilisateurs connectés, paiements, multilinguisme ou données, le sur mesure est presque toujours le bon choix à 18 mois.</p>
+
+<h3>Quels coûts annuels prévoir après la création ?</h3>
+<p>Le minimum obligatoire est petit&nbsp;: <strong>30&nbsp;000 à 100&nbsp;000 FCFA par an</strong> pour un domaine .com (~6&nbsp;000–12&nbsp;000) + l&rsquo;hébergement basique (~25&nbsp;000–70&nbsp;000) + un email redirigé gratuit. C&rsquo;est tout. Le reste — contrats de maintenance, nouvelles fonctionnalités, refontes — est optionnel et commandé uniquement quand vous décidez que vous en voulez, pas sur une facture récurrente. La plupart des clients ne payent que l&rsquo;hébergement + le domaine après le lancement, et nous rappellent quand ils ont un besoin précis&nbsp;: un nouveau module, une intégration, un rafraîchissement. Les évolutions sont à la commande, pas chaque année.</p>
+
+<h3>Comment éviter de surpayer — ou de sous-payer ?</h3>
+<p>Obtenez <strong>trois devis écrits</strong> de prestataires du même niveau (ne comparez pas un freelance débutant à une agence — ce ne sont pas les mêmes services). Comparez-les sur le périmètre, la propriété, le délai et la maintenance, pas seulement sur le montant affiché. Le devis du milieu est généralement le plus réaliste. Un devis 70&nbsp;% sous les autres cache du travail qui ressortira plus tard en «&nbsp;options supplémentaires&nbsp;».</p>
+
+<h3>Combien de temps faut-il pour créer un site web professionnel ?</h3>
+<p>Cela dépend entièrement du périmètre. Un site vitrine bien cadré peut sortir en <strong>2 à 3 semaines</strong> quand les deux parties sont réactives. Un projet typique de Niveau 4 (multilingue, design sur mesure) se situe entre <strong>4 et 14 semaines</strong>&nbsp;: 1 à 2 semaines de cadrage et design, 2 à 8 semaines de développement, 1 semaine de QA + lancement. Une plateforme SaaS ou e-commerce complexe avec tableaux de bord, Mobile Money et outils d&rsquo;administration tourne plutôt autour de <strong>4 à 10 mois</strong>. Le facteur principal, c&rsquo;est la taille du périmètre, pas la taille de l&rsquo;équipe — toute promesse de «&nbsp;1 semaine pour le lancement&nbsp;» réutilise soit un template, soit saute les tests.</p>
+
+<h2>Prêt à parler chiffres pour votre projet ?</h2>
+
+<p>Chez <strong>Zekora</strong>, nous travaillons principalement en niveau 4 — des projets calibre agence pour des entreprises camerounaises sérieuses, avec une vraie propriété, un vrai SEO et le support long-terme qui transforme un site web en actif de travail plutôt qu&rsquo;en charge. Yaoundé, Douala, et toutes les autres villes du Cameroun, en mode remote-first.</p>
+
+<p>Obtenez un devis gratuit, sans pression, qui détaille le travail et verrouille la propriété avant la première ligne de code. <a href="/fr/contact">Démarrez la conversation ici</a> — ou consultez notre <a href="/fr/services">aperçu des services</a> pour voir exactement à quoi ressemble chaque niveau.</p>
+`.trim(),
+  },
+
   /* ─── EN — Web vs Mobile (new) ────────────────────────────── */
   {
     slug: "web-app-or-mobile-app-decision-framework",

@@ -65,12 +65,16 @@ export function organizationSchema() {
     // most professional-service Knowledge Graph entries use.
     priceRange: "$$ — Sur devis / On request",
     sameAs: Object.values(BRAND.social),
+    // PostalAddress is country-anchored; locality / region / postal code
+    // are only emitted when actually set. That keeps Google's parser
+    // honest — we don't claim a city we don't operate from, which was
+    // the root cause of "basée à Yaoundé" leaking into the SERP snippet.
     address: {
       "@type": "PostalAddress",
-      addressLocality: hq.city,
-      addressRegion: hq.region,
+      ...(hq.city ? { addressLocality: hq.city } : {}),
+      ...(hq.region ? { addressRegion: hq.region } : {}),
       addressCountry: hq.countryCode,
-      postalCode: hq.postalCode,
+      ...(hq.postalCode ? { postalCode: hq.postalCode } : {}),
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -233,11 +237,11 @@ export function homepageFaq(locale: "en" | "fr") {
     return [
       {
         question: "Qu'est-ce que Zekora ?",
-        answer: `Zekora (ZekoraTech) est une agence digitale et un studio de développement logiciel basé à ${BRAND.headquarters.city}, au Cameroun. Nous concevons et construisons des plateformes web, des applications mobiles, des produits SaaS et la digitalisation complète des entreprises pour des clients africains et internationaux. Site officiel : ${BRAND.domain}.`,
+        answer: `Zekora (ZekoraTech) est une agence digitale et de développement logiciel basée au Cameroun. Nous concevons et construisons des plateformes web, des applications mobiles, des produits SaaS et la digitalisation complète des entreprises pour des clients africains et internationaux. Site officiel : ${BRAND.domain}.`,
       },
       {
         question: "Où Zekora est-il basé ?",
-        answer: `Notre siège est à ${BRAND.headquarters.city}, au Cameroun. Nous opérons en mode remote-first et servons l'ensemble du Cameroun — ${BRAND.cities.slice(0, 6).join(", ")} et toutes les autres villes — ainsi que des clients en Afrique, en Europe et en Amérique du Nord.`,
+        answer: `Zekora est basé au Cameroun et opère en mode remote-first sur l'ensemble du territoire — ${BRAND.cities.slice(0, 6).join(", ")} et toutes les autres villes — ainsi que pour des clients en Afrique, en Europe et en Amérique du Nord. Nous n'avons pas de bureau physique unique : la même équipe sert tout le pays.`,
       },
       {
         question: "Quels services Zekora propose-t-il ?",
@@ -257,11 +261,11 @@ export function homepageFaq(locale: "en" | "fr") {
   return [
     {
       question: "What is Zekora?",
-      answer: `Zekora (also known as ZekoraTech) is a Cameroon-based digital agency and software studio. We design and build web platforms, mobile applications, SaaS products and full business digitalization for African and global clients. Official site: ${BRAND.domain}.`,
+      answer: `Zekora (also known as ZekoraTech) is a Cameroon-based digital and software agency. We design and build web platforms, mobile applications, SaaS products and full business digitalization for African and global clients. Official site: ${BRAND.domain}.`,
     },
     {
       question: "Where is Zekora based?",
-      answer: `Our headquarters is in ${BRAND.headquarters.city}, Cameroon. We operate remote-first and serve all of Cameroon — ${BRAND.cities.slice(0, 6).join(", ")} and every other city — plus clients in Africa, Europe and North America.`,
+      answer: `Zekora is based in Cameroon and operates remote-first across the whole country — ${BRAND.cities.slice(0, 6).join(", ")} and every other city — plus clients in Africa, Europe and North America. We do not run from a single physical office; the same team serves every region of the country.`,
     },
     {
       question: "What services does Zekora offer?",

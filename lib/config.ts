@@ -18,7 +18,7 @@ export const BRAND = {
   tagline: "Digital Solutions That Structure & Grow Your Business",
   /** Short description used in metadata & footer (EN baseline) */
   description:
-    "Zekora is a Cameroon-based digital agency building web platforms, mobile apps, SaaS products and business digitalization for African and global clients. Serving Yaoundé, Douala and all of Cameroon — remote-first, worldwide.",
+    "Zekora is a Cameroon-based digital agency building web platforms, mobile apps, SaaS products and business digitalization for African and global clients. Remote-first across Cameroon — serving Yaoundé, Douala, Bafoussam, Bamenda, Garoua and every other city.",
   /** Contact email */
   email: "zekora237@gmail.com",
   /** Local Cameroon phone in E.164 format. */
@@ -31,27 +31,30 @@ export const BRAND = {
   founded: "2024",
 
   /**
-   * Geographic identity — primary headquarters + service area.
+   * Geographic identity — country presence + service area.
    * Used by the LocalBusiness JSON-LD, ContactPoint, and the FAQ schema.
    *
-   * Why this matters for SEO: Google's local algorithm needs a verifiable
-   * physical anchor (address + geo + country=CM) to surface us for
-   * "agence web Cameroun", "best software agency Cameroon", etc.
+   * Zekora operates **remote-first across Cameroon**, not from a specific
+   * city office. The `city` / `region` / `postalCode` fields are therefore
+   * left intentionally empty — consumers (schema, FAQ, llms.txt, page
+   * metadata) check for non-empty values before naming a locality, so we
+   * never advertise a headquarters that doesn't exist.
    *
-   * Yaoundé is set as the primary because it is the political capital and
-   * most central. If the actual head office moves to Douala (or you open
-   * a second one), update `headquarters` and add to `cities`.
+   * If a registered physical office is opened later, fill in the city /
+   * region / postalCode and the schema will pick them up automatically.
+   *
+   * `latitude` / `longitude` use the geographic centre of Cameroon
+   * (~ 5.7°N, 12.6°E) so Google still has a valid GeoCoordinates anchor
+   * for "near me" / map-pack distance calculations.
    */
   headquarters: {
-    city: "Yaoundé",
-    region: "Centre",
+    city: "",
+    region: "",
     country: "Cameroon",
     countryCode: "CM",
-    /** Approximate Yaoundé centre. Replace with the real coordinates. */
-    latitude: 3.848,
-    longitude: 11.5021,
-    /** Postal code is optional but boosts LocalBusiness completeness. */
-    postalCode: "999",
+    latitude: 5.696,
+    longitude: 12.605,
+    postalCode: "",
   },
   /**
    * Service area — every city / region we explicitly target for SEO.
@@ -87,7 +90,7 @@ export const BRAND = {
     "Sud",
   ],
   /** Display-friendly location string for footers etc. */
-  location: "Yaoundé, Cameroun · Remote-first",
+  location: "Cameroun · Remote-first",
 
   /**
    * `sameAs` profile URLs. Filling these in is the single biggest off-page

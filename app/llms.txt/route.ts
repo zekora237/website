@@ -25,7 +25,7 @@ export function GET() {
 
 > ${BRAND.description}
 
-${BRAND.name} is a Cameroon-based digital agency and software studio. Headquartered in ${BRAND.headquarters.city}, ${BRAND.headquarters.country}, we design and build web platforms, mobile applications, SaaS products and end-to-end business digitalization for African and global clients. We operate remote-first and serve every major city in Cameroon — ${cities} — and ship for clients worldwide.
+${BRAND.name} is a Cameroon-based digital and software agency. We design and build web platforms, mobile applications, SaaS products and end-to-end business digitalization for African and global clients. ${BRAND.name} operates **remote-first across the whole of Cameroon** — there is no single physical office; the same team serves every region. Cities covered include ${cities}, and we also ship for clients worldwide.
 
 Also referred to as: ${altNames}.
 

@@ -33,15 +33,25 @@ function resolveLocale(raw: string): Locale {
  *     it reads the JSON-LD address.
  */
 function localeMetadataCopy(locale: Locale) {
+  // The "ZekoraTech" alternate name is intentionally NOT in the title.
+  // It's already covered by the Organization schema's `alternateName`,
+  // the site-wide keywords array, the domain itself (zekoratech.com),
+  // and llms.txt — repeating it in the title produced a tautology
+  // ("Zekora (ZekoraTech) — …") that also ate the SERP's truncation
+  // budget, hiding "Cameroon" / "Cameroun" behind an ellipsis.
+  //
+  // "Studio" was also stripped from the EN title — in French "studio"
+  // reads as "creative shop", which is the wrong positioning. "Agency"
+  // / "Agence de développement logiciel" reads correctly in both.
   if (locale === "fr") {
     return {
-      title: `${BRAND.name} (${BRAND.altName}) — Agence digitale & développement logiciel au Cameroun`,
-      description: `${BRAND.name} est une agence digitale basée à ${BRAND.headquarters.city}, au Cameroun. Création de sites web, applications mobiles, SaaS et digitalisation d'entreprise — pour Yaoundé, Douala et toute l'Afrique. Travail à distance, qualité premium.`,
+      title: `${BRAND.name} — Agence digitale & développement logiciel au Cameroun`,
+      description: `${BRAND.name} est une agence digitale et de développement logiciel basée au Cameroun. Création de sites web, applications mobiles, SaaS et digitalisation d'entreprise — remote-first sur tout le territoire camerounais : Yaoundé, Douala, Bafoussam, Bamenda, Garoua et toutes les autres villes.`,
     };
   }
   return {
-    title: `${BRAND.name} (${BRAND.altName}) — Software Agency & Digital Studio in Cameroon`,
-    description: `${BRAND.name} is a Cameroon-based digital agency building web platforms, mobile apps, SaaS products and end-to-end business digitalization. Serving Yaoundé, Douala and all of Cameroon — remote-first, premium quality.`,
+    title: `${BRAND.name} — Software & Digital Agency in Cameroon`,
+    description: `${BRAND.name} is a Cameroon-based digital and software agency building web platforms, mobile apps, SaaS products and end-to-end business digitalization. Remote-first across the whole country — Yaoundé, Douala, Bafoussam, Bamenda, Garoua and every other city.`,
   };
 }
 
