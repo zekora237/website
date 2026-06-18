@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { BRAND } from "@/lib/config";
 
 interface ContactFormData {
   name: string;
@@ -7,7 +8,12 @@ interface ContactFormData {
   message: string;
 }
 
-const RECIPIENT = "zekora237@gmail.com";
+// Where contact-form submissions are delivered (single source of truth: lib/config).
+const RECIPIENT = BRAND.email;
+// Sender identity. Must be an address on a domain VERIFIED in Resend
+// (verify zekoratech.com in Resend, then it can send as noreply@zekoratech.com).
+// Override per-environment with RESEND_FROM if you use a different sender.
+const FROM = process.env.RESEND_FROM || `Zekora Website <noreply@${BRAND.domain}>`;
 
 export async function POST(request: NextRequest) {
   try {
@@ -88,7 +94,7 @@ export async function POST(request: NextRequest) {
     console.log("📧 Sending email via Resend… (key starts with:", resendKey.substring(0, 6) + "…)");
 
     const payload = {
-      from: "Zekora Contact <onboarding@resend.dev>",
+      from: FROM,
       to: [RECIPIENT],
       reply_to: email,
       subject: `[Zekora] New message from ${name}`,

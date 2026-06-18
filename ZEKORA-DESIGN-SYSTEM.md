@@ -1271,7 +1271,7 @@ export const BRAND = {
   altName: "Zekora Tech",
   tagline: "Digital Solutions That Structure & Grow Your Business",
   description: "Zekora builds digital solutions that ...",
-  email: "zekora237@gmail.com",
+  email: "contact@zekoratech.com",
   domain: "zekoratech.com",
   url: "https://zekoratech.com",      // canonical, non-www
   location: "Global — Remote First",
@@ -1518,7 +1518,7 @@ Same colour map. Use `react-native-reanimated` for animations and `lucide-react-
 
 ```
 BRAND        Zekora  /  zekoratech.com  (canonical, non-www)
-EMAIL        zekora237@gmail.com
+EMAIL        contact@zekoratech.com
 WORDMARK     /logos/zekora-logo.svg  +  -white  +  -icon  +  -icon-white
 
 FONTS        Outfit  (--font-outfit / font-display)
