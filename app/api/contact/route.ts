@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     if (!resendKey) {
       console.error("❌ RESEND_API_KEY is not set in environment variables.");
       return NextResponse.json(
-        { success: false, errors: ["Email service is not configured. Please contact us directly at " + RECIPIENT] },
+        { success: false, errors: ["Email service is not configured. Please email us directly:"] },
         { status: 503 }
       );
     }

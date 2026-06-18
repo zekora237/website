@@ -28,7 +28,7 @@ export const BRAND = {
   /** Full site URL — canonical (non-www; www redirects here) */
   url: "https://zekoratech.com",
   /** Year the company was established */
-  founded: "2024",
+  founded: "2026",
 
   /**
    * Geographic identity — country presence + service area.
