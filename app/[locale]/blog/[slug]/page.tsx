@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { getDictionary, i18n, type Locale } from "@/lib/i18n";
-import { alternatesFor, articleSchema } from "@/lib/seo";
+import { alternatesFor, articleSchema, faqSchema } from "@/lib/seo";
 import { postBySlug, allBlogSlugs } from "@/lib/blog";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -60,6 +60,7 @@ export default async function BlogPostPage({
   return (
     <>
       <JsonLd data={articleSchema({ ...post, locale })} />
+      {post.faq && post.faq.length > 0 && <JsonLd data={faqSchema(post.faq)} />}
 
       {/* Header */}
       <header className="relative overflow-hidden border-b border-border bg-background pb-12 pt-32 lg:pb-16 lg:pt-40">

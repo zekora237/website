@@ -28,6 +28,12 @@ export type BlogPost = {
   readingTime: number;
   /** Article body — HTML (h2, p, ul, figure/svg, etc.). */
   content: string;
+  /**
+   * Optional FAQ pairs. When present they are rendered as a visible FAQ
+   * section AND emitted as FAQPage JSON-LD — the format AI assistants
+   * (ChatGPT, Perplexity, Google AI Overviews) extract and quote.
+   */
+  faq?: { question: string; answer: string }[];
 };
 
 /* ──────────────────────────────────────────────────────────────
@@ -827,6 +833,54 @@ function decisionMatrixSvg(locale: "en" | "fr"): string {
  * Posts
  * ──────────────────────────────────────────────────────────── */
 
+/* ──────────────────────────────────────────────────────────────
+ * "Website vs Facebook/WhatsApp" post — hub-and-spoke diagram.
+ * Your website is the owned hub; social channels are spokes that
+ * feed visitors into it. Hardcoded coordinates (no trig) so the
+ * layout is stable at every breakpoint. Colours use brand CSS vars.
+ * ──────────────────────────────────────────────────────────── */
+function ownedHubSvg(locale: "en" | "fr"): string {
+  const t = (en: string, fr: string) => (locale === "fr" ? fr : en);
+  const ariaLabel = t(
+    "Your website as the hub you own, with social channels feeding visitors into it",
+    "Votre site web comme plaque tournante que vous possédez, alimentée par les réseaux sociaux"
+  );
+  const nodes = [
+    { cx: 108, cy: 60, label: "Facebook" },
+    { cx: 492, cy: 60, label: "Instagram" },
+    { cx: 108, cy: 280, label: "WhatsApp" },
+    { cx: 492, cy: 280, label: t("Google search", "Recherche Google") },
+  ];
+  const spokes = nodes
+    .map((n) => {
+      const x = n.cx - 70;
+      const y = n.cy - 23;
+      return `
+      <line class="spoke" x1="${n.cx}" y1="${n.cy}" x2="300" y2="170" />
+      <rect class="node" x="${x}" y="${y}" width="140" height="46" rx="12" />
+      <text class="node-text" x="${n.cx}" y="${n.cy + 5}" text-anchor="middle">${n.label}</text>`;
+    })
+    .join("");
+  return `
+<svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${ariaLabel}">
+  <style>
+    .spoke { stroke: var(--c-mist); stroke-width: 2; stroke-dasharray: 4 5; }
+    .node { fill: var(--c-bg); stroke: var(--c-border); stroke-width: 1.2; }
+    .node-text { fill: var(--c-ink); font-family: var(--font-sans), sans-serif; font-size: 14px; font-weight: 600; }
+    .hub { fill: var(--c-primary); }
+    .hub-text { fill: #fff; font-family: var(--font-sans), sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.02em; }
+    .hub-sub { fill: #fff; font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; opacity: 0.9; }
+  </style>
+  ${spokes}
+  <circle class="hub" cx="300" cy="170" r="72" />
+  <text class="hub-text" x="300" y="162" text-anchor="middle">
+    <tspan x="300" dy="0">${t("YOUR", "VOTRE")}</tspan>
+    <tspan x="300" dy="21">${t("WEBSITE", "SITE WEB")}</tspan>
+  </text>
+  <text class="hub-sub" x="300" y="202" text-anchor="middle">${t("YOU OWN IT", "VOUS LE POSSÉDEZ")}</text>
+</svg>`.trim();
+}
+
 const POSTS: BlogPost[] = [
   /* ─── EN — Website cost in Cameroon 2026 (pricing pillar) ── */
   {
@@ -1446,6 +1500,239 @@ ${timelineSvg("fr")}
 <p>Pas besoin d&rsquo;une refonte massive. La plupart des entreprises commencent par un workflow douloureux — réservations, cotisations, stock, suivi client — et le remplacent par quelque chose de clair, fiable, et qui leur appartient. Puis le suivant. Puis le suivant.</p>
 <p>C&rsquo;est ce que nous faisons chez Zekora — calmement, structurellement, à un rythme qui respecte l&rsquo;entreprise qui existe déjà.</p>
 `.trim(),
+  },
+
+  /* ─── EN — Website vs Facebook / WhatsApp ─────────────────── */
+  {
+    slug: "website-vs-facebook-whatsapp-cameroon",
+    locale: "en",
+    title:
+      "Website vs Facebook & WhatsApp: do you still need a site for your business in Cameroon?",
+    description:
+      "Most Cameroonian businesses run on Facebook and WhatsApp, so why pay for a website? Because a social page is space you borrow and a website is space you own. Here's when each one wins, and the hybrid setup we actually recommend.",
+    date: "2026-06-20",
+    author: "Zekora",
+    tags: ["Website vs Social", "Small Business", "Cameroon", "Digital Strategy"],
+    readingTime: 7,
+    content: `
+<p>If your business already runs on WhatsApp and Facebook, you&rsquo;ve probably wondered whether a website is even worth the money. Fair question. Here&rsquo;s how we put it to clients: a Facebook page or a WhatsApp line is space you <em>borrow</em>; a website is space you <em>own</em>. You can do real business on borrowed space, and plenty of people do. But the day the landlord changes the locks, you find out how little of it was ever yours.</p>
+<p>So this isn&rsquo;t us telling you to drop WhatsApp. It&rsquo;s about knowing what each one is for, and why the businesses that keep growing end up putting a site at the centre of everything.</p>
+
+<h2>Borrowed space, or space you own</h2>
+<p>Picture a normal week. Facebook decides your page broke a rule you never read about and suspends it. Your reach quietly drops because the algorithm shifted again. A competitor reports your WhatsApp number and it gets banned, taking three years of customer chats with it. None of this is rare. Ask around any market in Douala or Yaoundé and you&rsquo;ll find someone it happened to.</p>
+<p>When it happens to a business with a website, it stings, but they&rsquo;re fine: the customers, the catalogue and the Google ranking are all still there. When it happens to a business that only had a page, they start again from nothing.</p>
+<figure>
+${ownedHubSvg("en")}
+<figcaption>Your website sits at the centre. The social channels are roads that bring people to it.</figcaption>
+</figure>
+
+<h2>What Facebook and WhatsApp are great at</h2>
+<p>A lot, honestly, and you shouldn&rsquo;t drop them:</p>
+<ul>
+<li><strong>Everyone is already there.</strong> Half the country checks WhatsApp before they&rsquo;re properly awake. That&rsquo;s an audience you don&rsquo;t pay to reach.</li>
+<li><strong>It&rsquo;s where deals close.</strong> So much business here happens right in the chat: a voice note, a price, &laquo;&nbsp;ok j&rsquo;arrive&nbsp;&raquo;. Nothing is faster.</li>
+<li><strong>It shows you&rsquo;re real.</strong> Comments, shares, people viewing your status. A newcomer sees that others already trust you.</li>
+</ul>
+<p>If you&rsquo;re just starting, or still testing whether the thing even sells, a Facebook page and a WhatsApp Business number are honestly all you need for now. Don&rsquo;t overthink it.</p>
+
+<h2>What only your own website gives you</h2>
+<ul>
+<li><strong>Nobody can take it away.</strong> No algorithm choosing who sees you, and no ban wiping out years of work while you sleep.</li>
+<li><strong>Google and AI can find you.</strong> Facebook posts don&rsquo;t come up when someone googles &laquo;&nbsp;plombier Douala&nbsp;&raquo;, and no AI assistant is going to recommend a WhatsApp status. A real website can be the answer to those searches. Your page never will be.</li>
+<li><strong>It reads like a real business.</strong> A <em>votreentreprise.com</em> address with a <em>contact@votreentreprise.com</em> email lands very differently from a Gmail and a personal profile, especially when someone is about to hand over real money.</li>
+<li><strong>It sells while you sleep.</strong> A proper catalogue, prices people can actually read, a Mobile Money button, a booking form. Not twenty screenshots and &laquo;&nbsp;c&rsquo;est combien&nbsp;?&nbsp;&raquo; at 11&nbsp;p.m.</li>
+<li><strong>The customer list is yours.</strong> Orders, contacts and history sit in your system, not locked inside someone else&rsquo;s app.</li>
+</ul>
+
+<h2>Website vs Facebook / WhatsApp — side by side</h2>
+<table>
+<thead>
+<tr><th>What matters</th><th>Your website</th><th>Facebook / WhatsApp page</th></tr>
+</thead>
+<tbody>
+<tr><td>Who controls it</td><td><strong>You</strong></td><td>The platform</td></tr>
+<tr><td>Found on Google &amp; AI search</td><td>Yes</td><td>No — posts don&rsquo;t rank</td></tr>
+<tr><td>Looks credible to serious clients</td><td>Strong (own domain + email)</td><td>Mixed</td></tr>
+<tr><td>Sell &amp; take Mobile Money 24/7</td><td>Yes, structured</td><td>Manual, inside a chat</td></tr>
+<tr><td>Survives a ban or algorithm change</td><td>Yes</td><td>No — you can lose everything</td></tr>
+<tr><td>Owns your customer list &amp; data</td><td>You</td><td>The platform</td></tr>
+<tr><td>Upfront cost</td><td>Setup cost</td><td>Free</td></tr>
+<tr><td>Best at</td><td>Trust, search, selling, structure</td><td>Reach, conversation, social proof</td></tr>
+</tbody>
+</table>
+
+<h2>&ldquo;But everybody&rsquo;s on WhatsApp&rdquo;</h2>
+<p>True, and that&rsquo;s exactly why you keep it. The goal was never to swap WhatsApp for a website. Put a &laquo;&nbsp;Chat on WhatsApp&nbsp;&raquo; button on a site you own, and you get the same easy conversation, except now it starts from a page that ranks on Google and looks the part.</p>
+
+<h2>What we&rsquo;d actually set up for you</h2>
+<p>Nothing fancy. Five pieces that feed each other:</p>
+<ol>
+<li><strong>A website as home base.</strong> Your offer, your prices, your story, in one place you control.</li>
+<li><strong>WhatsApp for the conversation.</strong> A click-to-chat button on every page, so a question reaches you in one tap.</li>
+<li><strong>Facebook and Instagram as the megaphone.</strong> Post there, but always send people back to the site.</li>
+<li><strong>A Google Business Profile.</strong> It&rsquo;s free, and it drops you onto Maps when someone nearby searches.</li>
+<li><strong>Mobile Money on the site.</strong> MTN and Orange, so people pay without leaving and you get a clean record instead of a screenshot.</li>
+</ol>
+<p>Social brings the crowd. The site is what turns that crowd into customers who are actually yours.</p>
+
+<h2>When a page on its own is fine</h2>
+<p>We&rsquo;ll be straight with you. If you&rsquo;re testing a brand-new idea, running something on the side, or you don&rsquo;t have repeat customers yet, hold off on the website. A page does the job. But once people start coming back, once there&rsquo;s real money moving, once competitors are turning up on Google ahead of you, that&rsquo;s when it&rsquo;s time to stand on ground you own.</p>
+
+<h2>So, do you actually need one?</h2>
+<p>If you&rsquo;re past the testing stage, yes. Let Facebook and WhatsApp keep doing what they&rsquo;re good at, but point them at something that belongs to you. That&rsquo;s the part we build: a fast, credible site with Mobile Money, click-to-WhatsApp and Google visibility already wired in. <a href="/en/contact">Tell us what your business does</a> and we&rsquo;ll sketch the simplest version that fits.</p>
+
+<h2>Frequently asked questions</h2>
+<h3>Do I really need a website if I already sell on WhatsApp and Facebook?</h3>
+<p>You can start on WhatsApp and Facebook, but they are rented platforms — the algorithm controls your reach and an account ban can erase everything. A website is the one channel you own, the only one Google and AI assistants can find, and the most credible to serious clients. The best setup uses both: a website as your home base and WhatsApp/Facebook as channels that point to it.</p>
+<h3>Can people find my Facebook page on Google?</h3>
+<p>Barely. Facebook and WhatsApp content generally does not rank in Google search or get cited by AI assistants. To appear when someone searches for your service in Douala, Yaoundé or anywhere in Cameroon, you need an indexable website plus a free Google Business Profile.</p>
+<h3>How much does a website cost in Cameroon?</h3>
+<p>It ranges from near-zero for a DIY no-code page to several million FCFA for a custom agency build. We break the tiers down in our guide, <a href="/en/blog/website-cost-cameroon-2026">How much does a website cost in Cameroon</a>.</p>
+<h3>Can I take Mobile Money payments on a website?</h3>
+<p>Yes. A website can integrate MTN Mobile Money and Orange Money so customers pay directly online, with clean records — instead of sending screenshots of transfers in a chat.</p>
+<h3>What&rsquo;s the smartest setup for a small business in Cameroon?</h3>
+<p>A website as your hub, WhatsApp (click-to-chat) as the conversation layer, Facebook and Instagram as the megaphone that links back, a free Google Business Profile for local search, and Mobile Money on the site for payments.</p>
+`.trim(),
+    faq: [
+      {
+        question:
+          "Do I need a website if I already sell on WhatsApp and Facebook in Cameroon?",
+        answer:
+          "You can start on WhatsApp and Facebook, but they are rented platforms: the algorithm controls your reach and an account ban can erase everything. A website is the one channel you own, the only one Google and AI assistants can find, and the most credible to serious clients. The best setup uses both — a website as your home base and WhatsApp/Facebook as channels that point to it.",
+      },
+      {
+        question: "Can people find my Facebook page on Google?",
+        answer:
+          "Barely. Facebook and WhatsApp content generally does not rank in Google search or get cited by AI assistants. To appear when someone searches for your service in Douala, Yaoundé or anywhere in Cameroon, you need an indexable website plus a free Google Business Profile.",
+      },
+      {
+        question: "Can I take Mobile Money payments on a website in Cameroon?",
+        answer:
+          "Yes. A website can integrate MTN Mobile Money and Orange Money so customers pay directly online, with clean records, instead of sending screenshots of transfers in a chat.",
+      },
+      {
+        question:
+          "What is the smartest online setup for a small business in Cameroon?",
+        answer:
+          "A website as your hub, WhatsApp click-to-chat as the conversation layer, Facebook and Instagram as the megaphone that links back to the site, a free Google Business Profile for local search, and Mobile Money on the site for payments.",
+      },
+    ],
+  },
+
+  /* ─── FR — Site web vs Facebook / WhatsApp ────────────────── */
+  {
+    slug: "website-vs-facebook-whatsapp-cameroon",
+    locale: "fr",
+    title:
+      "Site web vs Facebook & WhatsApp : avez-vous encore besoin d’un site pour votre entreprise au Cameroun ?",
+    description:
+      "La plupart des entreprises camerounaises tournent sur Facebook et WhatsApp : alors pourquoi payer un site web ? Parce qu’une page sociale, c’est un espace que vous louez, et un site, un espace que vous possédez. Voici quand chacun gagne, et la configuration hybride que nous recommandons.",
+    date: "2026-06-20",
+    author: "Zekora",
+    tags: ["Site web vs réseaux", "PME", "Cameroun", "Stratégie digitale"],
+    readingTime: 7,
+    content: `
+<p>Si votre activité tourne déjà sur WhatsApp et Facebook, vous vous êtes sûrement demandé si un site web valait vraiment la dépense. Bonne question. Voici comment nous l&rsquo;expliquons à nos clients&nbsp;: une page Facebook ou un numéro WhatsApp, c&rsquo;est un espace que vous <em>louez</em>&nbsp;; un site web, c&rsquo;est un espace que vous <em>possédez</em>. On peut faire de vraies affaires sur un espace loué, et beaucoup le font. Mais le jour où le propriétaire change les serrures, vous découvrez à quel point peu de tout ça vous appartenait.</p>
+<p>Ce n&rsquo;est donc pas un appel à abandonner WhatsApp. C&rsquo;est pour comprendre à quoi sert chacun, et pourquoi les entreprises qui continuent de grandir finissent par mettre un site au centre de tout.</p>
+
+<h2>Un espace loué, ou un espace à vous</h2>
+<p>Imaginez une semaine normale. Facebook estime que votre page a enfreint une règle que vous n&rsquo;avez jamais lue et la suspend. Votre portée baisse en silence parce que l&rsquo;algorithme a encore changé. Un concurrent signale votre numéro WhatsApp et il est banni, emportant trois ans de discussions clients. Rien de tout ça n&rsquo;est rare. Demandez autour de vous, dans n&rsquo;importe quel marché de Douala ou de Yaoundé&nbsp;: vous trouverez quelqu&rsquo;un à qui c&rsquo;est arrivé.</p>
+<p>Quand ça tombe sur une entreprise qui a un site, ça pique, mais elle s&rsquo;en remet&nbsp;: les clients, le catalogue et le référencement Google sont toujours là. Quand ça tombe sur une entreprise qui n&rsquo;avait qu&rsquo;une page, elle repart de zéro.</p>
+<figure>
+${ownedHubSvg("fr")}
+<figcaption>Votre site web est au centre. Les réseaux sociaux sont les routes qui y amènent les gens.</figcaption>
+</figure>
+
+<h2>Ce que Facebook et WhatsApp font très bien</h2>
+<p>Beaucoup de choses, franchement, et il ne faut pas les lâcher&nbsp;:</p>
+<ul>
+<li><strong>Tout le monde y est déjà.</strong> La moitié du pays ouvre WhatsApp avant même d&rsquo;être bien réveillée. C&rsquo;est une audience que vous n&rsquo;avez pas à payer.</li>
+<li><strong>C&rsquo;est là que les ventes se concluent.</strong> Tant d&rsquo;affaires se règlent directement dans la discussion ici&nbsp;: une note vocale, un prix, &laquo;&nbsp;ok j&rsquo;arrive&nbsp;&raquo;. Rien de plus rapide.</li>
+<li><strong>Ça prouve que vous êtes réel.</strong> Commentaires, partages, vues de statut. Un nouveau client voit que d&rsquo;autres vous font déjà confiance.</li>
+</ul>
+<p>Si vous débutez, ou si vous testez encore si l&rsquo;idée se vend, une page Facebook et un numéro WhatsApp Business suffisent largement pour l&rsquo;instant. Ne vous compliquez pas la vie.</p>
+
+<h2>Ce que seul votre propre site vous apporte</h2>
+<ul>
+<li><strong>Personne ne peut vous le retirer.</strong> Aucun algorithme ne choisit qui vous voit, aucun bannissement n&rsquo;efface des années de travail pendant que vous dormez.</li>
+<li><strong>Google et les IA peuvent vous trouver.</strong> Les publications Facebook ne sortent pas quand quelqu&rsquo;un tape &laquo;&nbsp;plombier Douala&nbsp;&raquo; sur Google, et aucune IA ne va recommander un statut WhatsApp. Un vrai site peut être la réponse à ces recherches. Votre page, jamais.</li>
+<li><strong>Ça fait sérieux.</strong> Une adresse <em>votreentreprise.com</em> avec un e-mail <em>contact@votreentreprise.com</em>, ça n&rsquo;a rien à voir avec une adresse Gmail et un profil Facebook personnel, surtout quand le client s&rsquo;apprête à sortir de l&rsquo;argent.</li>
+<li><strong>Ça vend pendant que vous dormez.</strong> Un vrai catalogue, des prix lisibles, un bouton Mobile Money, un formulaire de réservation. Pas vingt captures d&rsquo;écran et &laquo;&nbsp;c&rsquo;est combien&nbsp;?&nbsp;&raquo; à 23&nbsp;h.</li>
+<li><strong>Le fichier client est à vous.</strong> Commandes, contacts, historique&nbsp;: tout reste dans votre système, pas enfermé dans l&rsquo;appli de quelqu&rsquo;un d&rsquo;autre.</li>
+</ul>
+
+<h2>Site web vs Facebook / WhatsApp — côte à côte</h2>
+<table>
+<thead>
+<tr><th>Ce qui compte</th><th>Votre site web</th><th>Page Facebook / WhatsApp</th></tr>
+</thead>
+<tbody>
+<tr><td>Qui le contrôle</td><td><strong>Vous</strong></td><td>La plateforme</td></tr>
+<tr><td>Trouvé sur Google &amp; les IA</td><td>Oui</td><td>Non — les publications ne se classent pas</td></tr>
+<tr><td>Crédible pour un client sérieux</td><td>Forte (domaine + e-mail propres)</td><td>Variable</td></tr>
+<tr><td>Vendre &amp; encaisser le Mobile Money 24h/24</td><td>Oui, structuré</td><td>Manuel, dans une discussion</td></tr>
+<tr><td>Survit à un bannissement / changement d&rsquo;algorithme</td><td>Oui</td><td>Non — vous pouvez tout perdre</td></tr>
+<tr><td>Possède votre fichier &amp; vos données clients</td><td>Vous</td><td>La plateforme</td></tr>
+<tr><td>Coût de départ</td><td>Coût de création</td><td>Gratuit</td></tr>
+<tr><td>Meilleur pour</td><td>Confiance, recherche, vente, structure</td><td>Portée, conversation, preuve sociale</td></tr>
+</tbody>
+</table>
+
+<h2>&laquo;&nbsp;Mais tout le monde est sur WhatsApp&nbsp;&raquo;</h2>
+<p>C&rsquo;est vrai, et c&rsquo;est justement pour ça qu&rsquo;on le garde. L&rsquo;idée n&rsquo;a jamais été de remplacer WhatsApp par un site. Mettez un bouton &laquo;&nbsp;Discuter sur WhatsApp&nbsp;&raquo; sur un site qui vous appartient, et vous gardez la même conversation facile, sauf qu&rsquo;elle démarre cette fois depuis une page qui sort sur Google et qui inspire confiance.</p>
+
+<h2>Ce qu&rsquo;on mettrait en place pour vous</h2>
+<p>Rien de compliqué. Cinq pièces qui se nourrissent les unes les autres&nbsp;:</p>
+<ol>
+<li><strong>Un site comme base.</strong> Votre offre, vos prix, votre histoire, au même endroit, sous votre contrôle.</li>
+<li><strong>WhatsApp pour la conversation.</strong> Un bouton clic-vers-discussion sur chaque page, pour qu&rsquo;une question vous arrive en un clic.</li>
+<li><strong>Facebook et Instagram comme porte-voix.</strong> Publiez là-bas, mais ramenez toujours les gens vers le site.</li>
+<li><strong>Une fiche d&rsquo;établissement Google.</strong> Gratuite, et elle vous place sur Maps quand quelqu&rsquo;un cherche près de chez vous.</li>
+<li><strong>Le Mobile Money sur le site.</strong> MTN et Orange, pour que les gens paient sans partir et que vous gardiez une trace propre au lieu d&rsquo;une capture d&rsquo;écran.</li>
+</ol>
+<p>Les réseaux amènent la foule. Le site, lui, transforme cette foule en clients qui sont vraiment à vous.</p>
+
+<h2>Quand une page seule suffit</h2>
+<p>Soyons honnêtes&nbsp;: si vous testez une idée toute neuve, gérez un truc à côté, ou n&rsquo;avez pas encore de clients qui reviennent, ne dépensez pas dans un site. Une page fait le travail. Mais dès que les gens reviennent, dès qu&rsquo;il y a un vrai chiffre d&rsquo;affaires, dès que des concurrents passent devant vous sur Google, c&rsquo;est le moment de vous poser sur un terrain qui vous appartient.</p>
+
+<h2>Alors, en avez-vous besoin&nbsp;?</h2>
+<p>Si vous avez dépassé la phase de test, oui. Laissez Facebook et WhatsApp faire ce qu&rsquo;ils font bien, mais dirigez-les vers quelque chose qui vous appartient. C&rsquo;est cette partie-là que nous construisons&nbsp;: un site rapide et crédible, avec le Mobile Money, le clic-vers-WhatsApp et la visibilité Google déjà intégrés. <a href="/fr/contact">Parlez-nous de votre activité</a> et nous esquisserons la version la plus simple qui vous convient.</p>
+
+<h2>Questions fréquentes</h2>
+<h3>Ai-je vraiment besoin d&rsquo;un site web si je vends déjà sur WhatsApp et Facebook&nbsp;?</h3>
+<p>Vous pouvez commencer sur WhatsApp et Facebook, mais ce sont des plateformes que vous louez — l&rsquo;algorithme contrôle votre portée et un bannissement peut tout effacer. Un site web est le seul canal que vous possédez, le seul que Google et les assistants IA peuvent trouver, et le plus crédible pour des clients sérieux. La meilleure configuration utilise les deux&nbsp;: un site comme base, et WhatsApp/Facebook comme canaux qui y renvoient.</p>
+<h3>Peut-on trouver ma page Facebook sur Google&nbsp;?</h3>
+<p>À peine. Le contenu Facebook et WhatsApp ne se classe généralement pas dans Google et n&rsquo;est pas cité par les IA. Pour apparaître quand quelqu&rsquo;un cherche votre service à Douala, Yaoundé ou ailleurs au Cameroun, il vous faut un site indexable et une fiche d&rsquo;établissement Google gratuite.</p>
+<h3>Combien coûte un site web au Cameroun&nbsp;?</h3>
+<p>Cela va de presque rien pour une page no-code en bricolage à plusieurs millions de FCFA pour un projet d&rsquo;agence sur mesure. Nous détaillons les paliers dans notre guide&nbsp;: <a href="/fr/blog/website-cost-cameroon-2026">Combien coûte un site web au Cameroun</a>.</p>
+<h3>Puis-je encaisser le Mobile Money sur un site web&nbsp;?</h3>
+<p>Oui. Un site peut intégrer MTN Mobile Money et Orange Money pour que les clients paient directement en ligne, avec un suivi propre — au lieu d&rsquo;envoyer des captures de transfert dans une discussion.</p>
+<h3>Quelle est la configuration la plus maligne pour une PME au Cameroun&nbsp;?</h3>
+<p>Un site web comme plaque tournante, WhatsApp (clic-vers-discussion) comme couche de conversation, Facebook et Instagram comme porte-voix qui renvoient vers le site, une fiche d&rsquo;établissement Google gratuite pour la recherche locale, et le Mobile Money sur le site pour les paiements.</p>
+`.trim(),
+    faq: [
+      {
+        question:
+          "Ai-je besoin d'un site web si je vends déjà sur WhatsApp et Facebook au Cameroun ?",
+        answer:
+          "Vous pouvez commencer sur WhatsApp et Facebook, mais ce sont des plateformes que vous louez : l'algorithme contrôle votre portée et un bannissement peut tout effacer. Un site web est le seul canal que vous possédez, le seul que Google et les assistants IA peuvent trouver, et le plus crédible pour des clients sérieux. La meilleure configuration utilise les deux — un site comme base, et WhatsApp/Facebook comme canaux qui y renvoient.",
+      },
+      {
+        question: "Peut-on trouver ma page Facebook sur Google ?",
+        answer:
+          "À peine. Le contenu Facebook et WhatsApp ne se classe généralement pas dans Google et n'est pas cité par les assistants IA. Pour apparaître quand quelqu'un cherche votre service à Douala, Yaoundé ou ailleurs au Cameroun, il vous faut un site indexable et une fiche d'établissement Google gratuite.",
+      },
+      {
+        question: "Puis-je encaisser le Mobile Money sur un site web au Cameroun ?",
+        answer:
+          "Oui. Un site peut intégrer MTN Mobile Money et Orange Money pour que les clients paient directement en ligne, avec un suivi propre, au lieu d'envoyer des captures de transfert dans une discussion.",
+      },
+      {
+        question: "Quelle est la meilleure configuration en ligne pour une PME au Cameroun ?",
+        answer:
+          "Un site web comme plaque tournante, WhatsApp clic-vers-discussion comme couche de conversation, Facebook et Instagram comme porte-voix qui renvoient vers le site, une fiche d'établissement Google gratuite pour la recherche locale, et le Mobile Money sur le site pour les paiements.",
+      },
+    ],
   },
 ];
 
