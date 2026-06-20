@@ -957,14 +957,14 @@ ${priceLadderSvg("en")}
 
 <h2>What the budget actually buys</h2>
 
-<p>The single biggest reason quotes feel arbitrary is that the line items aren’t broken down. Here’s the real composition of a professional website project — roughly the same across mid-tier projects everywhere on the continent.</p>
+<p>Quotes feel arbitrary mostly because nobody breaks down the line items for you. So here’s what really goes into a professional website project. The proportions are roughly the same for any mid-range project on the continent.</p>
 
 <figure>
 ${costBreakdownSvg("en")}
 <figcaption>Where the budget for a Tier 4 project goes. Development is less than half — most of the work happens before and after the code is written.</figcaption>
 </figure>
 
-<p>A few things stand out:</p>
+<p>A couple of things are worth sitting with:</p>
 <ul>
 <li><strong>Design and UX are 25%</strong> — not optional. The reason agency sites look better isn’t mystery; it’s that a quarter of the budget paid for someone to think about it.</li>
 <li><strong>Development is only 40%</strong> — the rest is scoping, project management, testing, content, launch and training. Quotes that are “only development” are usually missing half the work.</li>
@@ -973,7 +973,7 @@ ${costBreakdownSvg("en")}
 
 <h2>What the years AFTER the build actually cost</h2>
 
-<p>The initial build is one cheque. The years after are where most pricing conversations turn into surprises. The honest answer is that <em>it depends on what you choose to pay for</em> — there's a minimum scenario, and a maintenance scenario, and they're very different numbers.</p>
+<p>The build is one cheque. It's the years afterwards where the surprises usually hide. The truthful answer is that it depends entirely on what you decide to pay for: there's a bare-minimum way to keep the site alive, and there's a fully-maintained way, and the two numbers look nothing alike.</p>
 
 <figure>
 ${tcoTimelineSvg("en")}
@@ -1017,7 +1017,7 @@ ${tcoTimelineSvg("en")}
 
 <h2>How to choose the right tier — without overspending or underspending</h2>
 
-<p>The right tier isn’t about picking the cheapest or the fanciest — it’s about matching project complexity to budget honestly. Two quadrants on this map produce 90% of the disappointed clients we meet:</p>
+<p>Choosing a tier isn’t about going cheapest or fanciest. It’s about being honest with yourself about how complex the project really is, and putting the budget there. Two corners of this map are responsible for most of the disappointed clients we’ve had to talk down:</p>
 
 <figure>
 ${decisionMatrixSvg("en")}
@@ -1156,14 +1156,14 @@ ${priceLadderSvg("fr")}
 
 <h2>Ce que le budget achète vraiment</h2>
 
-<p>La principale raison pour laquelle les devis paraissent arbitraires, c&rsquo;est que les postes ne sont pas détaillés. Voici la vraie composition d&rsquo;un projet de site web professionnel — à peu près la même pour les projets de niveau intermédiaire partout en Afrique francophone.</p>
+<p>Si les devis paraissent arbitraires, c&rsquo;est surtout que personne ne vous détaille les postes. Voici donc ce qui entre vraiment dans un projet de site web professionnel. Les proportions sont à peu près les mêmes pour n&rsquo;importe quel projet de niveau intermédiaire en Afrique francophone.</p>
 
 <figure>
 ${costBreakdownSvg("fr")}
 <figcaption>Répartition du budget d&rsquo;un projet de niveau 4. Le développement représente moins de la moitié — la majorité du travail se fait avant et après le code.</figcaption>
 </figure>
 
-<p>Quelques points à retenir&nbsp;:</p>
+<p>Deux ou trois choses méritent qu&rsquo;on s&rsquo;y arrête&nbsp;:</p>
 <ul>
 <li><strong>Design et UX, c&rsquo;est 25&nbsp;%</strong> — pas optionnel. La raison pour laquelle les sites d&rsquo;agence sont plus beaux n&rsquo;est pas un mystère&nbsp;: un quart du budget a payé quelqu&rsquo;un pour y réfléchir.</li>
 <li><strong>Le développement, c&rsquo;est seulement 40&nbsp;%</strong> — le reste, c&rsquo;est cadrage, gestion de projet, tests, contenu, lancement et formation. Les devis «&nbsp;uniquement développement&nbsp;» oublient la moitié du travail.</li>
@@ -1172,7 +1172,7 @@ ${costBreakdownSvg("fr")}
 
 <h2>Ce que coûtent vraiment les années APRÈS la création</h2>
 
-<p>La création initiale, c&rsquo;est un chèque. Les années suivantes, c&rsquo;est là que la plupart des conversations sur les prix tournent à la surprise. La réponse honnête est que <em>ça dépend de ce que vous décidez de payer</em> — il y a un scénario minimum, et un scénario avec maintenance, et ce sont des montants très différents.</p>
+<p>La création, c&rsquo;est un chèque. C&rsquo;est dans les années qui suivent que les surprises se cachent d&rsquo;habitude. La réponse honnête&nbsp;: ça dépend entièrement de ce que vous décidez de payer. Il y a une façon minimale de garder le site en vie, et une façon entièrement maintenue, et les deux montants n&rsquo;ont rien à voir.</p>
 
 <figure>
 ${tcoTimelineSvg("fr")}
@@ -1216,7 +1216,7 @@ ${tcoTimelineSvg("fr")}
 
 <h2>Comment choisir le bon niveau — sans surpayer ni sous-payer</h2>
 
-<p>Le bon niveau n&rsquo;est pas le moins cher ni le plus haut de gamme — c&rsquo;est celui qui aligne honnêtement la complexité du projet et le budget. Deux quadrants de cette matrice produisent 90&nbsp;% des clients déçus que nous rencontrons&nbsp;:</p>
+<p>Choisir un niveau, ce n&rsquo;est pas viser le moins cher ni le plus haut de gamme. C&rsquo;est se dire honnêtement à quel point le projet est complexe, et mettre le budget en face. Deux coins de cette matrice expliquent à eux seuls la plupart des clients déçus qu&rsquo;on a dû rassurer&nbsp;:</p>
 
 <figure>
 ${decisionMatrixSvg("fr")}
@@ -1292,20 +1292,20 @@ ${decisionMatrixSvg("fr")}
     tags: ["Web vs Mobile", "Product Strategy", "Small Business"],
     readingTime: 6,
     content: `
-<p>“Should we build a mobile app?” is one of the most common — and most expensive — questions we hear from small businesses. The right answer is rarely “yes” on the first product. It is usually “not yet, and here&rsquo;s why.”</p>
+<p>“Should we build a mobile app?” comes up in nearly every first meeting we have, and it&rsquo;s usually the most expensive sentence in the room. Most of the time our answer lands as a small letdown: not yet. Here&rsquo;s the thinking behind it.</p>
 
-<p>This post walks through the decision the way we walk through it with clients: a short tree to get to a default answer, a scorecard to sanity-check it, and a timeline to put real cost on the choice.</p>
+<p>So let&rsquo;s walk it the way we&rsquo;d walk it with you across a table: a quick decision tree to reach a sensible default, a gut-check against your actual situation, then an honest look at what each road costs in time.</p>
 
 <h2>Start with one question</h2>
 
-<p>Almost every web-vs-mobile decision collapses to two follow-up questions on top of one core one.</p>
+<p>Strip away the noise and it nearly always comes down to one core question, with two smaller ones sitting behind it.</p>
 
 <figure>
 ${decisionTreeSvg("en")}
 <figcaption>If users don&rsquo;t return weekly, web wins on default. Mobile only beats web when you need things the browser can&rsquo;t reliably deliver.</figcaption>
 </figure>
 
-<p>The reason the tree leans toward web is simple: <em>web is always cheaper to find, share, and update</em>. Mobile only pays back when there is a real reason users keep opening the icon.</p>
+<p>The tree leans toward web for one plain reason: a website is always cheaper to find, to share and to change. An app only earns the extra cost when people have a genuine reason to keep opening it.</p>
 
 <h2>When the web wins</h2>
 
@@ -1332,7 +1332,7 @@ ${scoreCardSvg("en")}
 
 <h2>The “both” trap — and the PWA middle ground</h2>
 
-<p>The most expensive answer is “let&rsquo;s do both at the same time.” It triples the surface area you have to maintain before you know whether the product idea even works.</p>
+<p>The costliest answer of all is “let&rsquo;s do both at once.” You triple what you have to build and look after, all before you know whether a single customer actually wants it.</p>
 
 <p>A better sequence:</p>
 <ol>
@@ -1343,7 +1343,7 @@ ${scoreCardSvg("en")}
 
 <h2>What it actually costs</h2>
 
-<p>The honest comparison isn&rsquo;t feature-for-feature — it&rsquo;s effort-to-launch. A small-business web app takes about two months of focused work; a real iOS + Android launch is closer to five months because you&rsquo;re building three things (backend, iOS, Android) instead of one (web + backend).</p>
+<p>Forget matching feature for feature. What really separates the two is how long it takes to go live. A small-business web app is around two months of focused work. A proper iOS-and-Android launch is closer to five, because now you&rsquo;re building three things — a backend, an iPhone app and an Android app — where the web route only needed a site and a backend.</p>
 
 <figure>
 ${timelineSvg("en")}
@@ -1352,9 +1352,9 @@ ${timelineSvg("en")}
 
 <h2>Pick the cheaper bet first</h2>
 
-<p>If you take one thing away: <em>the question isn&rsquo;t “web or mobile?” — it&rsquo;s “what&rsquo;s the cheapest experiment that proves people want this?”</em> For 9 out of 10 small businesses, that experiment is a clean, fast, well-structured web app — with the option to add native later, once the demand is real.</p>
+<p>If you remember one line from all this, make it this one: the question was never “web or mobile.” It&rsquo;s “what&rsquo;s the cheapest way to prove people actually want this?” For nine small businesses out of ten, the answer is a clean, fast website, with a native app kept in your back pocket for the day the demand makes it obvious.</p>
 
-<p>That&rsquo;s the work we do at Zekora: building the right version of the product, in the right order, so you&rsquo;re not paying for an app store presence before you&rsquo;ve earned it.</p>
+<p>That&rsquo;s really the job we do at Zekora — helping you build the right version in the right order, so you&rsquo;re not paying for an app-store launch before you&rsquo;ve earned the audience for it.</p>
 `.trim(),
   },
 
@@ -1371,20 +1371,20 @@ ${timelineSvg("en")}
     tags: ["Web ou Mobile", "Stratégie produit", "PME"],
     readingTime: 6,
     content: `
-<p>« Faut-il qu&rsquo;on construise une appli mobile ?&nbsp;» est l&rsquo;une des questions les plus fréquentes — et les plus coûteuses — que nous entendons des petites entreprises. La bonne réponse, sur un premier produit, est rarement «&nbsp;oui&nbsp;». C&rsquo;est presque toujours «&nbsp;pas encore, et voici pourquoi&nbsp;».</p>
+<p>«&nbsp;On nous fait une appli mobile&nbsp;?&nbsp;» revient à presque chaque premier rendez-vous, et c&rsquo;est en général la phrase la plus chère de la réunion. La plupart du temps, notre réponse déçoit un peu&nbsp;: pas tout de suite. Voici pourquoi.</p>
 
-<p>Cet article suit le même chemin que nous parcourons avec nos clients&nbsp;: un arbre rapide pour obtenir une réponse par défaut, un tableau de scores pour la vérifier, et une chronologie pour mettre un vrai coût sur la décision.</p>
+<p>Alors faisons le chemin comme on le ferait avec vous autour d&rsquo;une table&nbsp;: un petit arbre de décision pour dégager une réponse par défaut, un test de bon sens face à votre situation réelle, puis un regard honnête sur ce que chaque voie coûte en temps.</p>
 
 <h2>Commencer par une seule question</h2>
 
-<p>Presque toute décision web vs mobile se ramène à une question centrale, complétée par deux sous-questions.</p>
+<p>Une fois le bruit écarté, tout se ramène presque toujours à une seule question centrale, avec deux petites questions derrière.</p>
 
 <figure>
 ${decisionTreeSvg("fr")}
 <figcaption>Si les utilisateurs ne reviennent pas chaque semaine, le web l&rsquo;emporte par défaut. Le mobile ne gagne que quand on a besoin de choses que le navigateur ne fournit pas de manière fiable.</figcaption>
 </figure>
 
-<p>L&rsquo;arbre penche vers le web pour une raison simple&nbsp;: <em>le web est toujours moins cher à découvrir, à partager et à mettre à jour</em>. Le mobile ne s&rsquo;amortit que s&rsquo;il existe une vraie raison pour les utilisateurs de rouvrir l&rsquo;icône.</p>
+<p>L&rsquo;arbre penche vers le web pour une raison toute bête&nbsp;: un site coûte toujours moins cher à faire trouver, à partager et à modifier. Une appli ne justifie son surcoût que quand les gens ont une vraie raison de rouvrir l&rsquo;icône.</p>
 
 <h2>Quand le web gagne</h2>
 
@@ -1411,7 +1411,7 @@ ${scoreCardSvg("fr")}
 
 <h2>Le piège du «&nbsp;les deux&nbsp;» — et la voie du PWA</h2>
 
-<p>La réponse la plus coûteuse, c&rsquo;est «&nbsp;faisons les deux en même temps&nbsp;». Cela triple la surface à maintenir avant même de savoir si l&rsquo;idée produit fonctionne.</p>
+<p>La réponse la plus chère de toutes, c&rsquo;est «&nbsp;faisons les deux d&rsquo;un coup&nbsp;». Vous triplez ce qu&rsquo;il faut construire et entretenir, et tout ça avant de savoir si un seul client en veut vraiment.</p>
 
 <p>Une meilleure séquence&nbsp;:</p>
 <ol>
@@ -1422,7 +1422,7 @@ ${scoreCardSvg("fr")}
 
 <h2>Ce que ça coûte réellement</h2>
 
-<p>La comparaison honnête n&rsquo;est pas fonctionnalité par fonctionnalité — c&rsquo;est l&rsquo;effort jusqu&rsquo;au lancement. Une appli web pour une PME prend environ deux mois de travail concentré&nbsp;; un vrai lancement iOS + Android s&rsquo;approche plutôt de cinq mois, parce que vous construisez trois choses (backend, iOS, Android) au lieu d&rsquo;une (web + backend).</p>
+<p>Oubliez la comparaison fonctionnalité par fonctionnalité. Ce qui compte vraiment, c&rsquo;est le temps qu&rsquo;il faut pour être en ligne. Une appli web pour une PME, c&rsquo;est environ deux mois de travail concentré. Un vrai lancement iOS et Android approche plutôt les cinq mois, parce que vous construisez désormais trois choses — un backend, une appli iPhone et une appli Android — là où la voie web ne demandait qu&rsquo;un site et un backend.</p>
 
 <figure>
 ${timelineSvg("fr")}
@@ -1431,9 +1431,9 @@ ${timelineSvg("fr")}
 
 <h2>Faire le pari le moins cher en premier</h2>
 
-<p>Si vous ne retenez qu&rsquo;une chose&nbsp;: <em>la question n&rsquo;est pas «&nbsp;web ou mobile&nbsp;?&nbsp;» — c&rsquo;est «&nbsp;quelle est l&rsquo;expérimentation la moins chère qui prouve que les gens veulent ça&nbsp;?&nbsp;»</em> Pour 9 PME sur 10, cette expérimentation, c&rsquo;est une appli web propre, rapide et bien structurée — avec la possibilité d&rsquo;ajouter du natif plus tard, une fois la demande réelle.</p>
+<p>Si vous ne gardez qu&rsquo;une phrase de tout ça&nbsp;: la question n&rsquo;a jamais été «&nbsp;web ou mobile&nbsp;». C&rsquo;est «&nbsp;quel est le moyen le moins cher de prouver que les gens en veulent vraiment&nbsp;?&nbsp;» Pour neuf PME sur dix, la réponse est un site propre et rapide, en gardant l&rsquo;appli native sous le coude pour le jour où la demande la rendra évidente.</p>
 
-<p>C&rsquo;est le travail que nous faisons chez Zekora&nbsp;: construire la bonne version du produit, dans le bon ordre, pour ne pas payer une présence dans les stores avant de l&rsquo;avoir méritée.</p>
+<p>C&rsquo;est vraiment notre métier chez Zekora&nbsp;: vous aider à construire la bonne version, dans le bon ordre, pour ne pas payer un lancement dans les stores avant d&rsquo;en avoir mérité le public.</p>
 `.trim(),
   },
 
