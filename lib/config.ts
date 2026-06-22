@@ -15,7 +15,7 @@ export const BRAND = {
   /** Secondary alternates — every form a user might type into Google */
   altNames: ["Zekora Tech", "ZekoraTech", "Zekora.tech", "Zekoratech"],
   /** Primary tagline (EN). The French tagline lives in the dictionary. */
-  tagline: "Digital Solutions That Structure & Grow Your Business",
+  tagline: "Software built in Cameroon. Owned by you.",
   /** Short description used in metadata & footer (EN baseline) */
   description:
     "Zekora is a Cameroon-based digital agency building web platforms, mobile apps, SaaS products and business digitalization for African and global clients. Remote-first across Cameroon — serving Yaoundé, Douala, Bafoussam, Bamenda, Garoua and every other city.",

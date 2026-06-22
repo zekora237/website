@@ -10,8 +10,8 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Digital services & products",
-      "subtitle": "{brand} builds websites, mobile apps, and business systems that help organisations modernize, gain efficiency, and grow with confidence.",
+      "eyebrow": "Software studio · Cameroon, remote-first",
+      "subtitle": "We build websites, mobile apps, and the systems that quietly run a business — for Cameroonian companies, NGOs and founders who've outgrown spreadsheets, paper and a Facebook page. Built to last, handed over in full, in French or English.",
       "ctaPrimary": "Get a Quote",
       "ctaSecondary": "View Services"
     },
@@ -21,61 +21,61 @@
       "subtitle": "From concept to delivery, we create digital solutions that solve real business problems — not just software.",
       "webDev": {
         "title": "Web Development",
-        "description": "Custom websites and web applications built with modern technologies. Responsive, fast, and designed to convert."
+        "description": "Websites and web apps that load fast, are easy to update yourself, and are built to be found on Google — not just to look good in a screenshot."
       },
       "mobile": {
         "title": "Mobile Applications",
-        "description": "Native and cross-platform mobile apps that deliver seamless experiences on iOS and Android."
+        "description": "iOS and Android apps built for how people here actually use phones: fast, offline-friendly, and light on data."
       },
       "digital": {
         "title": "Business Digitalization",
-        "description": "Transform manual processes into efficient digital systems. Gain clarity and operational control."
+        "description": "The boring-but-vital part: turning your spreadsheets, paper ledgers and WhatsApp threads into one system that tells you what's really going on."
       },
       "saas": {
         "title": "SaaS & Custom Systems",
-        "description": "Scalable software-as-a-service platforms and tailored internal tools built for your specific needs."
+        "description": "When off-the-shelf software doesn't fit, we build the platform or internal tool that does — owned by you, not rented from us."
       }
     },
     "whyUs": {
       "eyebrow": "Why Zekora",
       "title": "Why Choose {brand}",
-      "subtitle": "Our core values define how we work and what you can expect. Every project reflects our commitment to quality and clarity.",
+      "subtitle": "A few things we don't bend on — usually the exact places where agencies quietly let clients down.",
       "clarity": {
         "title": "Clarity",
-        "description": "Clear communication, clear scope, clear expectations. No ambiguity in work or relationships."
+        "description": "You always know the scope, the price, and where your project stands — no vague quotes, and no 'it's nearly done' that drags on for weeks."
       },
       "reliability": {
         "title": "Reliability",
-        "description": "Commitments are respected. Deadlines are taken seriously. Quality is consistent."
+        "description": "If we give you a date, we mean it. If something puts it at risk, you hear it from us early — not after it's already late."
       },
       "simplicity": {
         "title": "Simplicity",
-        "description": "Simple solutions are preferred. Complexity must always be justified."
+        "description": "We build the simplest thing that actually solves the problem. A feature that can't earn its place doesn't ship."
       },
       "ownership": {
         "title": "Ownership",
-        "description": "We take responsibility for our work. Every project is treated as a reference of the brand."
+        "description": "When it's done, it's yours — code, accounts, domain, all of it. We don't lock you in to keep you paying us."
       }
     },
     "process": {
       "eyebrow": "How we work",
       "title": "Our Process",
-      "subtitle": "A structured approach from understanding your needs to delivering results. No surprises, just clarity at every step.",
+      "subtitle": "How a project really goes with us, start to finish — no mystery, and no disappearing for a month.",
       "discovery": {
         "title": "Discovery",
-        "description": "We understand your business, goals, and challenges."
+        "description": "We dig into how your business actually works: lots of questions, a lot of listening. Most bad builds start by skipping this part."
       },
       "design": {
         "title": "Design",
-        "description": "We create structured, clear solutions tailored to you."
+        "description": "We map the whole thing out and show it to you before a line of code is written, so nothing surprises you halfway through."
       },
       "development": {
-        "title": "Development",
-        "description": "We build with modern tools, clean code, and best practices."
+        "title": "Build",
+        "description": "We build it the way we'd build our own product — clean, tested, and made to outlast launch day."
       },
       "delivery": {
-        "title": "Delivery",
-        "description": "We launch, support, and ensure everything runs smoothly."
+        "title": "Handover",
+        "description": "We launch it, show you how to run it, and hand over every account and key. Then we're still around when you need a change."
       }
     },
     "work": {
@@ -107,10 +107,10 @@
     ],
     "mission": {
       "label": "Our Mission",
-      "title": "Solving Real Problems, Not Just Delivering Software",
-      "p1": "To help businesses build solid digital foundations that make their work easier, clearer, and more efficient.",
+      "title": "Digitalising African business, one company at a time",
+      "p1": "We help businesses get their day-to-day operations onto real software — the unglamorous first step toward a continent that runs on its own data, its own tools, and its own decisions.",
       "p2": "{brand} designs and builds websites, mobile applications, and internal business systems for clients. These services help organisations establish or improve their digital presence, digitalise internal processes, and gain efficiency, clarity, and operational control.",
-      "placeholder": "Mission illustration placeholder"
+      "placeholder": "Digital foundations, built to be owned."
     },
     "vision": {
       "label": "Our Vision",
@@ -124,42 +124,42 @@
     },
     "values": {
       "title": "Core Values",
-      "subtitle": "These values guide all decisions, collaborations, and projects. They are non-negotiable and define who we are.",
+      "subtitle": "The non-negotiables. If a project asks us to drop one of these, we'd rather not take it.",
       "clarity": {
         "title": "Clarity",
-        "description": "Clear communication, clear scope, clear expectations. No ambiguity in work or relationships."
+        "description": "You always know the scope, the price, and where your project stands — no vague quotes, and no 'it's nearly done' that drags on for weeks."
       },
       "reliability": {
         "title": "Reliability",
-        "description": "Commitments are respected. Deadlines are taken seriously. Quality is consistent. Trust is a core asset."
+        "description": "If we give you a date, we mean it — and if something threatens it, you hear from us early, not after it slips. Trust is the whole business."
       },
       "simplicity": {
         "title": "Simplicity",
-        "description": "Simple solutions are preferred. Complexity must always be justified. Systems should be understandable by users."
+        "description": "We build the simplest thing that solves the problem, and keep it understandable enough that you're never trapped with us just to change it."
       },
       "ownership": {
         "title": "Ownership",
-        "description": "We take responsibility for our work. Mistakes are acknowledged and corrected. Every project is a reference."
+        "description": "We own our mistakes and fix them on our time, not yours. And when a project ships, it's fully yours — code, accounts, the lot."
       },
       "ethics": {
         "title": "Ethical Work",
-        "description": "Honest pricing, transparent communication, respect for all stakeholders. No deceptive or harmful practices."
+        "description": "Honest pricing with no surprise 'extras' later — and we'll tell you when you don't actually need what you're asking us to build."
       }
     },
     "story": {
-      "title": "The Story Behind {brand}",
-      "p1": "{brand} was born from a simple observation: too many businesses struggle with digital tools that don't fit their needs. Off-the-shelf solutions are often too generic, and custom development is often too chaotic.",
-      "p2": "We set out to bridge that gap — building structured, clear, and reliable digital solutions that truly serve the businesses they're made for. Not rushed. Not over-engineered. Just right.",
-      "p3": "As we grew, we noticed patterns: problems that kept coming back across different clients. That's when the idea of building our own products emerged. Today, {brand} operates on two pillars — serving clients and building scalable products — each reinforcing the other."
+      "title": "Why I started {brand}",
+      "p1": "I'm Abdel. I studied software engineering at the National Higher Polytechnic School of Douala, and I've been building websites, web apps and mobile apps ever since — first for myself, then for other people.",
+      "p2": "I started Zekora because of a conviction I can't shake: Africa has to build its own digital future, not import it. Real development runs on digitalisation. When a business digitises how it works, it starts producing data that is clean, real, and its own — and enough of that data is what lets a country make better decisions, build local services, and one day train its own AI models instead of depending on tools designed in America, Europe or Asia.",
+      "p3": "It all starts with the unglamorous first step: getting a business off paper and spreadsheets and onto something built properly. That's the part Zekora does — one system, one company at a time."
     },
     "philosophy": {
       "title": "Our Philosophy",
       "believeTitle": "What We Believe",
       "believe": [
-        "Services create stability",
-        "Products create leverage",
-        "Structure enables sustainable growth",
-        "Growth is pursued with patience and alignment"
+        "Client work pays the bills and keeps us close to real problems",
+        "Our own products are how we compound what we learn",
+        "A business running on real software is one that can actually grow",
+        "We grow only as fast as we can stay good"
       ],
       "avoidTitle": "What We Avoid",
       "avoid": [
@@ -186,30 +186,30 @@
     "detail": {
       "webDev": {
         "title": "Web Development",
-        "problem": "Many businesses rely on outdated, poorly designed websites that fail to represent their brand or convert visitors. Others have no web presence at all.",
-        "solution": "We design and develop custom websites and web applications using modern technologies — responsive, fast, SEO-optimized, and built to scale.",
-        "benefit": "A professional digital presence that works for your business 24/7, attracting clients and building trust.",
+        "problem": "Plenty of businesses here run on a site a cousin built years ago, or no site at all — so when someone searches for them, they find nothing, or something that makes them look smaller than they really are.",
+        "solution": "We design and build the site or web app properly: fast, easy for you to update yourself, structured so Google can actually find it, and ready to grow as you do.",
+        "benefit": "A presence that works while you sleep — it earns trust, shows up in search, and stops quietly losing you the clients who looked you up and left.",
         "features": ["Custom responsive design", "SEO optimization", "Performance-first development", "Content management systems", "E-commerce solutions", "Web application development"]
       },
       "mobile": {
         "title": "Mobile Applications",
-        "problem": "Users expect seamless mobile experiences. A clunky app or the absence of one means lost engagement and revenue.",
-        "solution": "We build native and cross-platform mobile applications for iOS and Android, focused on performance, usability, and real user needs.",
-        "benefit": "A powerful mobile tool that keeps your users engaged, simplifies processes, and opens new revenue channels.",
+        "problem": "On a phone, people give you about three seconds. A slow, clunky app — or no app when you clearly need one — quietly loses you users and money.",
+        "solution": "We build iOS and Android apps around how people here actually use phones: quick, usable offline, and light on data, not bloated.",
+        "benefit": "An app people actually keep on their phone — one that makes your service easier to use and opens a channel you control.",
         "features": ["iOS & Android development", "Cross-platform solutions", "Intuitive UI/UX design", "Offline-first capabilities", "Push notifications", "App Store optimization"]
       },
       "digital": {
         "title": "Business Digitalization",
-        "problem": "Manual processes, paper-based systems, and disconnected tools slow businesses down, create errors, and limit growth.",
-        "solution": "We analyse your workflows and build digital systems that automate, organize, and connect your operations.",
-        "benefit": "Streamlined operations, reduced errors, better data visibility, and time saved for what matters most.",
+        "problem": "Spreadsheets, paper and a dozen WhatsApp groups feel like they work — until you can't answer a simple question without calling three people, and small mistakes start costing real money.",
+        "solution": "We map how your operation actually runs, then build one system that automates the repetitive parts and connects the rest.",
+        "benefit": "Less double-entry, fewer errors, and a single place that tells you what's really going on — so you get your evenings back.",
         "features": ["Process analysis & mapping", "Custom internal tools", "Workflow automation", "Data management systems", "Integration with existing tools", "Training & documentation"]
       },
       "saas": {
         "title": "SaaS & Custom Systems",
-        "problem": "Off-the-shelf software rarely fits complex or unique business needs. Customization options are limited, and costs add up.",
-        "solution": "We design and build scalable SaaS platforms and custom systems tailored to your exact requirements — owned and controlled by you.",
-        "benefit": "A proprietary system that fits your business perfectly, grows with you, and gives you full control.",
+        "problem": "Off-the-shelf tools rarely fit a business that does things its own way. You bend your process to the software, pay per seat forever, and still can't get the one feature you need.",
+        "solution": "We build the platform or internal tool to your exact process — multi-user, dashboards, the integrations you need — and hand it over as yours, not a subscription you rent from us.",
+        "benefit": "Software that fits like it was made for you, because it was — it grows on your terms, and you fully own and control it.",
         "features": ["SaaS platform development", "Multi-tenant architecture", "API design & development", "Dashboard & analytics", "Subscription management", "Scalable infrastructure"]
       }
     },
@@ -355,7 +355,7 @@
     "by": "By",
     "noPosts": "No articles yet. Check back soon."
   },
-  "tagline": "Digital Solutions That Structure & Grow Your Business",
+  "tagline": "Software built in Cameroon. Owned by you.",
   "footer": {
     "description": "Building digital solutions that structure, modernize, and grow businesses.",
     "company": "Company",

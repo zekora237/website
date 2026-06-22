@@ -10,8 +10,8 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Services & produits numériques",
-      "subtitle": "{brand} conçoit des sites web, des applications mobiles et des systèmes métier qui aident les organisations à se moderniser, gagner en efficacité et croître en toute confiance.",
+      "eyebrow": "Studio logiciel · Cameroun, à distance",
+      "subtitle": "Nous concevons des sites web, des applications mobiles et les systèmes qui font tourner une entreprise au quotidien — pour les entreprises, ONG et entrepreneurs camerounais qui ont dépassé le stade des tableurs, du papier et de la page Facebook. Construits pour durer, livrés et transférés en totalité, en français ou en anglais.",
       "ctaPrimary": "Demander un devis",
       "ctaSecondary": "Voir nos services"
     },
@@ -21,61 +21,61 @@
       "subtitle": "De la conception à la livraison, nous créons des solutions numériques qui résolvent de vrais problèmes métier — pas juste du logiciel.",
       "webDev": {
         "title": "Développement Web",
-        "description": "Sites web et applications web sur mesure, construits avec des technologies modernes. Responsifs, rapides et conçus pour convertir."
+        "description": "Des sites et applications web qui chargent vite, que vous pouvez mettre à jour vous-même, et qui sont pensés pour être trouvés sur Google — pas seulement pour faire joli sur une capture d'écran."
       },
       "mobile": {
         "title": "Applications Mobiles",
-        "description": "Applications mobiles natives et cross-platform offrant des expériences fluides sur iOS et Android."
+        "description": "Des applications iOS et Android pensées pour la façon dont on utilise vraiment son téléphone ici : rapides, utilisables hors-ligne et économes en données."
       },
       "digital": {
         "title": "Digitalisation Métier",
-        "description": "Transformez vos processus manuels en systèmes numériques efficaces. Gagnez en clarté et en contrôle opérationnel."
+        "description": "La partie ingrate mais vitale : transformer vos tableurs, vos cahiers et vos fils WhatsApp en un seul système qui vous dit ce qui se passe réellement."
       },
       "saas": {
         "title": "SaaS & Systèmes Sur Mesure",
-        "description": "Plateformes SaaS évolutives et outils internes personnalisés, conçus pour vos besoins spécifiques."
+        "description": "Quand les logiciels standards ne suffisent pas, nous construisons la plateforme ou l'outil interne qu'il vous faut — qui vous appartient, pas loué chez nous."
       }
     },
     "whyUs": {
       "eyebrow": "Pourquoi Zekora",
       "title": "Pourquoi choisir {brand}",
-      "subtitle": "Nos valeurs fondamentales définissent notre façon de travailler et ce que vous pouvez attendre. Chaque projet reflète notre engagement envers la qualité et la clarté.",
+      "subtitle": "Quelques principes sur lesquels nous ne transigeons pas — souvent là, justement, où les agences laissent discrètement tomber leurs clients.",
       "clarity": {
         "title": "Clarté",
-        "description": "Communication claire, périmètre clair, attentes claires. Aucune ambiguïté dans le travail ou les relations."
+        "description": "Vous savez toujours le périmètre, le prix et où en est votre projet — pas de devis flous, et pas de « c'est presque fini » qui traîne pendant des semaines."
       },
       "reliability": {
         "title": "Fiabilité",
-        "description": "Les engagements sont respectés. Les délais sont pris au sérieux. La qualité est constante."
+        "description": "Si on vous donne une date, on la tient. Et si quelque chose la menace, vous l'apprenez tôt — pas une fois qu'elle est déjà passée."
       },
       "simplicity": {
         "title": "Simplicité",
-        "description": "Les solutions simples sont privilégiées. La complexité doit toujours être justifiée."
+        "description": "Nous construisons la chose la plus simple qui résout vraiment le problème. Une fonctionnalité qui ne se justifie pas ne sort pas."
       },
       "ownership": {
         "title": "Responsabilité",
-        "description": "Nous assumons la responsabilité de notre travail. Chaque projet est traité comme une référence de la marque."
+        "description": "Une fois terminé, c'est à vous — code, comptes, domaine, tout. On ne vous enferme pas pour continuer à vous facturer."
       }
     },
     "process": {
       "eyebrow": "Notre méthode",
       "title": "Notre Processus",
-      "subtitle": "Une approche structurée, de la compréhension de vos besoins à la livraison des résultats. Pas de surprises, juste de la clarté à chaque étape.",
+      "subtitle": "Comment un projet se passe vraiment chez nous, du début à la fin — pas de mystère, et personne ne disparaît pendant un mois.",
       "discovery": {
         "title": "Découverte",
-        "description": "Nous comprenons votre activité, vos objectifs et vos défis."
+        "description": "On creuse comment votre activité fonctionne vraiment : beaucoup de questions, beaucoup d'écoute. La plupart des projets ratés commencent par sauter cette étape."
       },
       "design": {
         "title": "Conception",
-        "description": "Nous créons des solutions structurées et claires, adaptées à vos besoins."
+        "description": "On cartographie le tout et on vous le montre avant la moindre ligne de code, pour qu'aucune surprise ne tombe en cours de route."
       },
       "development": {
-        "title": "Développement",
-        "description": "Nous construisons avec des outils modernes, du code propre et les meilleures pratiques."
+        "title": "Construction",
+        "description": "On le construit comme on construirait notre propre produit : propre, testé, et fait pour durer au-delà du jour du lancement."
       },
       "delivery": {
-        "title": "Livraison",
-        "description": "Nous déployons, accompagnons et veillons à ce que tout fonctionne parfaitement."
+        "title": "Remise des clés",
+        "description": "On met en ligne, on vous montre comment ça tourne, et on vous remet chaque compte et chaque clé. Et on reste là quand vous avez besoin d'un changement."
       }
     },
     "work": {
@@ -107,10 +107,10 @@
     ],
     "mission": {
       "label": "Notre Mission",
-      "title": "Résoudre de vrais problèmes, pas juste livrer du logiciel",
-      "p1": "Aider les entreprises à construire des fondations numériques solides qui rendent leur travail plus facile, plus clair et plus efficace.",
+      "title": "Digitaliser l'entreprise africaine, une société à la fois",
+      "p1": "Nous aidons les entreprises à faire passer leurs opérations quotidiennes sur de vrais logiciels — le premier pas, peu glamour, vers un continent qui tourne sur ses propres données, ses propres outils et ses propres décisions.",
       "p2": "{brand} conçoit et construit des sites web, des applications mobiles et des systèmes métier internes pour ses clients. Ces services aident les organisations à établir ou améliorer leur présence numérique, digitaliser leurs processus internes et gagner en efficacité, clarté et contrôle opérationnel.",
-      "placeholder": "Illustration de la mission"
+      "placeholder": "Des fondations numériques, conçues pour vous appartenir."
     },
     "vision": {
       "label": "Notre Vision",
@@ -124,42 +124,42 @@
     },
     "values": {
       "title": "Valeurs Fondamentales",
-      "subtitle": "Ces valeurs guident toutes nos décisions, collaborations et projets. Elles sont non négociables et définissent qui nous sommes.",
+      "subtitle": "Les non-négociables. Si un projet nous demande d'en abandonner une, on préfère ne pas le prendre.",
       "clarity": {
         "title": "Clarté",
-        "description": "Communication claire, périmètre clair, attentes claires. Aucune ambiguïté dans le travail ou les relations."
+        "description": "Vous savez toujours le périmètre, le prix et où en est votre projet — pas de devis flous, et pas de « c'est presque fini » qui traîne pendant des semaines."
       },
       "reliability": {
         "title": "Fiabilité",
-        "description": "Les engagements sont respectés. Les délais sont pris au sérieux. La qualité est constante. La confiance est un actif fondamental."
+        "description": "Si on vous donne une date, on la tient — et si quelque chose la menace, vous l'apprenez tôt, pas après coup. La confiance, c'est tout le métier."
       },
       "simplicity": {
         "title": "Simplicité",
-        "description": "Les solutions simples sont privilégiées. La complexité doit toujours être justifiée. Les systèmes doivent être compréhensibles par les utilisateurs."
+        "description": "Nous construisons la chose la plus simple qui résout le problème, et assez compréhensible pour que vous ne soyez jamais coincé avec nous juste pour la modifier."
       },
       "ownership": {
         "title": "Responsabilité",
-        "description": "Nous assumons la responsabilité de notre travail. Les erreurs sont reconnues et corrigées. Chaque projet est une référence."
+        "description": "On assume nos erreurs et on les corrige sur notre temps, pas le vôtre. Et une fois livré, c'est entièrement à vous — code, comptes, tout."
       },
       "ethics": {
         "title": "Travail Éthique",
-        "description": "Tarification honnête, communication transparente, respect de toutes les parties prenantes. Aucune pratique trompeuse ou nuisible."
+        "description": "Des prix honnêtes, sans « extras » surprise plus tard — et on vous dira quand vous n'avez pas vraiment besoin de ce que vous nous demandez de construire."
       }
     },
     "story": {
-      "title": "L'histoire derrière {brand}",
-      "p1": "{brand} est née d'une observation simple : trop d'entreprises peinent avec des outils numériques qui ne correspondent pas à leurs besoins. Les solutions clé en main sont souvent trop génériques, et le développement sur mesure est souvent trop chaotique.",
-      "p2": "Nous avons décidé de combler ce fossé — en construisant des solutions numériques structurées, claires et fiables qui servent véritablement les entreprises pour lesquelles elles sont faites. Pas précipitées. Pas sur-ingéniérées. Juste ce qu'il faut.",
-      "p3": "En grandissant, nous avons remarqué des schémas : des problèmes qui revenaient chez différents clients. C'est là que l'idée de construire nos propres produits a émergé. Aujourd'hui, {brand} opère sur deux piliers — servir les clients et construire des produits évolutifs — chacun renforçant l'autre."
+      "title": "Pourquoi j'ai créé {brand}",
+      "p1": "Je suis Abdel. J'ai étudié le génie logiciel à l'École Nationale Supérieure Polytechnique de Douala, et je construis des sites web, des applications web et mobiles depuis — d'abord pour moi, puis pour les autres.",
+      "p2": "J'ai créé Zekora à cause d'une conviction que je n'arrive pas à lâcher : l'Afrique doit construire son propre avenir numérique, pas l'importer. Le vrai développement repose sur la digitalisation. Quand une entreprise digitalise sa façon de travailler, elle se met à produire des données propres, réelles, qui lui appartiennent — et c'est cette masse de données qui permet à un pays de mieux décider, de bâtir ses propres services, et un jour d'entraîner ses propres modèles d'IA, au lieu de dépendre d'outils pensés en Amérique, en Europe ou en Asie.",
+      "p3": "Et tout commence par le premier pas, le moins glamour : sortir une entreprise du papier et des tableurs pour la faire passer sur quelque chose de bien construit. C'est ça, le travail de Zekora — un système, une entreprise à la fois."
     },
     "philosophy": {
       "title": "Notre Philosophie",
       "believeTitle": "Ce que nous croyons",
       "believe": [
-        "Les services créent la stabilité",
-        "Les produits créent l'effet de levier",
-        "La structure permet une croissance durable",
-        "La croissance est poursuivie avec patience et alignement"
+        "Le travail client paie les factures et nous garde proches des vrais problèmes",
+        "Nos propres produits sont notre façon de capitaliser sur ce qu'on apprend",
+        "Une entreprise qui tourne sur de vrais logiciels est une entreprise qui peut vraiment grandir",
+        "On ne grandit qu'au rythme où l'on peut rester bons"
       ],
       "avoidTitle": "Ce que nous évitons",
       "avoid": [
@@ -186,30 +186,30 @@
     "detail": {
       "webDev": {
         "title": "Développement Web",
-        "problem": "Beaucoup d'entreprises s'appuient sur des sites web obsolètes et mal conçus qui ne représentent pas leur marque et ne convertissent pas les visiteurs. D'autres n'ont aucune présence en ligne.",
-        "solution": "Nous concevons et développons des sites web et applications web sur mesure avec des technologies modernes — responsifs, rapides, optimisés pour le SEO et conçus pour évoluer.",
-        "benefit": "Une présence numérique professionnelle qui travaille pour votre entreprise 24h/24, attirant des clients et instaurant la confiance.",
+        "problem": "Beaucoup d'entreprises ici tournent sur un site qu'un cousin a fait il y a des années, ou n'ont pas de site du tout — alors quand on les cherche, on ne trouve rien, ou quelque chose qui les fait paraître plus petites qu'elles ne le sont.",
+        "solution": "Nous concevons et construisons le site ou l'application web correctement : rapide, facile à mettre à jour vous-même, structuré pour que Google le trouve vraiment, et prêt à grandir avec vous.",
+        "benefit": "Une présence qui travaille pendant que vous dormez — elle inspire confiance, apparaît dans les recherches, et arrête de vous faire perdre en silence les clients qui vous ont cherché et sont repartis.",
         "features": ["Design responsive sur mesure", "Optimisation SEO", "Développement orienté performance", "Systèmes de gestion de contenu", "Solutions e-commerce", "Développement d'applications web"]
       },
       "mobile": {
         "title": "Applications Mobiles",
-        "problem": "Les utilisateurs attendent des expériences mobiles fluides. Une application défaillante ou son absence signifie un engagement et des revenus perdus.",
-        "solution": "Nous développons des applications mobiles natives et cross-platform pour iOS et Android, axées sur la performance, l'ergonomie et les besoins réels des utilisateurs.",
-        "benefit": "Un outil mobile puissant qui maintient l'engagement de vos utilisateurs, simplifie les processus et ouvre de nouveaux canaux de revenus.",
+        "problem": "Sur un téléphone, on vous accorde environ trois secondes. Une appli lente et maladroite — ou pas d'appli quand il en faudrait clairement une — vous fait perdre des utilisateurs et de l'argent, sans bruit.",
+        "solution": "Nous construisons des applications iOS et Android autour de la façon dont on utilise vraiment son téléphone ici : rapides, utilisables hors-ligne et économes en données, pas lourdes.",
+        "benefit": "Une appli que les gens gardent vraiment sur leur téléphone — qui rend votre service plus simple à utiliser et vous ouvre un canal que vous contrôlez.",
         "features": ["Développement iOS & Android", "Solutions cross-platform", "Design UI/UX intuitif", "Fonctionnement hors-ligne", "Notifications push", "Optimisation App Store"]
       },
       "digital": {
         "title": "Digitalisation Métier",
-        "problem": "Les processus manuels, les systèmes papier et les outils déconnectés ralentissent les entreprises, créent des erreurs et limitent la croissance.",
-        "solution": "Nous analysons vos flux de travail et construisons des systèmes numériques qui automatisent, organisent et connectent vos opérations.",
-        "benefit": "Des opérations rationalisées, moins d'erreurs, une meilleure visibilité des données et du temps gagné pour ce qui compte vraiment.",
+        "problem": "Les tableurs, le papier et une dizaine de groupes WhatsApp donnent l'impression de marcher — jusqu'au jour où vous ne pouvez plus répondre à une question simple sans appeler trois personnes, et où les petites erreurs commencent à coûter cher.",
+        "solution": "Nous cartographions comment votre activité tourne réellement, puis construisons un seul système qui automatise les tâches répétitives et relie le reste.",
+        "benefit": "Moins de double saisie, moins d'erreurs, et un seul endroit qui vous dit ce qui se passe vraiment — pour que vous récupériez vos soirées.",
         "features": ["Analyse et cartographie des processus", "Outils internes sur mesure", "Automatisation des flux", "Systèmes de gestion de données", "Intégration avec les outils existants", "Formation et documentation"]
       },
       "saas": {
         "title": "SaaS & Systèmes Sur Mesure",
-        "problem": "Les logiciels standards répondent rarement aux besoins complexes ou uniques des entreprises. Les options de personnalisation sont limitées et les coûts s'accumulent.",
-        "solution": "Nous concevons et construisons des plateformes SaaS évolutives et des systèmes sur mesure adaptés à vos exigences exactes — que vous possédez et contrôlez.",
-        "benefit": "Un système propriétaire parfaitement adapté à votre entreprise, qui évolue avec vous et vous donne un contrôle total.",
+        "problem": "Les outils standards conviennent rarement à une entreprise qui fait les choses à sa manière. Vous pliez votre processus au logiciel, vous payez par utilisateur à vie, et il vous manque toujours la fonctionnalité dont vous avez besoin.",
+        "solution": "Nous construisons la plateforme ou l'outil interne selon votre processus exact — multi-utilisateurs, tableaux de bord, les intégrations qu'il vous faut — et nous vous le remettons comme étant le vôtre, pas un abonnement loué chez nous.",
+        "benefit": "Un logiciel qui vous va comme s'il était fait pour vous, parce qu'il l'est — il grandit à vos conditions, et vous en êtes pleinement propriétaire.",
         "features": ["Développement de plateformes SaaS", "Architecture multi-tenant", "Conception et développement d'API", "Tableaux de bord et analytique", "Gestion des abonnements", "Infrastructure évolutive"]
       }
     },
@@ -355,7 +355,7 @@
     "by": "Par",
     "noPosts": "Aucun article pour le moment. Revenez bientôt."
   },
-  "tagline": "Des Solutions Numériques Qui Structurent & Font Croître Votre Entreprise",
+  "tagline": "Des logiciels conçus au Cameroun. Qui vous appartiennent.",
   "footer": {
     "description": "Construire des solutions numériques qui structurent, modernisent et font croître les entreprises.",
     "company": "Entreprise",
